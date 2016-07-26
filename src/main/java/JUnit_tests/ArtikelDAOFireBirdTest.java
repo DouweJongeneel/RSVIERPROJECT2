@@ -99,7 +99,7 @@ public class ArtikelDAOFireBirdTest {
 		assertThat(actieveArtikelenLijst.contains(a3), is (false));
 	}
 
-	@Test 
+	@Test
 	public void updateArtikel() throws Exception {
 		artikelDao.updateArtikel(id1, a2);
 		aGeretouneerd = artikelDao.getArtikel(id1);

@@ -30,12 +30,12 @@ public class BestellingDAOTestFireBird {
 	BestellingDAO dao;
 	ArtikelDAO artikelDao;
 	KlantDAO klantDao;
-	
+
 	long klantId = 1;
-	
+
 	@Before
 	public void setUp() throws Exception{
-		
+
 		DAOFactory birdFactory = DAOFactory.getDAOFactory("FireBird", "HikariCP");
 		if(dao == null)
 			dao = birdFactory.getBestellingDAO();
@@ -69,7 +69,7 @@ public class BestellingDAOTestFireBird {
 		a1.setArtikelId(artikelDao.nieuwArtikel(a1));
 		a2.setArtikelId(artikelDao.nieuwArtikel(a2));
 		a3.setArtikelId(artikelDao.nieuwArtikel(a3));
-		
+
 		ArrayList<Artikel> artikelLijst1 = new ArrayList<Artikel>();
 		artikelLijst1.add(a1);
 		artikelLijst1.add(a2);
@@ -212,7 +212,7 @@ public class BestellingDAOTestFireBird {
 	@Test
 	public void verwijderenAlleBestellingenKlant() throws Exception{
 		dao.verwijderAlleBestellingenKlant(klantId);
-		assertNull(dao.getBestellingOpKlantId(klantId, false));	
+		assertNull(dao.getBestellingOpKlantId(klantId, false));
 	}
 
 	@Test

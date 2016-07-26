@@ -200,7 +200,7 @@ public class BestellingDAOMySQLTest {
 	@Test
 	public void verwijderenAlleBestellingenKlant() throws Exception{
 		dao.verwijderAlleBestellingenKlant(1);
-		assertNull(dao.getBestellingOpKlantId(1, false));	
+		assertNull(dao.getBestellingOpKlantId(1, false));
 	}
 
 	@Test

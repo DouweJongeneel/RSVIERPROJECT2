@@ -3,6 +3,7 @@ package database.daos.queryGenerator;
 import annotations.Entity;
 import exceptions.GeneriekeFoutmelding;
 import logger.DeLogger;
+import model.Adres;
 import model.Klant;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -121,8 +122,14 @@ public class QueryGeneratorFireBird extends QueryGenerator {
         // een dermate ander SQL-statement dat er een afzonderlijk stuk code nodig is.
         if (object instanceof Klant && ((Klant)object).getAdresGegevens() != null ) {
 
+            StringBuilder columnsValues;
             // Haal de adreskolommen op waar naar gezocht moet worden
-            StringBuilder columnsValues = buildInsertColumnValues(((Klant) object).getAdresGegevens().get(0));
+            if (((Klant)object).getAdresGegevens() != null) {
+                ((Klant)object).getAdresGegevens().add(new Adres());
+            }
+
+            // Haal de adreskolommen op waar naar gezocht moet worden
+            columnsValues = buildInsertColumnValues(((Klant) object).getAdresGegevens().get(0));
 
             // Als er een leeg adres wordt meegegeven, dan worden alle klanten geselecteerd
             if (columnsValues.length() == 0)

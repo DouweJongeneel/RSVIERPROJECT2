@@ -1,11 +1,14 @@
 //
 //package JUnit_tests;
 //
+//import database.daos.mysql.AdresDAOMySQL;
+//import database.daos.mysql.BestellingDAOMySQL;
+//import database.daos.mysql.KlantDAOMySQL;
+//import database.daos.mysql.MySQLHelper;
 //import model.Adres;
 //import model.Artikel;
 //import model.Bestelling;
 //import model.Klant;
-//import mysql.*;
 //import org.junit.After;
 //import org.junit.Before;
 //import org.junit.Test;
