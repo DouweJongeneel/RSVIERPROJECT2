@@ -17,8 +17,8 @@ import org.junit.Test;
 import database.daos.mysql.ArtikelDAOMySQL;
 
 public class ArtikelDAOMySQLTest {
-		
-	// Hier staat de klasse die getest wordt. 
+
+	// Hier staat de klasse die getest wordt.
 	private ArtikelDAOMySQL artikelDao;
 
 	// Data
@@ -36,7 +36,7 @@ public class ArtikelDAOMySQLTest {
 
 	@Before
 	public void setUp() throws Exception {
-		
+
 		if(artikelDao == null)
 			artikelDao = (ArtikelDAOMySQL) DAOFactoryMySQL.getDAOFactory("MySQL", "HikariCP").getArtikelDAO();
 
@@ -100,7 +100,7 @@ public class ArtikelDAOMySQLTest {
 		assertThat(actieveArtikelenLijst.contains(a3), is (false));
 	}
 
-	@Test 
+	@Test
 	public void updateArtikel() throws Exception {
 		artikelDao.updateArtikel(id1, a2);
 		aGeretouneerd = artikelDao.getArtikel(id1);
@@ -116,7 +116,7 @@ public class ArtikelDAOMySQLTest {
 		a1.setArtikelPrijs(new BigDecimal(500));
 		a1.setVerwachteLevertijd(5);
 		a1.setInAssortiment(true);
-		
+
 		//Verkrijg het artikel id uit de database
 		idGeretouneerd = artikelDao.nieuwArtikel(a1);
 		//Verwijder het artikel
@@ -130,7 +130,7 @@ public class ArtikelDAOMySQLTest {
 
 	// Utility methodes
 	public void testOfBeideArtikelenGelijkZijn(Artikel aGeretouneerd, Artikel a) {
-		
+
 		assertThat(aGeretouneerd.getArtikelId(), is(equalTo(id1)));
 		assertThat(aGeretouneerd.getArtikelNaam(),is(equalTo(a.getArtikelNaam())));
 		assertThat(aGeretouneerd.getArtikelPrijs().compareTo(a.getArtikelPrijs()), is(equalTo(0)));
