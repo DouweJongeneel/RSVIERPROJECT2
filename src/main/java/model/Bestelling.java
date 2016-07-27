@@ -1,27 +1,43 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "Bestelling")
 public class Bestelling {
 
 	@Id
+	@GeneratedValue()
 	@Column(name = "bestellingId")
 	private long bestellingId;
 
-	@Column(name = "klantId")
-	private long klantId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "klantId", nullable = false)
+	protected Klant klant = new Klant();
+	
+	@OneToMany(mappedBy = "bestelling")
+	protected Set<BestellingHeeftArtikel> besteldeArtikelen = new HashSet<>();
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "datumAanmaak", updatable = false, nullable = false)
+	private Date datumAanmaak = new Date();
 
 	@Column(name = "bestelingActief")
 	private boolean bestellingActief = true;
-
-	@Column(name = "datumAanmaak")
-	private String datumAanmaak;
 
 	private ArrayList<Artikel> artikelLijst;
 
@@ -29,17 +45,17 @@ public class Bestelling {
 		artikelLijst = new ArrayList<Artikel>();
 	}
 
-	public Bestelling(long bestellingId, long klantId, ArrayList<Artikel> artikelLijst, String datumAanmaak){
+	public Bestelling(long bestellingId, Long klantId, ArrayList<Artikel> artikelLijst, Date datumAanmaak){
 		this.bestellingId = bestellingId;
-		this.klantId = klantId;
+		this.klant.setKlantId(klantId); // ? checken of dit werkt.
 		this.artikelLijst = artikelLijst;
 		this.datumAanmaak = datumAanmaak;
 		bestellingActief = true;
 	}
 
-	public Bestelling(long bestellingId, long klantId, ArrayList<Artikel> artikelLijst){
+	public Bestelling(long bestellingId, Long klantId, ArrayList<Artikel> artikelLijst){
 		this.bestellingId = bestellingId;
-		this.klantId = klantId;
+		this.klant.setKlantId(klantId); // ? checken of dit werkt.
 		this.artikelLijst = artikelLijst;
 		bestellingActief = true;
 	}
@@ -48,7 +64,7 @@ public class Bestelling {
 		this.bestellingId = bestellingId;
 	}
 	public void setKlantId(long klantId) {
-		this.klantId = klantId;
+		this.klant.setKlantId(klantId);
 	}
 	public void setArtikelLijst(ArrayList<Artikel> artikelLijst) {
 		this.artikelLijst = artikelLijst;
@@ -57,7 +73,7 @@ public class Bestelling {
 		return bestellingId;
 	}
 	public long getKlantId() {
-		return klantId;
+		return klant.getKlantId();
 	}
 	public ArrayList<Artikel> getArtikelLijst() {
 		return artikelLijst;
@@ -74,11 +90,11 @@ public class Bestelling {
 			artikelLijst.remove(artikel);
 	}
 
-	public String getDatumAanmaak() {
+	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
 
-	public void setDatumAanmaak(String datumAanmaak) {
+	public void setDatumAanmaak(Date datumAanmaak) {
 		this.datumAanmaak = datumAanmaak;
 	}
 
@@ -92,7 +108,7 @@ public class Bestelling {
 
 	@Override
 	public String toString() {
-		StringBuilder string = new StringBuilder("BESTELLING: " + bestellingId + " van klant " + klantId +
+		StringBuilder string = new StringBuilder("BESTELLING: " + bestellingId + " van klant " + klant.getKlantId() +
 				" status actief = " + bestellingActief + "\n");
 
 		Iterator<Artikel> artikelen = getArtikelLijst().iterator();

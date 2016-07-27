@@ -4,7 +4,8 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-<persistence-unit name="RSVIERPROJECT2PU">
+<persistence-unit name="rsvierproject2PU">
+	
 
         <properties>
             <!-- Hibernate properties -->
@@ -17,9 +18,9 @@
 
             <!-- Configuratie JDBC properties -->
             <property name="hibernate.connection.driver_class" value = "com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value = "jdbc:mysql://milanverheij.nl/JavaPersistence"/>
-            <property name="hibernate.connection.username" value = "rsvierproject"/>
-            <property name="hibernate.connection.password" value = "slechtwachtwoord"/>
+            <property name="hibernate.connection.url" value = "jdbc:mysql://localhost:8889/hibernateTest"/>
+            <property name="hibernate.connection.username" value = "root"/>
+            <property name="hibernate.connection.password" value = "root"/>
 
             <!-- Configuratie Connection Pool voor HikariCP -->
             <property name ="hibernate.hikari.dataSource.url" value ="${database.connection}"/>

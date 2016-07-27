@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "prijs")
@@ -15,20 +16,32 @@ public class Prijs {
 	
 	@Id
 	@GeneratedValue
-	private long prijsId;
+	protected long prijsId;
 	
-	@OneToMany(mappedBy = "artikel",
-			fetch = FetchType.LAZY	
-	)
+	/*
+	 * @ManyToOne --> eigenaar in de relatie
+	 * optional = false betekent dat een prijs niet afzonderlijk van een artikel kan bestaan!
+	 * zelfde kun je bereiken door @JoinColumn(nullable = false)
+	 */
+	@ManyToOne(fetch = FetchType.LAZY, optional = false) // --> defaults naar EAGER
+	@JoinColumn(name = "artikelId")
+	protected Artikel artikel;
 	
 	@Column(name = "prijs")
-	private BigDecimal prijs;
+	protected BigDecimal prijs;
 	
 	// @Column(name = "datumAanmaak")
 	// Todo datum;
 	
-	@JoinColumn
-	private Artikel artikel;
+	public Prijs(){
+	}
+	public Prijs(BigDecimal prijs) {
+		this.prijs = prijs;
+	}
+	public Prijs(Artikel artikel, BigDecimal prijs){
+		this.artikel = artikel;
+		this.prijs = prijs;
+	}
 
 	public long getPrijsId() {
 		return prijsId;

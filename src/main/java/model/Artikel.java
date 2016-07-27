@@ -1,14 +1,22 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.Prijs;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /*
  * Created by Douwe_Jongeneel on 06-06-16.
@@ -19,46 +27,49 @@ import javax.persistence.ManyToOne;
 @Entity(name = "artikel")
 public class Artikel implements Comparable<Artikel>{
 	
-	@ManyToOne //Many to one side is nooit mappedBy, dit is de eigenaars kant
-	@JoinColumn(name = "prijsID", updatable = false, insertable = false) // many to one has to disable writing
-	
 	@Id
 	@GeneratedValue
 	@Column(name = "artikelId")
-	private long artikelId;
+	protected long artikelId;
 	
 	@Column(name = "omschrijving")
-	private String artikelNaam;
+	protected String artikelNaam;
 	
-	// TODO - bestellingheeftartikel
-	private int aantalBesteld;
+	/*
+	 * @oneToMany --> cascadeType.PERSIST zorgt ervoor dat wanneer een artikel opgeslagen wordt 
+	 * zijn prijs ook opgeslagen wordt.
+	 * @OnDelete --> Staat meestal aan de ManyToOne kant, maar als de mapping bidirectioneel is 
+	 * herkent Hibernate deze annotatie alleen aan de OneToMany kant.
+	 */
+	@OneToMany(mappedBy = "artikel", fetch = FetchType.LAZY,	cascade = CascadeType.PERSIST)
+	@org.hibernate.annotations.OnDelete( action = org.hibernate.annotations.OnDeleteAction.CASCADE)
+	protected Set<Prijs> prijzen = new HashSet<>(); // als het goed is default dit naar prijsId!!!
 	
-	@Column(name = "prijs") //TODO- prijstabel
-	private BigDecimal artikelPrijs;
+	// bestellingheeftartikel
+	@OneToMany(mappedBy = "artikel", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@org.hibernate.annotations.OnDelete( action = org.hibernate.annotations.OnDeleteAction.CASCADE)
+	protected Set<BestellingHeeftArtikel> BestelLijstVanDitArtikel = new HashSet<>();
 	
-	// nullable = false --> om het juiste schema te genereren moet de joinColumn als notnull verklaard worden, schema
-	// generatie in hibernate is afhankelijk van de joinColumn aan de manyToOne side, aangezien de join column
-	// 2 x gedefinieert wordt moet aangegeven worden welke van de twee hibernate pakt.
-	
-	@JoinColumn(name = "prijsId", nullable = false)
-	private Prijs prijs; //default naar prijsId
-	
-	@Column(name = "datumAanmaak")
-	private String datumAanmaak;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "datumAanmaak", updatable = false, nullable = false)
+	protected Date datumAanmaak = new Date();
 	
 	@Column(name = "verwachteLevertijd")
-	private int verwachteLevertijd;
+	protected int verwachteLevertijd;
 	
 	@Column(name = "inAssortiment")
-	private boolean inAssortiment;
+	protected boolean inAssortiment;
 
 	//Constructors
 	public Artikel() {
 	}
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs,
-			String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+	public Artikel(String artikelNaam) {
 		this.artikelNaam = artikelNaam;
-		this.artikelPrijs = artikelPrijs;
+	}
+	public Artikel(String artikelNaam, Prijs artikelPrijs,
+			Date datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+		this.artikelNaam = artikelNaam;
+		this.prijzen.add(artikelPrijs);
 		this.datumAanmaak = datumAanmaak;
 		this.verwachteLevertijd = verwachteLevertijd;
 		this.inAssortiment = inAssortiment;
@@ -71,16 +82,16 @@ public class Artikel implements Comparable<Artikel>{
 	public String getArtikelNaam() {
 		return artikelNaam;
 	}
-	public int getAantalBesteld() {
-		return aantalBesteld;
+	public long getPrijsId() {
+		return prijs.getPrijsId();
 	}
 	public BigDecimal getArtikelPrijs() {
 		return artikelPrijs;
 	}
-	public long getPrijsId() {
-		return prijs.getPrijsId();
+	public int getAantalBesteld() {
+		return aantalBesteld;
 	}
-	public String getDatumAanmaak() {
+	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
 	public int getVerwachteLevertijd() {
@@ -96,17 +107,14 @@ public class Artikel implements Comparable<Artikel>{
 	public void setArtikelNaam(String artikelNaam) {
 		this.artikelNaam = artikelNaam;
 	}
-	public void setAantalBesteld(int aantalBesteld) {
-		this.aantalBesteld = aantalBesteld;
+	public void setPrijsId(long prijs_id) {
+		this.prijs.setPrijsId(prijs_id);
 	}
 	public void setArtikelPrijs(BigDecimal artikelPrijs) {
 		this.artikelPrijs = artikelPrijs;
 	}
-	public void setPrijsId(long prijs_id) {
-		this.prijs.setPrijsId(prijs_id);
-	}
-	public void setDatumAanmaak(String datumAanmaak) {
-		this.datumAanmaak = datumAanmaak;
+	public void setAantalBesteld(int aantalBesteld) {
+		this.aantalBesteld = aantalBesteld;
 	}
 	public void setVerwachteLevertijd(int verwachteLevertijd) {
 		this.verwachteLevertijd = verwachteLevertijd;

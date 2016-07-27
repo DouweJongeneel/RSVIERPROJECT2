@@ -1,10 +1,20 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Created by Milan_Verheij on 06-06-16.
@@ -17,13 +27,17 @@ import javax.persistence.Id;
 
 @Entity(name = "klant")
 public class Klant {
-    // Private variabelen zodat er controle wordt uitgeoefend over het verkrijgen en
-    // muteren in de methods.
 
     @Id
+    @GeneratedValue
     @Column(name = "klantId")
     private long klantId;
-
+    
+    
+    @OneToMany(mappedBy = "klant", fetch = FetchType.LAZY)
+    protected Set<Bestelling> bestelLijst = new HashSet<>();
+    
+    
     @Column(name = "voornaam")
     private String voornaam;
 
@@ -36,8 +50,9 @@ public class Klant {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "datumAanmaak")
-    private String datumAanmaak;
+    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "datumAanmaak", updatable = false, nullable = false)
+	private Date datumAanmaak = new Date();
 
     @Column(name = "datumGewijzigd")
     private String datumGewijzigd;
@@ -79,7 +94,7 @@ public class Klant {
                  String achternaam,
                  String tussenvoegsel,
                  String email,
-                 String datumAanmaak,
+                 Date datumAanmaak,
                  String datumGewijzigd,
                  String klantActief,
                  Adres adresGegevens,
@@ -134,10 +149,10 @@ public class Klant {
     public ArrayList<Adres> getAdresGegevens() {
         return adresGegevens;
     }
-    public String getDatumAanmaak() {
+    public Date getDatumAanmaak() {
         return datumAanmaak;
     }
-    public void setDatumAanmaak(String datumAanmaak) {
+    public void setDatumAanmaak(Date datumAanmaak) {
         this.datumAanmaak = datumAanmaak;
     }
     public String getDatumGewijzigd() {
