@@ -2,9 +2,13 @@ package model;
 
 import java.math.BigDecimal;
 
-import annotations.Column;
-import annotations.Id;
-import annotations.Entity;
+import model.Prijs;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /*
  * Created by Douwe_Jongeneel on 06-06-16.
@@ -12,25 +16,40 @@ import annotations.Entity;
  * Dit is de Artikel Pojo + GS zodat er Artikel objecten
  * in een LinkedHasMap kunnen worden opgeslagen in de database.
  */
-@Entity("artikel")
+@Entity(name = "artikel")
 public class Artikel implements Comparable<Artikel>{
-	//Data field
+	
+	@ManyToOne //Many to one side is nooit mappedBy, dit is de eigenaars kant
+	@JoinColumn(name = "prijsID", updatable = false, insertable = false) // many to one has to disable writing
+	
 	@Id
-	@Column(values = "artikel_id")
-	private int artikelId = 0;
-	@Column(values = "omschrijving")
+	@GeneratedValue
+	@Column(name = "artikelId")
+	private long artikelId;
+	
+	@Column(name = "omschrijving")
 	private String artikelNaam;
+	
+	// TODO - bestellingheeftartikel
 	private int aantalBesteld;
-	@Column(values = "prijs")
+	
+	@Column(name = "prijs") //TODO- prijstabel
 	private BigDecimal artikelPrijs;
-	@Id
-	@Column(values = "prijs_id")
-	private int prijsId;
-	@Column(values = "datumAanmaak")
+	
+	// nullable = false --> om het juiste schema te genereren moet de joinColumn als notnull verklaard worden, schema
+	// generatie in hibernate is afhankelijk van de joinColumn aan de manyToOne side, aangezien de join column
+	// 2 x gedefinieert wordt moet aangegeven worden welke van de twee hibernate pakt.
+	
+	@JoinColumn(name = "prijsId", nullable = false)
+	private Prijs prijs; //default naar prijsId
+	
+	@Column(name = "datumAanmaak")
 	private String datumAanmaak;
-	@Column(values = "verwachteLevertijd")
+	
+	@Column(name = "verwachteLevertijd")
 	private int verwachteLevertijd;
-	@Column(values = "inAssortiment")
+	
+	@Column(name = "inAssortiment")
 	private boolean inAssortiment;
 
 	//Constructors
@@ -46,7 +65,7 @@ public class Artikel implements Comparable<Artikel>{
 	}
 
 	//Getters and Setters
-	public int getArtikelId() {
+	public long getArtikelId() {
 		return artikelId;
 	}
 	public String getArtikelNaam() {
@@ -58,8 +77,8 @@ public class Artikel implements Comparable<Artikel>{
 	public BigDecimal getArtikelPrijs() {
 		return artikelPrijs;
 	}
-	public int getPrijsId() {
-		return prijsId;
+	public long getPrijsId() {
+		return prijs.getPrijsId();
 	}
 	public String getDatumAanmaak() {
 		return datumAanmaak;
@@ -83,8 +102,8 @@ public class Artikel implements Comparable<Artikel>{
 	public void setArtikelPrijs(BigDecimal artikelPrijs) {
 		this.artikelPrijs = artikelPrijs;
 	}
-	public void setPrijsId(int prijs_id) {
-		this.prijsId = prijs_id;
+	public void setPrijsId(long prijs_id) {
+		this.prijs.setPrijsId(prijs_id);
 	}
 	public void setDatumAanmaak(String datumAanmaak) {
 		this.datumAanmaak = datumAanmaak;
@@ -110,7 +129,7 @@ public class Artikel implements Comparable<Artikel>{
 	@Override
 	public String toString(){
 		return "ARTIKEL: " + artikelId + "\t " + artikelNaam + "\t $" + artikelPrijs.toPlainString()
-		+ "\t prijs id " + prijsId + "\t " + datumAanmaak + "\t " + verwachteLevertijd + "\t "
+		+ "\t prijs id " + prijs.getPrijsId() + "\t " + datumAanmaak + "\t " + verwachteLevertijd + "\t "
 		+ inAssortiment;
 	}
 

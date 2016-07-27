@@ -1,8 +1,8 @@
 package model;
 
-import annotations.Column;
-import annotations.Entity;
-import annotations.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by Douwe_Jongeneel on 06-06-16.
@@ -11,36 +11,36 @@ import annotations.Id;
  * Dit is de Adres POJO + GS
  */
 
-@Entity("adres")
+@Entity(name = "adres")
 public class Adres {
     //Datafield
 
     @Id
-    @Column(values = "adresId")
+    @Column(name = "adresId")
     private long adresId = 0;
 
-    @Column(values = "straatnaam")
+    @Column(name = "straatnaam")
     private String straatnaam;
 
-    @Column(values = "postcode")
+    @Column(name = "postcode")
     private String postcode;
 
-    @Column(values = "toevoeging")
+    @Column(name = "toevoeging")
     private String toevoeging;
 
-    @Column(values = "huisnummer")
+    @Column(name = "huisnummer")
     private int huisnummer;
 
-    @Column(values = "woonplaats")
+    @Column(name = "woonplaats")
     private String woonplaats;
 
-    @Column(values = "datumAanmaak")
+    @Column(name = "datumAanmaak")
     private String datumAanmaak;
 
-    @Column(values = "datumGewijzigd")
+    @Column(name = "datumGewijzigd")
     private String datumGewijzigd;
 
-    @Column(values = "adresActief")
+    @Column(name = "adresActief")
     private String adresActief;
 
     //Consturctors

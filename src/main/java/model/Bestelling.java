@@ -3,24 +3,24 @@ package model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import annotations.Column;
-import annotations.Entity;
-import annotations.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Entity("Bestelling")
+@Entity(name = "Bestelling")
 public class Bestelling {
 
 	@Id
-	@Column(values = "bestellingId")
+	@Column(name = "bestellingId")
 	private long bestellingId;
 
-	@Column(values = "klantId")
+	@Column(name = "klantId")
 	private long klantId;
 
-	@Column(values = "bestelingActief")
+	@Column(name = "bestelingActief")
 	private boolean bestellingActief = true;
 
-	@Column(values = "datumAanmaak")
+	@Column(name = "datumAanmaak")
 	private String datumAanmaak;
 
 	private ArrayList<Artikel> artikelLijst;
