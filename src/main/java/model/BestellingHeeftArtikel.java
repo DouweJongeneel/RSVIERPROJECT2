@@ -1,21 +1,21 @@
 package model;
 
-import annotations.Column;
-import annotations.Entity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
-@Entity("bestellingHeeftArtikel")
+@Entity(name = "bestellingHeeftArtikel")
 public class BestellingHeeftArtikel {
 
-    @Column(values = "bestellingId_best")
+    @Column(name = "bestellingId_best")
     long bestellingId_best;
 
-    @Column(values = "artikelIdArt")
+    @Column(name = "artikelIdArt")
     long artikelIdArt;
 
-    @Column(values = "prijsIdPrijs")
+    @Column(name = "prijsIdPrijs")
     long prijsIdPrijs;
 
-    @Column(values = "aantal")
+    @Column(name = "aantal")
     long aantal;
 
     public long getBestellingId_best() {

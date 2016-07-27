@@ -2,9 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
-import annotations.Column;
-import annotations.Entity;
-import annotations.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by Milan_Verheij on 06-06-16.
@@ -15,34 +15,34 @@ import annotations.Id;
  *
  */
 
-@Entity("klant")
+@Entity(name = "klant")
 public class Klant {
     // Private variabelen zodat er controle wordt uitgeoefend over het verkrijgen en
     // muteren in de methods.
 
     @Id
-    @Column(values = "klantId")
+    @Column(name = "klantId")
     private long klantId;
 
-    @Column(values = "voornaam")
+    @Column(name = "voornaam")
     private String voornaam;
 
-    @Column(values = "achternaam")
+    @Column(name = "achternaam")
     private String achternaam;
 
-    @Column(values = "tussenvoegsel")
+    @Column(name = "tussenvoegsel")
     private String tussenvoegsel;
 
-    @Column(values = "email")
+    @Column(name = "email")
     private String email;
 
-    @Column(values = "datumAanmaak")
+    @Column(name = "datumAanmaak")
     private String datumAanmaak;
 
-    @Column(values = "datumGewijzigd")
+    @Column(name = "datumGewijzigd")
     private String datumGewijzigd;
 
-    @Column(values = "klantActief")
+    @Column(name = "klantActief")
     private String klantActief;
 
     private ArrayList<Adres> adresGegevens = new ArrayList<Adres>();

@@ -1,70 +1,52 @@
 package database.factories;
 
-import database.daos.firebird.AbstractDAOFireBird;
 import database.interfaces.AdresDAO;
 import database.interfaces.ArtikelDAO;
 import database.interfaces.BestellingDAO;
 import database.interfaces.KlantDAO;
-import database.daos.mysql.AbstractDAOMySQL;
+import database.daos.mysql.AdresDAOMySQL;
+import database.daos.mysql.ArtikelDAOMySQL;
+import database.daos.mysql.BestellingDAOMySQL;
+import database.daos.mysql.KlantDAOMySQL;
 import exceptions.GeneriekeFoutmelding;
 
 /**
- * @author Milan_Verheij
+ * @author Milan_Verheij, Douwe Jongeneel
  * <p>
- * Deze abstract factory verzorgt de creatie van de juiste type concrete
- * DAO factory op basis van de database keuze.
+ * Deze concrete factory  maakt DAO's aan voor de database (MySQL)
+ * en geeft deze terug aan de gebruiker.
+ *
  */
 
-public abstract class DAOFactory {
+public class DAOFactory{
 
 	/**
-	 * Op basis van een keuze qua database maakt de factory de juiste fabriek aan.
-	 *
-	 * @param s De keuze van het databasetype in String formaat.
-	 * @return Geeft een concrete DAO fabriek terug.
-	 */
-	public static DAOFactory getDAOFactory(String s, String connPoolKeuze) throws GeneriekeFoutmelding {
-		if(s.equals("MySQL")) {
-			AbstractDAOMySQL.setConnPool(ConnectionPoolFactory.getConnectionPool(connPoolKeuze, "MySQL"));
-			return new DAOFactoryMySQL();
-		}
-		else if(s.equals("FireBird")) {
-			AbstractDAOFireBird.setConnPool(ConnectionPoolFactory.getConnectionPool(connPoolKeuze, "FireBird"));
-			return new DAOFactoryFireBird();
-		}
-		else
-			return null;
+	 * Methode om een KlantDAO te maken.
+     */
+	public KlantDAO getKlantDAO() throws GeneriekeFoutmelding {
+		return new KlantDAOMySQL();
 	}
 
 	/**
-	 * De methode die geimplementeerd dient te worden door de concrete fabriek
-	 * om een KlantDAO te maken.
-	 *
-	 * @return Een KlantDAO van het eerder gekozen database-type.
-	 */
-	public abstract KlantDAO getKlantDAO() throws GeneriekeFoutmelding;
+	 * Methode om de een AdresDAO te maken.
 
-	/**
-	 * De methode die geimplementeerd dient te worden door de concrete fabriek
-	 * om een AdresDAO te maken.
-	 *
-	 * @return Een AdresDAO van het eerder gekozen database-type.
-	 */
-	public abstract AdresDAO getAdresDAO() throws GeneriekeFoutmelding;
+     */
+	public AdresDAO getAdresDAO() throws GeneriekeFoutmelding {
+		return new AdresDAOMySQL();
+	}
 
-	/**
-	 * De methode die geimplementeerd dient te worden door de concrete fabriek
-	 * om een BestellingDAO te maken.
-	 *
-	 * @return Een BestellingDAO van het eerder gekozen database-type.
-	 */
-	public abstract BestellingDAO getBestellingDAO() throws GeneriekeFoutmelding;
+    /**
+     * Methode om de een BestellingDAO te maken.
+     */
+	public BestellingDAO getBestellingDAO() throws GeneriekeFoutmelding {
+		return new BestellingDAOMySQL();
+	}
 
-	/**
-	 * De methode die geimplementeerd dient te worden door de concrete fabriek
-	 * om een ArtikelDAO te maken.
-	 *
-	 * @return Een ArtikelDAO van het eerder gekozen database-type.
-	 */
-	public abstract ArtikelDAO getArtikelDAO() throws GeneriekeFoutmelding;
+    /**
+     * Methode om de een ArtikelDAO te maken.
+     */
+	public ArtikelDAO getArtikelDAO() throws GeneriekeFoutmelding {
+		return new ArtikelDAOMySQL();
+	}
+
 }

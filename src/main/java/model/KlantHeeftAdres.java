@@ -1,19 +1,19 @@
 package model;
 
-import annotations.Column;
-import annotations.Entity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Created by Milan_Verheij on 08-07-16.
  *
  */
-@Entity("klantHeeftAdres")
+@Entity(name = "klantHeeftAdres")
 public class KlantHeeftAdres {
 
-    @Column(values = "adresIdAdres")
+    @Column(name = "adresIdAdres")
     private long adresIdAdres;
 
-    @Column(values = "klantIdKlant")
+    @Column(name = "klantIdKlant")
     private long klantIdKlant;
 
     public long getAdresIdAdres() {
