@@ -19,19 +19,19 @@ public class Betaling {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "betalingId")
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	Date betaalDatum;
 
-	@OneToOne
+	@OneToOne(optional = false)
 	Betaalwijze betaalwijze;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	Klant klant;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	Factuur factuur;
 
-	@Column
+	@Column(nullable = false)
 	String betalingsGegevens;
 
 	public long getId() {

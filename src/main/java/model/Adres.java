@@ -20,35 +20,35 @@ public class Adres {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresId")
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	private String straatnaam;
 
-	@Column
+	@Column(nullable = false)
 	private String postcode;
 
-	@Column
+	@Column(nullable = false)
 	private String toevoeging;
 
-	@Column
+	@Column(nullable = false)
 	private int huisnummer;
 
-	@Column
+	@Column(nullable = false)
 	private String woonplaats;
 
-	@Column
+	@Column(nullable = false)
 	private String datumAanmaak;
 
-	@Column
+	@Column(nullable = false)
 	private String datumGewijzigd;
 
-	@Column
+	@Column(nullable = false)
 	private String adresActief;
 
 	@ManyToMany(mappedBy = "adresGegevens")
+	@Column(nullable = false)
 	protected Set<Klant> klant = new HashSet<Klant>();
 
-	//@ManyToOne
-	@Column
+	@Column(nullable = false)
 	protected AdresType type;
 	
 	//Constructors

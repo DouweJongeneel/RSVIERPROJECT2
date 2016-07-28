@@ -2,15 +2,16 @@ package model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -22,37 +23,27 @@ public class Prijs {
 	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
 	protected long id;
-	
-	/*
-	 * @ManyToOne --> eigenaar in de relatie
-	 * optional = false betekent dat een prijs niet afzonderlijk van een artikel kan bestaan!
-	 * zelfde kun je bereiken door @JoinColumn(nullable = false)
-	 */
 
+	@ManyToOne
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "prijsId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "artikelId", nullable = false))
+	Artikel artikel;
 	
-	@OneToMany
-	protected Set<BestelArtikel> bestelArtikel;
+	@Column(nullable = false)
+	BigDecimal prijs;
 	
-	@Column
-	protected BigDecimal prijs;
-	
-	@Column
+	@Column(nullable = false)
 	Date datumAanmaak = new Date(System.currentTimeMillis());
 
-	@Column
-	private Artikel artikel;
+	@OneToMany(mappedBy = "prijs")
+	@Column(nullable = false)
+	protected Set<BestelArtikel> bestelArtikel = new HashSet<BestelArtikel>();
 	
-	public Prijs(){
-	}
-	public Prijs(BigDecimal prijs) {
-		this.prijs = prijs;
-	}
+	public Prijs(){}
 
 	public long getId() {
 		return id;
-	}
-	public BigDecimal getPrijs() {
-		return prijs;
 	}
 
 	public Set<BestelArtikel> getBestelArtikel() {
@@ -61,12 +52,7 @@ public class Prijs {
 	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
-	public Artikel getArtikel() {
-		return artikel;
-	}
-	public void setArtikel(Artikel artikel) {
-		this.artikel = artikel;
-	}
+
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
 		this.bestelArtikel = bestelArtikel;
 	}
@@ -75,8 +61,5 @@ public class Prijs {
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public void setPrijs(BigDecimal prijs) {
-		this.prijs = prijs;
 	}
 }

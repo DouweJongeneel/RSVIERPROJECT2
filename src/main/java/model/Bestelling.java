@@ -21,22 +21,24 @@ public class Bestelling{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestellingId")
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	private String bestelNummer;
 	
-	@Column
+	@Column(nullable = false)
 	private boolean bestellingActief = true;
 
-	@Column
+	@Column(nullable = false)
 	private String datumAanmaak;
 	
 	@OneToMany(mappedBy = "bestelling")
+	@Column(nullable = false)
 	private Set<Factuur> factuurSet = new HashSet<Factuur>();
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Klant klant;
 
 	@OneToMany(mappedBy = "bestelling")
+	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikelSet = new HashSet<BestelArtikel>();
 
 	public Bestelling(){

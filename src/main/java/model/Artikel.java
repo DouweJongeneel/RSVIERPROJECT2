@@ -9,8 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 @Entity
 public class Artikel implements Comparable<Artikel>{
@@ -20,31 +23,37 @@ public class Artikel implements Comparable<Artikel>{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
 	private int id;
 
-	@Column
+	@Column(nullable = false)
 	private String artikelNaam;
 
-	@Column
+	@Transient
 	private BigDecimal artikelPrijs;
 
 	@OneToMany
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
 	private Set<Prijs> prijs;
 
-	@Column
+	@Column(nullable = false)
 	private String datumAanmaak;
 
 	@Column
 	private int verwachteLevertijd;
 
-	@Column
+	@Column(nullable = false)
 	private boolean inAssortiment;
+
+	@OneToMany(mappedBy = "artikel")
+	@Column(nullable = false)
+	protected Set<BestelArtikel> bestelArtikel;
 
 	//Constructors
 	public Artikel() {
 		datumAanmaak = new Date(System.currentTimeMillis()).toString();
 	}
 
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs,
-			String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+	public Artikel(String artikelNaam, BigDecimal artikelPrijs, String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
 		this.artikelNaam = artikelNaam;
 		this.artikelPrijs = artikelPrijs;
 		this.datumAanmaak = datumAanmaak;
@@ -79,6 +88,14 @@ public class Artikel implements Comparable<Artikel>{
 
 	public boolean isInAssortiment() {
 		return inAssortiment;
+	}
+
+	public Set<BestelArtikel> getBestelArtikel() {
+		return bestelArtikel;
+	}
+
+	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
+		this.bestelArtikel = bestelArtikel;
 	}
 
 	public void setId(int id) {
