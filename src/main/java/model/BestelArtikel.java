@@ -18,18 +18,18 @@ public class BestelArtikel {
 	private long id;
 
 	@ManyToOne
-	@JoinColumn(name = "artikelId")
+	@JoinColumn(name = "artikelId", nullable = false)
 	private Artikel artikel;
 
 	@ManyToOne
-	@JoinColumn(name = "BestellingId")
+	@JoinColumn(name = "BestellingId", nullable = false)
 	private Bestelling bestelling;
 
 	@ManyToOne
-	@JoinColumn(name = "prijsId")
+	@JoinColumn(name = "prijsId", nullable = false)
 	private Prijs prijs;
 	
-	@Column
+	@Column(nullable = false)
 	private int aantal;
 	
 	public BestelArtikel(){}

@@ -10,9 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "prijs")
@@ -22,21 +23,21 @@ public class Prijs {
 	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
 	protected long id;
-	
-	/*
-	 * @ManyToOne --> eigenaar in de relatie
-	 * optional = false betekent dat een prijs niet afzonderlijk van een artikel kan bestaan!
-	 * zelfde kun je bereiken door @JoinColumn(nullable = false)
-	 */
 
+	@ManyToOne
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "prijsId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "artikelId", nullable = false))
+	Artikel artikel;
 	
-	@Column
+	@Column(nullable = false)
 	BigDecimal prijs;
 	
-	@Column
+	@Column(nullable = false)
 	Date datumAanmaak = new Date(System.currentTimeMillis());
 
 	@OneToMany(mappedBy = "prijs")
+	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel = new HashSet<BestelArtikel>();
 	
 	public Prijs(){}
@@ -51,7 +52,6 @@ public class Prijs {
 	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
-
 
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
 		this.bestelArtikel = bestelArtikel;

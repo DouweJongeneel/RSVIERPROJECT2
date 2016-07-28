@@ -21,16 +21,17 @@ public class Factuur {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "factuurId")
 	private long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String factuurNummer;
 	
-	@Column
+	@Column(nullable = false)
 	private Date factureringsDatum;
 	
 	@OneToMany(mappedBy = "factuur")
+	@Column(nullable = false)
 	private Set<Betaling> betalingSet = new HashSet<Betaling>();
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Bestelling bestelling;
 
 	public long getId() {

@@ -26,35 +26,36 @@ public class Klant{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "klantId")
 	private long id;
 
-	@Column
+	@Column(nullable = false)
 	private String voornaam;
 
-	@Column
+	@Column(nullable = false)
 	private String achternaam;
 
-	@Column
+	@Column(nullable = false)
 	private String tussenvoegsel;
 
-	@Column
+	@Column(nullable = false)
 	private String email;
 
-	@Column
+	@Column(nullable = false)
 	private String datumAanmaak;
 
-	@Column
+	@Column(nullable = false)
 	private String datumGewijzigd;
 
-	@Column
+	@Column(nullable = false)
 	private String klantActief;
 
 	@ManyToMany
 	@JoinTable(name = "klantAdresAdresType",
-		joinColumns = @JoinColumn(name = "klantId"),
-		inverseJoinColumns = @JoinColumn(name = "adresTypeId"))
-	@MapKeyJoinColumn(name = "adresId")
+		joinColumns = @JoinColumn(name = "klantId", nullable = false),
+		inverseJoinColumns = @JoinColumn(name = "adresTypeId", nullable = false))
+	@MapKeyJoinColumn(name = "adresId", nullable = false)
 	protected Map<Adres, AdresType> adresGegevens = new HashMap<Adres, AdresType>();
 
 	@OneToMany(mappedBy = "klant")
+	@Column(nullable = false)
 	protected Set<Bestelling> bestellingen = new HashSet<Bestelling>();
 
 	//  Default public no-arg constructor

@@ -18,21 +18,21 @@ public class Account {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "accountId")
 	private long id;
 	
-	@Column
-	private String naam;
+	@Column(nullable = false)
+	private String accountType;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	Klant klant;
 	
-	@Column
+	@Column(nullable = false)
 	Date creatieDatum;
 
 	public long getId() {
 		return id;
 	}
 
-	public String getNaam() {
-		return naam;
+	public String getAccountType() {
+		return accountType;
 	}
 
 	public Klant getKlant() {
@@ -47,8 +47,8 @@ public class Account {
 		this.id = id;
 	}
 
-	public void setNaam(String naam) {
-		this.naam = naam;
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
 
 	public void setKlant(Klant klant) {

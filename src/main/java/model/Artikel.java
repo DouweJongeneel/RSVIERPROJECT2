@@ -9,8 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
@@ -22,25 +23,29 @@ public class Artikel implements Comparable<Artikel>{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
 	private int id;
 
-	@Column
+	@Column(nullable = false)
 	private String artikelNaam;
 
 	@Transient
 	private BigDecimal artikelPrijs;
 
 	@OneToMany
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
 	private Set<Prijs> prijs;
 
-	@Column
+	@Column(nullable = false)
 	private String datumAanmaak;
 
 	@Column
 	private int verwachteLevertijd;
 
-	@Column
+	@Column(nullable = false)
 	private boolean inAssortiment;
 
 	@OneToMany(mappedBy = "artikel")
+	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel;
 
 	//Constructors
