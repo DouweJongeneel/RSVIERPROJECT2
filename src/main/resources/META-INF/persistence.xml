@@ -18,9 +18,9 @@
 
             <!-- Configuratie JDBC properties -->
             <property name="hibernate.connection.driver_class" value = "com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value = "jdbc:mysql://localhost:8889/hibernateTest"/>
+            <property name="hibernate.connection.url" value = "jdbc:mysql://localhost/hibernate"/>
             <property name="hibernate.connection.username" value = "root"/>
-            <property name="hibernate.connection.password" value = "root"/>
+            <property name="hibernate.connection.password" value = "Juist"/>
 
             <!-- Configuratie Connection Pool voor HikariCP -->
             <property name ="hibernate.hikari.dataSource.url" value ="${database.connection}"/>

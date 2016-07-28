@@ -22,6 +22,7 @@ public class BestelArtikel {
 	private Artikel artikel;
 
 	@ManyToOne
+	@JoinColumn(name = "BestellingId")
 	private Bestelling bestelling;
 
 	@ManyToOne

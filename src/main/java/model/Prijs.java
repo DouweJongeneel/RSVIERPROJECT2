@@ -2,17 +2,17 @@ package model;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "prijs")
@@ -30,29 +30,19 @@ public class Prijs {
 	 */
 
 	
-	@OneToMany
-	protected Set<BestelArtikel> bestelArtikel;
-	
 	@Column
-	protected BigDecimal prijs;
+	BigDecimal prijs;
 	
 	@Column
 	Date datumAanmaak = new Date(System.currentTimeMillis());
 
-	@Column
-	private Artikel artikel;
+	@OneToMany(mappedBy = "prijs")
+	protected Set<BestelArtikel> bestelArtikel = new HashSet<BestelArtikel>();
 	
-	public Prijs(){
-	}
-	public Prijs(BigDecimal prijs) {
-		this.prijs = prijs;
-	}
+	public Prijs(){}
 
 	public long getId() {
 		return id;
-	}
-	public BigDecimal getPrijs() {
-		return prijs;
 	}
 
 	public Set<BestelArtikel> getBestelArtikel() {
@@ -61,12 +51,8 @@ public class Prijs {
 	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
-	public Artikel getArtikel() {
-		return artikel;
-	}
-	public void setArtikel(Artikel artikel) {
-		this.artikel = artikel;
-	}
+
+
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
 		this.bestelArtikel = bestelArtikel;
 	}
@@ -75,8 +61,5 @@ public class Prijs {
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public void setPrijs(BigDecimal prijs) {
-		this.prijs = prijs;
 	}
 }

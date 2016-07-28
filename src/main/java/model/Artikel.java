@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 @Entity
 public class Artikel implements Comparable<Artikel>{
@@ -23,7 +25,7 @@ public class Artikel implements Comparable<Artikel>{
 	@Column
 	private String artikelNaam;
 
-	@Column
+	@Transient
 	private BigDecimal artikelPrijs;
 
 	@OneToMany
@@ -38,13 +40,15 @@ public class Artikel implements Comparable<Artikel>{
 	@Column
 	private boolean inAssortiment;
 
+	@OneToMany(mappedBy = "artikel")
+	protected Set<BestelArtikel> bestelArtikel;
+
 	//Constructors
 	public Artikel() {
 		datumAanmaak = new Date(System.currentTimeMillis()).toString();
 	}
 
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs,
-			String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+	public Artikel(String artikelNaam, BigDecimal artikelPrijs, String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
 		this.artikelNaam = artikelNaam;
 		this.artikelPrijs = artikelPrijs;
 		this.datumAanmaak = datumAanmaak;
@@ -79,6 +83,14 @@ public class Artikel implements Comparable<Artikel>{
 
 	public boolean isInAssortiment() {
 		return inAssortiment;
+	}
+
+	public Set<BestelArtikel> getBestelArtikel() {
+		return bestelArtikel;
+	}
+
+	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
+		this.bestelArtikel = bestelArtikel;
 	}
 
 	public void setId(int id) {

@@ -48,10 +48,10 @@ public class Klant{
 	private String klantActief;
 
 	@ManyToMany
-	@JoinTable(name = "klant_adres_adrestype",
-		joinColumns = @JoinColumn(name = "klant_id"),
-		inverseJoinColumns = @JoinColumn(name = "adrestype_id"))
-	@MapKeyJoinColumn(name = "adres_id")
+	@JoinTable(name = "klantAdresAdresType",
+		joinColumns = @JoinColumn(name = "klantId"),
+		inverseJoinColumns = @JoinColumn(name = "adresTypeId"))
+	@MapKeyJoinColumn(name = "adresId")
 	protected Map<Adres, AdresType> adresGegevens = new HashMap<Adres, AdresType>();
 
 	@OneToMany(mappedBy = "klant")
