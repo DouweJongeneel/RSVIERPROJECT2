@@ -1,123 +1,121 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
+import model.BestelArtikel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
 
-@Entity(name = "Bestelling")
-public class Bestelling {
+@Entity
+public class Bestelling{
 
 	@Id
-	@GeneratedValue()
-	@Column(name = "bestellingId")
-	private long bestellingId;
+	@SequenceGenerator(name = "bestellingId", sequenceName = "zBestelling_sequence")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestellingId")
+	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "klantId", nullable = false)
-	protected Klant klant = new Klant();
+	@Column
+	private String bestelNummer;
 	
-	@OneToMany(mappedBy = "bestelling")
-	protected Set<BestellingHeeftArtikel> besteldeArtikelen = new HashSet<>();
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "datumAanmaak", updatable = false, nullable = false)
-	private Date datumAanmaak = new Date();
-
-	@Column(name = "bestelingActief")
+	@Column
 	private boolean bestellingActief = true;
 
-	private ArrayList<Artikel> artikelLijst;
+	@Column
+	private String datumAanmaak;
+	
+	@OneToMany(mappedBy = "bestelling")
+	private Set<Factuur> factuurSet = new HashSet<Factuur>();
+	
+	@ManyToOne
+	private Klant klant;
+
+	@OneToMany(mappedBy = "bestelling")
+	protected Set<BestelArtikel> bestelArtikelSet = new HashSet<BestelArtikel>();
 
 	public Bestelling(){
-		artikelLijst = new ArrayList<Artikel>();
+		bestelArtikelSet = new HashSet<BestelArtikel>();
 	}
 
-	public Bestelling(long bestellingId, Long klantId, ArrayList<Artikel> artikelLijst, Date datumAanmaak){
-		this.bestellingId = bestellingId;
-		this.klant.setKlantId(klantId); // ? checken of dit werkt.
-		this.artikelLijst = artikelLijst;
+	public Bestelling(long id, Klant klant, Set<BestelArtikel> bestelArtikelSet, String datumAanmaak){
+		this.id = id;
+		this.klant = klant;
+		this.bestelArtikelSet = bestelArtikelSet;
 		this.datumAanmaak = datumAanmaak;
 		bestellingActief = true;
 	}
 
-	public Bestelling(long bestellingId, Long klantId, ArrayList<Artikel> artikelLijst){
-		this.bestellingId = bestellingId;
-		this.klant.setKlantId(klantId); // ? checken of dit werkt.
-		this.artikelLijst = artikelLijst;
+	public Bestelling(long id, Klant klant, Set<BestelArtikel> bestelArtikelSet){
+		this.id = id;
+		this.klant = klant;
+		this.bestelArtikelSet = bestelArtikelSet;
 		bestellingActief = true;
 	}
 
-	public void setBestellingId(long bestellingId) {
-		this.bestellingId = bestellingId;
-	}
-	public void setKlantId(long klantId) {
-		this.klant.setKlantId(klantId);
-	}
-	public void setArtikelLijst(ArrayList<Artikel> artikelLijst) {
-		this.artikelLijst = artikelLijst;
-	}
-	public long getBestellingId() {
-		return bestellingId;
-	}
-	public long getKlantId() {
-		return klant.getKlantId();
-	}
-	public ArrayList<Artikel> getArtikelLijst() {
-		return artikelLijst;
+	
+	public long getId() {
+		return id;
 	}
 
-	public void voegArtikelToe(Artikel artikel){
-		if(artikelLijst == null)
-			artikelLijst = new ArrayList<Artikel>();
-		artikelLijst.add(artikel);
+	public String getBestelNummer() {
+		return bestelNummer;
 	}
 
-	public void verwijderArtikel(Artikel artikel){
-		if(artikelLijst.contains(artikel))
-			artikelLijst.remove(artikel);
+	public boolean isBestellingActief() {
+		return bestellingActief;
 	}
 
-	public Date getDatumAanmaak() {
+	public String getDatumAanmaak() {
 		return datumAanmaak;
 	}
 
-	public void setDatumAanmaak(Date datumAanmaak) {
-		this.datumAanmaak = datumAanmaak;
+	public Klant getKlant() {
+		return klant;
 	}
 
-	public boolean getBestellingActief() {
-		return bestellingActief;
+	public Set<BestelArtikel> getBestelArtikelSet() {
+		return bestelArtikelSet;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setBestelNummer(String bestelNummer) {
+		this.bestelNummer = bestelNummer;
 	}
 
 	public void setBestellingActief(boolean bestellingActief) {
 		this.bestellingActief = bestellingActief;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder string = new StringBuilder("BESTELLING: " + bestellingId + " van klant " + klant.getKlantId() +
-				" status actief = " + bestellingActief + "\n");
-
-		Iterator<Artikel> artikelen = getArtikelLijst().iterator();
-
-		while (artikelen.hasNext()) {
-			Artikel artikel = artikelen.next();
-			string.append("\t\t" + artikel + "\n");
-		}
-
-		return string.toString();
+	public void setDatumAanmaak(String datumAanmaak) {
+		this.datumAanmaak = datumAanmaak;
 	}
+
+	public void setKlant(Klant klant) {
+		this.klant = klant;
+	}
+
+	public void setBestelArtikelSet(Set<BestelArtikel> bestelArtikelSet) {
+		this.bestelArtikelSet = bestelArtikelSet;
+	}
+
+	public void voegArtikelToe(BestelArtikel bestelArtikel){
+		if(bestelArtikelSet == null)
+			bestelArtikelSet = new HashSet<BestelArtikel>();
+		bestelArtikelSet.add(bestelArtikel);
+	}
+
+	public void verwijderArtikel(BestelArtikel bestelArtikel){
+		if(bestelArtikelSet.contains(bestelArtikel))
+			bestelArtikelSet.remove(bestelArtikel);
+	}
+
 }
