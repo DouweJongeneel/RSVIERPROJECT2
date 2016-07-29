@@ -1,6 +1,5 @@
 package logger;
 
-import gui.gui.ErrorBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class DeLogger {
 			try{
 				new DeLogger();
 			}catch(IOException e){
-				new ErrorBox().setMessageAndStart(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 		return logger;

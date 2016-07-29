@@ -1,116 +1,130 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
 
-import model.Prijs;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-/*
- * Created by Douwe_Jongeneel on 06-06-16.
- *
- * Dit is de Artikel Pojo + GS zodat er Artikel objecten
- * in een LinkedHasMap kunnen worden opgeslagen in de database.
- */
-@Entity(name = "artikel")
+@Entity
 public class Artikel implements Comparable<Artikel>{
-	
-	@ManyToOne //Many to one side is nooit mappedBy, dit is de eigenaars kant
-	@JoinColumn(name = "prijsID", updatable = false, insertable = false) // many to one has to disable writing
-	
+
 	@Id
-	@GeneratedValue
-	@Column(name = "artikelId")
-	private long artikelId;
-	
-	@Column(name = "omschrijving")
+	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
+	private int id;
+
+	@Column(nullable = false)
 	private String artikelNaam;
-	
-	// TODO - bestellingheeftartikel
-	private int aantalBesteld;
-	
-	@Column(name = "prijs") //TODO- prijstabel
+
+	@Transient
 	private BigDecimal artikelPrijs;
-	
-	// nullable = false --> om het juiste schema te genereren moet de joinColumn als notnull verklaard worden, schema
-	// generatie in hibernate is afhankelijk van de joinColumn aan de manyToOne side, aangezien de join column
-	// 2 x gedefinieert wordt moet aangegeven worden welke van de twee hibernate pakt.
-	
-	@JoinColumn(name = "prijsId", nullable = false)
-	private Prijs prijs; //default naar prijsId
-	
-	@Column(name = "datumAanmaak")
-	private String datumAanmaak;
-	
-	@Column(name = "verwachteLevertijd")
+
+	@OneToMany
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
+	private Set<Prijs> prijs;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "datumAanmaak", updatable = false, nullable = false)
+	protected Date datumAanmaak = null;
+
+	@Column
 	private int verwachteLevertijd;
-	
-	@Column(name = "inAssortiment")
+
+	@Column(nullable = false)
 	private boolean inAssortiment;
+
+	@OneToMany(mappedBy = "artikel")
+	@Column(nullable = false)
+	protected Set<BestelArtikel> bestelArtikel;
 
 	//Constructors
 	public Artikel() {
+		this.datumAanmaak = new Date(System.currentTimeMillis());
 	}
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs,
-			String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+
+	public Artikel(String artikelNaam, BigDecimal artikelPrijs, int verwachteLevertijd, boolean inAssortiment) {
 		this.artikelNaam = artikelNaam;
 		this.artikelPrijs = artikelPrijs;
-		this.datumAanmaak = datumAanmaak;
+		this.datumAanmaak = new Date(System.currentTimeMillis());
 		this.verwachteLevertijd = verwachteLevertijd;
 		this.inAssortiment = inAssortiment;
 	}
 
 	//Getters and Setters
-	public long getArtikelId() {
-		return artikelId;
+	public int getId() {
+		return id;
 	}
+
 	public String getArtikelNaam() {
 		return artikelNaam;
 	}
-	public int getAantalBesteld() {
-		return aantalBesteld;
-	}
+
 	public BigDecimal getArtikelPrijs() {
 		return artikelPrijs;
 	}
-	public long getPrijsId() {
-		return prijs.getPrijsId();
+
+	public Set<Prijs> getPrijs() {
+		return prijs;
 	}
-	public String getDatumAanmaak() {
+
+	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
+
 	public int getVerwachteLevertijd() {
 		return verwachteLevertijd;
 	}
+
 	public boolean isInAssortiment() {
 		return inAssortiment;
 	}
 
-	public void setArtikelId(int artikelId) {
-		this.artikelId = artikelId;
+	public Set<BestelArtikel> getBestelArtikel() {
+		return bestelArtikel;
 	}
+
+	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
+		this.bestelArtikel = bestelArtikel;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public void setArtikelNaam(String artikelNaam) {
 		this.artikelNaam = artikelNaam;
 	}
-	public void setAantalBesteld(int aantalBesteld) {
-		this.aantalBesteld = aantalBesteld;
-	}
+
 	public void setArtikelPrijs(BigDecimal artikelPrijs) {
 		this.artikelPrijs = artikelPrijs;
 	}
-	public void setPrijsId(long prijs_id) {
-		this.prijs.setPrijsId(prijs_id);
+
+	public void setPrijs(Set<Prijs> prijs) {
+		this.prijs = prijs;
 	}
-	public void setDatumAanmaak(String datumAanmaak) {
+
+	public void setDatumAanmaak(Date datumAanmaak) {
 		this.datumAanmaak = datumAanmaak;
 	}
+
 	public void setVerwachteLevertijd(int verwachteLevertijd) {
 		this.verwachteLevertijd = verwachteLevertijd;
 	}
+
 	public void setInAssortiment(boolean inAssortiment) {
 		this.inAssortiment = inAssortiment;
 	}
@@ -123,21 +137,20 @@ public class Artikel implements Comparable<Artikel>{
 
 	@Override
 	public boolean equals(Object o) {
-		return artikelId == ((Artikel)o).getArtikelId();
+		return id == ((Artikel)o).getId();
 	}
 
 	@Override
 	public String toString(){
-		return "ARTIKEL: " + artikelId + "\t " + artikelNaam + "\t $" + artikelPrijs.toPlainString()
-		+ "\t prijs id " + prijs.getPrijsId() + "\t " + datumAanmaak + "\t " + verwachteLevertijd + "\t "
+		return "ARTIKEL: " + id + "\t " + artikelNaam + "\t $" + artikelPrijs.toPlainString()
+		+ "\t " + datumAanmaak + "\t " + verwachteLevertijd + "\t "
 		+ inAssortiment;
 	}
 
-	@Override
 	public int compareTo(Artikel o) {
-		if (this.artikelId == o.getArtikelId())
+		if (this.id == o.getId())
 			return 0;
-		else if (this.artikelId > o.getArtikelId())
+		else if (this.id > o.getId())
 			return 1;
 		else
 			return -1;

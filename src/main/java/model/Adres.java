@@ -1,159 +1,182 @@
 package model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 
-/**
- * Created by Douwe_Jongeneel on 06-06-16.
- * Updated by Milan Verheij on 20-06-16 (nieuw DB-model).
- *
- * Dit is de Adres POJO + GS
- */
-
-@Entity(name = "adres")
+@Entity
 public class Adres {
-    //Datafield
+	//Datafield
 
-    @Id
-    @Column(name = "adresId")
-    private long adresId = 0;
+	@Id
+	@SequenceGenerator(name = "adresId", sequenceName = "zadres_sequence")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresId")
+	private long id;
 
-    @Column(name = "straatnaam")
-    private String straatnaam;
+	@Column(nullable = false)
+	private String straatnaam;
 
-    @Column(name = "postcode")
-    private String postcode;
+	@Column(nullable = false)
+	private String postcode;
 
-    @Column(name = "toevoeging")
-    private String toevoeging;
+	@Column(nullable = false)
+	private String toevoeging;
 
-    @Column(name = "huisnummer")
-    private int huisnummer;
+	@Column(nullable = false)
+	private int huisnummer;
 
-    @Column(name = "woonplaats")
-    private String woonplaats;
+	@Column(nullable = false)
+	private String woonplaats;
 
-    @Column(name = "datumAanmaak")
-    private String datumAanmaak;
+	@Column(nullable = false)
+	private String datumAanmaak;
 
-    @Column(name = "datumGewijzigd")
-    private String datumGewijzigd;
+	@Column(nullable = false)
+	private String datumGewijzigd;
 
-    @Column(name = "adresActief")
-    private String adresActief;
+	@Column(nullable = false)
+	private String adresActief;
 
-    //Consturctors
-    public Adres() {
-        //standaard een no-args constructor met lege gegevens. Komt enkel voor als er 'null' als Adres wordt
-        // meegegeven in de updateMethode van de AdresDAO
-    }
+	@ManyToMany(mappedBy = "adresGegevens")
+	@Column(nullable = false)
+	protected Set<Klant> klant = new HashSet<Klant>();
 
-    // Constructor met basis gegevens
-    public Adres(String straatnaam, String postcode, String toevoeging,
-                 int huisnummer, String woonplaats) {
-        this.straatnaam = straatnaam;
-        this.postcode = postcode;
-        this.toevoeging = toevoeging;
-        this.huisnummer = huisnummer;
-        this.woonplaats = woonplaats;
-    }
+	@Column(nullable = false)
+	protected AdresType type;
+	
+	//Constructors
+	public Adres() {}
 
-    // Constructor met basis gegevens en gegevens welke enkel bij tests worden gewijzigd maar wel van
-    // belang zijn voor het opvragen van gegevens etc. in de DAO's
-    public Adres(String straatnaam, String postcode, String toevoeging,
-                 int huisnummer, String woonplaats, String datumAanmaak,
-                 String datumGewijzigd, String adresActief) {
-        this.straatnaam = straatnaam;
-        this.postcode = postcode;
-        this.toevoeging = toevoeging;
-        this.huisnummer = huisnummer;
-        this.woonplaats = woonplaats;
-        this.datumAanmaak = datumAanmaak;
-        this.datumGewijzigd = datumGewijzigd;
-        this.adresActief = adresActief;
-    }
+	// Constructor met basis gegevens
+	public Adres(String straatnaam, String postcode, String toevoeging,
+			int huisnummer, String woonplaats) {
+		this.straatnaam = straatnaam;
+		this.postcode = postcode;
+		this.toevoeging = toevoeging;
+		this.huisnummer = huisnummer;
+		this.woonplaats = woonplaats;
+	}
 
-    //Getters and Setters
-    public String getStraatnaam() {
-        return straatnaam;
-    }
-    public String getPostcode() {
-        return postcode;
-    }
-    public String getToevoeging() {
-        return toevoeging;
-    }
-    public int getHuisnummer() {
-        return huisnummer;
-    }
-    public String getWoonplaats() {
-        return woonplaats;
-    }
-    public long getAdresId() {
-        return adresId;
-    }
-    public String getDatumAanmaak() {
-        return datumAanmaak;
-    }
-    public String getDatumGewijzigd() {
-        return datumGewijzigd;
-    }
-    public String getAdresActief() {
-        return adresActief;
-    }
+	// Constructor met basis gegevens en gegevens welke enkel bij tests worden gewijzigd maar wel van
+	// belang zijn voor het opvragen van gegevens etc. in de DAO's
+	public Adres(String straatnaam, String postcode, String toevoeging,
+			int huisnummer, String woonplaats, String datumAanmaak,
+			String datumGewijzigd, String adresActief) {
+		this.straatnaam = straatnaam;
+		this.postcode = postcode;
+		this.toevoeging = toevoeging;
+		this.huisnummer = huisnummer;
+		this.woonplaats = woonplaats;
+		this.datumAanmaak = datumAanmaak;
+		this.datumGewijzigd = datumGewijzigd;
+		this.adresActief = adresActief;
+	}
 
-    public void setStraatnaam(String straatnaam) {
-        this.straatnaam = straatnaam;
-    }
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-    public void setToevoeging(String toevoeging) {
-        this.toevoeging = toevoeging;
-    }
-    public void setHuisnummer(int huisnummer) {
-        this.huisnummer = huisnummer;
-    }
-    public void setWoonplaats(String woonplaats) {
-        this.woonplaats = woonplaats;
-    }
-    public void setAdresId(long adresId) {
-        this.adresId = adresId;
-    }
-    public void setDatumAanmaak(String datumAanmaak) {
-        this.datumAanmaak = datumAanmaak;
-    }
-    public void setDatumGewijzigd(String datumGewijzigd) {
-        this.datumGewijzigd = datumGewijzigd;
-    }
-    public void setAdresActief(String adresActief) {
-        this.adresActief = adresActief;
-    }
+	//Getters and Setters
+	public String getStraatnaam() {
+		return straatnaam;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public String getToevoeging() {
+		return toevoeging;
+	}
+	public int getHuisnummer() {
+		return huisnummer;
+	}
+	public String getWoonplaats() {
+		return woonplaats;
+	}
+	public long getId() {
+		return id;
+	}
+	public String getDatumAanmaak() {
+		return datumAanmaak;
+	}
+	public String getDatumGewijzigd() {
+		return datumGewijzigd;
+	}
+	public String getAdresActief() {
+		return adresActief;
+	}
 
-    @Override
-    public String toString() {
-        return "[" +
-                straatnaam + ", " +
-                postcode + ", " +
-                toevoeging + ", " +
-                huisnummer + ", " +
-                woonplaats + "]";
-    }
+	public Set<Klant> getKlant() {
+		return klant;
+	}
 
-    /**
-     * Een adres-object wordt geacht gelijk te zijn als zowel de postcode, huisnummer
-     * en de toevoeging overeen komen.
-     *
-     * @param obj Een adres-object om mee te vergelijken.
-     * @return Een waarde true of false.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (postcode.equals(((Adres)obj).getPostcode()) &&
-                huisnummer == ((Adres)obj).getHuisnummer() &&
-                toevoeging.equals(((Adres)obj).getToevoeging()))
-            return true;
-        return false;
-    }
+	public void setKlant(Set<Klant> klant) {
+		this.klant = klant;
+	}
+
+	public void setStraatnaam(String straatnaam) {
+		this.straatnaam = straatnaam;
+	}
+
+	public void voegKlantToe(Klant klant){
+		this.klant.add(klant);
+	}
+
+	public void haalKlantWeg(Klant klant){
+		if(this.klant.contains(klant))
+			this.klant.remove(klant);
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public void setToevoeging(String toevoeging) {
+		this.toevoeging = toevoeging;
+	}
+	public void setHuisnummer(int huisnummer) {
+		this.huisnummer = huisnummer;
+	}
+	public void setWoonplaats(String woonplaats) {
+		this.woonplaats = woonplaats;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public void setDatumAanmaak(String datumAanmaak) {
+		this.datumAanmaak = datumAanmaak;
+	}
+	public void setDatumGewijzigd(String datumGewijzigd) {
+		this.datumGewijzigd = datumGewijzigd;
+	}
+	public void setAdresActief(String adresActief) {
+		this.adresActief = adresActief;
+	}
+
+	@Override
+	public String toString() {
+		return "[" +
+				straatnaam + ", " +
+				postcode + ", " +
+				toevoeging + ", " +
+				huisnummer + ", " +
+				woonplaats + "]";
+	}
+
+	/**
+	 * Een adres-object wordt geacht gelijk te zijn als zowel de postcode, huisnummer
+	 * en de toevoeging overeen komen.
+	 *
+	 * @param obj Een adres-object om mee te vergelijken.
+	 * @return Een waarde true of false.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (postcode.equals(((Adres)obj).getPostcode()) &&
+				huisnummer == ((Adres)obj).getHuisnummer() &&
+				toevoeging.equals(((Adres)obj).getToevoeging()))
+			return true;
+		return false;
+	}
 }

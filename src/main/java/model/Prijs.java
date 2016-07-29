@@ -1,55 +1,65 @@
 package model;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity(name = "prijs")
 public class Prijs {
 	
 	@Id
-	@GeneratedValue
-	private long prijsId;
-	
-	@OneToMany(mappedBy = "artikel",
-			fetch = FetchType.LAZY	
-	)
-	
-	@Column(name = "prijs")
-	private BigDecimal prijs;
-	
-	// @Column(name = "datumAanmaak")
-	// Todo datum;
-	
-	@JoinColumn
-	private Artikel artikel;
+	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
+	protected long id;
 
-	public long getPrijsId() {
-		return prijsId;
-	}
-	public BigDecimal getPrijs() {
-		return prijs;
-	}
-	public Artikel getArtikel() {
-		return artikel;
+	@ManyToOne
+	@JoinTable(name = "prijsArtikel",
+	joinColumns = @JoinColumn(name = "prijsId", nullable = false),
+	inverseJoinColumns = @JoinColumn(name = "artikelId", nullable = false))
+	Artikel artikel;
+	
+	@Column(nullable = false)
+	BigDecimal prijs;
+	
+	@Column(nullable = false)
+	Date datumAanmaak = new Date(System.currentTimeMillis());
+
+	@OneToMany(mappedBy = "prijs")
+	@Column(nullable = false)
+	protected Set<BestelArtikel> bestelArtikel = new HashSet<BestelArtikel>();
+	
+	public Prijs(){}
+
+	public long getId() {
+		return id;
 	}
 
-	public void setPrijsId(long prijsId) {
-		this.prijsId = prijsId;
+	public Set<BestelArtikel> getBestelArtikel() {
+		return bestelArtikel;
 	}
-	public void setPrijs(BigDecimal prijs) {
-		this.prijs = prijs;
+	public Date getDatumAanmaak() {
+		return datumAanmaak;
 	}
-	public void setArtikel(Artikel artikel) {
-		this.artikel = artikel;
-	}
-	
-	
 
+	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
+		this.bestelArtikel = bestelArtikel;
+	}
+	public void setDatumAanmaak(Date datumAanmaak) {
+		this.datumAanmaak = datumAanmaak;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 }

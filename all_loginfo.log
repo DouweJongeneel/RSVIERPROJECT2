@@ -1,0 +1,24 @@
+2016-07-27 14:25:20.905 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: rsvierproject2PU
+	...]
+2016-07-27 14:25:21.190 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.2.1.Final}
+2016-07-27 14:25:21.198 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2016-07-27 14:25:21.200 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2016-07-27 14:25:21.393 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2016-07-27 14:25:21.732 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - Configuring HikariCP
+2016-07-27 14:25:22.343 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariCP pool HikariPool-0 is starting.
+2016-07-27 14:25:22.871 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - HikariCP Configured
+2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Database ->
+       name : MySQL
+    version : 5.5.42
+      major : 5
+      minor : 5
+2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Driver ->
+       name : MySQL Connector Java
+    version : mysql-connector-java-5.1.39 ( Revision: 3289a357af6d09ecc1a10fd3c26e95183e5790ad )
+      major : 5
+      minor : 1
+2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - JDBC version : 4.0
+2016-07-27 14:25:22.929 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2016-07-27 14:25:22.989 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - JDBC driver metadata reported database stores quoted identifiers in more than one case
+2016-07-27 14:25:22.992 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - IdentifierCaseStrategy for both quoted and unquoted identifiers was set to the same strategy [MIXED]; that will likely lead to problems in schema update and validation if using quoted identifiers
