@@ -1,7 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -35,8 +37,9 @@ public class Artikel implements Comparable<Artikel>{
 	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
 	private Set<Prijs> prijs;
 
-	@Column(nullable = false)
-	private String datumAanmaak;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "datumAanmaak", updatable = false, nullable = false)
+	protected Date datumAanmaak = null;
 
 	@Column
 	private int verwachteLevertijd;
@@ -50,13 +53,13 @@ public class Artikel implements Comparable<Artikel>{
 
 	//Constructors
 	public Artikel() {
-		datumAanmaak = new Date(System.currentTimeMillis()).toString();
+		this.datumAanmaak = new Date(System.currentTimeMillis());
 	}
 
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs, String datumAanmaak, int verwachteLevertijd, boolean inAssortiment) {
+	public Artikel(String artikelNaam, BigDecimal artikelPrijs, int verwachteLevertijd, boolean inAssortiment) {
 		this.artikelNaam = artikelNaam;
 		this.artikelPrijs = artikelPrijs;
-		this.datumAanmaak = datumAanmaak;
+		this.datumAanmaak = new Date(System.currentTimeMillis());
 		this.verwachteLevertijd = verwachteLevertijd;
 		this.inAssortiment = inAssortiment;
 	}
@@ -78,7 +81,7 @@ public class Artikel implements Comparable<Artikel>{
 		return prijs;
 	}
 
-	public String getDatumAanmaak() {
+	public Date getDatumAanmaak() {
 		return datumAanmaak;
 	}
 
@@ -114,7 +117,7 @@ public class Artikel implements Comparable<Artikel>{
 		this.prijs = prijs;
 	}
 
-	public void setDatumAanmaak(String datumAanmaak) {
+	public void setDatumAanmaak(Date datumAanmaak) {
 		this.datumAanmaak = datumAanmaak;
 	}
 
