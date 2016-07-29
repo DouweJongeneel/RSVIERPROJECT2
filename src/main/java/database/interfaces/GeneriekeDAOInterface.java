@@ -3,7 +3,7 @@ package database.interfaces;
 import java.io.Serializable;
 import java.util.Set;
 
-public interface ArtikelDAOInterface<E, Id extends Serializable> {
+public interface GeneriekeDAOInterface<E, Id extends Serializable> {
 	
 	public void persist(E entity);
 	

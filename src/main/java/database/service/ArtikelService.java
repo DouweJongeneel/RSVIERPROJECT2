@@ -2,7 +2,7 @@ package database.service;
 
 import java.util.Set;
 
-import database.daos.mysql.ArtikelDAO;
+import database.daos.ArtikelDAO;
 import model.Artikel;
 
 public class ArtikelService {

@@ -1,4 +1,4 @@
-package database.daos.mysql;
+package database.daos;
 
 import java.util.Set;
 
@@ -7,10 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import database.interfaces.ArtikelDAOInterface;
+import database.interfaces.GeneriekeDAOInterface;
 import model.Artikel;
 
-public class ArtikelDAO implements ArtikelDAOInterface<Artikel, String> {
+public class ArtikelDAO implements GeneriekeDAOInterface<Artikel, String> {
 	
 	private EntityManagerFactory entityManagerFactory = null;
 	
