@@ -19,7 +19,7 @@ public class ArtikelService {
 		artikelDAO.persist(entity);
 	}
 	
-	public Artikel findById(String id){
+	public Artikel findById(int id){
 		return artikelDAO.findById(id);
 	}
 	

@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import database.interfaces.GeneriekeDAOInterface;
 import model.Artikel;
 
-public class ArtikelDAO implements GeneriekeDAOInterface<Artikel, String> {
+public class ArtikelDAO implements GeneriekeDAOInterface<Artikel, Integer> {
 	
 	private EntityManagerFactory entityManagerFactory = null;
 	
@@ -44,7 +44,7 @@ public class ArtikelDAO implements GeneriekeDAOInterface<Artikel, String> {
 		
 	}
 	@Override
-	public Artikel findById(String id) {
+	public Artikel findById(Integer id) {
 		EntityManager entityManager = createEntityManager();
 		entityManager.getTransaction().begin();
 		Artikel artikel = entityManager.find(Artikel.class, id);
