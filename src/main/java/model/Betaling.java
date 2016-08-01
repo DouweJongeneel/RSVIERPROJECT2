@@ -17,7 +17,7 @@ public class Betaling {
 	@Id
 	@SequenceGenerator(name = "betalingId", sequenceName = "zbetaling_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "betalingId")
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	Date betaalDatum;
@@ -34,7 +34,7 @@ public class Betaling {
 	@Column(nullable = false)
 	String betalingsGegevens;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -58,7 +58,7 @@ public class Betaling {
 		return betalingsGegevens;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

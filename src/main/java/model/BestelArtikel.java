@@ -15,7 +15,7 @@ public class BestelArtikel {
 	@Id
 	@SequenceGenerator(name = "bestArtid", sequenceName = "zBestel_artikel_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestArtid")
-	private long id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "artikelId", nullable = false)
@@ -40,7 +40,7 @@ public class BestelArtikel {
 		this.aantal = aantal;		
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -64,7 +64,7 @@ public class BestelArtikel {
 		this.prijs = prijs;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

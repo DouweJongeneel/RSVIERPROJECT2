@@ -19,7 +19,7 @@ public class Bestelling{
 	@Id
 	@SequenceGenerator(name = "bestellingId", sequenceName = "zBestelling_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestellingId")
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String bestelNummer;
@@ -45,7 +45,7 @@ public class Bestelling{
 		bestelArtikelSet = new HashSet<BestelArtikel>();
 	}
 
-	public Bestelling(long id, Klant klant, Set<BestelArtikel> bestelArtikelSet, String datumAanmaak){
+	public Bestelling(Long id, Klant klant, Set<BestelArtikel> bestelArtikelSet, String datumAanmaak){
 		this.id = id;
 		this.klant = klant;
 		this.bestelArtikelSet = bestelArtikelSet;
@@ -53,7 +53,7 @@ public class Bestelling{
 		bestellingActief = true;
 	}
 
-	public Bestelling(long id, Klant klant, Set<BestelArtikel> bestelArtikelSet){
+	public Bestelling(Long id, Klant klant, Set<BestelArtikel> bestelArtikelSet){
 		this.id = id;
 		this.klant = klant;
 		this.bestelArtikelSet = bestelArtikelSet;
@@ -61,7 +61,7 @@ public class Bestelling{
 	}
 
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -85,7 +85,7 @@ public class Bestelling{
 		return bestelArtikelSet;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

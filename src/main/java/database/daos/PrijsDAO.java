@@ -1,18 +1,16 @@
 package database.daos;
 
-import model.Artikel;
+import model.Prijs;
 
-public class ArtikelDAO extends GenericDAOImpl<Artikel, Integer>{
-
+public class PrijsDAO extends GenericDAOImpl<Prijs, Long>	 {
 	/*
 	 * In principe is onderstaande constructor voldoende om de generiekeDAO te implementeren. 
 	 * Methodes kunnen toegevoegd of overschreven worden voor verdere implementatie.
 	 */
 	
 	// Constructor geeft automatisch de entityClass (Artikel.class) door aan GenericDAOImpl
-	protected ArtikelDAO() {
-		super(Artikel.class);
+	protected PrijsDAO() {
+		super(Prijs.class);
 	}
-	
-	
+
 }

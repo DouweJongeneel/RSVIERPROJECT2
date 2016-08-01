@@ -24,7 +24,7 @@ public class Klant{
 	@Id
 	@SequenceGenerator(name = "klantId", sequenceName = "zKlant_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "klantId")
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String voornaam;
@@ -63,7 +63,7 @@ public class Klant{
 	}
 
 	// Standaard public constructor met basis parameters
-	public Klant(long id,
+	public Klant(Long id,
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
@@ -84,7 +84,7 @@ public class Klant{
 
 	// Constructor voor alle variabelen, wordt over het algemeen gebruikt tijdens testwerkzaamheden
 	// en bij het opvragen van gegevens via de DAO's
-	public Klant(long id,
+	public Klant(Long id,
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
@@ -111,10 +111,10 @@ public class Klant{
 	}
 
 	// Getters & setters
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 		this.datumGewijzigd = new Date(System.currentTimeMillis()).toString();
 
