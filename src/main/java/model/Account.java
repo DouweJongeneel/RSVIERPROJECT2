@@ -16,7 +16,7 @@ public class Account {
 	@Id
 	@SequenceGenerator(name = "accountId", sequenceName = "zaccount_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "accountId")
-	private long id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String accountType;
@@ -27,7 +27,7 @@ public class Account {
 	@Column(nullable = false)
 	Date creatieDatum;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -43,7 +43,7 @@ public class Account {
 		return creatieDatum;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

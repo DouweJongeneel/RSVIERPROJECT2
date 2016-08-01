@@ -19,7 +19,7 @@ public class Factuur {
 	@Id
 	@SequenceGenerator(name = "factuurId", sequenceName = "zfactuur_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "factuurId")
-	private long id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String factuurNummer;
@@ -34,7 +34,7 @@ public class Factuur {
 	@ManyToOne(optional = false)
 	private Bestelling bestelling;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -54,7 +54,7 @@ public class Factuur {
 		return bestelling;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

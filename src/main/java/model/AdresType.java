@@ -16,7 +16,7 @@ public enum AdresType {
 	@Id
 	@SequenceGenerator(name = "adresTypeId", sequenceName = "zadresType_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresTypeId")
-	private long id;
+	private Long id;
 
 	private String text;
 	
@@ -28,11 +28,11 @@ public enum AdresType {
 		return text;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

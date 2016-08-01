@@ -2,16 +2,16 @@ package database.service;
 
 import java.util.Set;
 
-import database.daos.ArtikelDAO;
+import database.daos.ArtikelDAONietGeneriek;
 import model.Artikel;
 
 public class ArtikelService {
 	
-	private static ArtikelDAO artikelDAO;
+	private static ArtikelDAONietGeneriek artikelDAO;
 	
 	public ArtikelService() {
 		if (artikelDAO == null) {
-			artikelDAO = new ArtikelDAO();
+			artikelDAO = new ArtikelDAONietGeneriek();
 		}
 	}
 	
@@ -19,7 +19,7 @@ public class ArtikelService {
 		artikelDAO.persist(entity);
 	}
 	
-	public Artikel findById(int id){
+	public Artikel findById(Long id){
 		return artikelDAO.findById(id);
 	}
 	
@@ -39,7 +39,7 @@ public class ArtikelService {
 		artikelDAO.deleteALl();
 	}
 	
-	public ArtikelDAO artikelDAO() {
+	public ArtikelDAONietGeneriek artikelDAO() {
 		return artikelDAO;
 	}
 }

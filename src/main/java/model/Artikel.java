@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
@@ -18,12 +19,12 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-public class Artikel implements Comparable<Artikel>{
+public class Artikel implements Comparable<Artikel>, Serializable{
 
 	@Id
 	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
-	private int id;
+	private Long id; // hibernate returned nooit null wanneer het een primitiev type is
 
 	@Column(nullable = false)
 	private String artikelNaam;
@@ -65,7 +66,7 @@ public class Artikel implements Comparable<Artikel>{
 	}
 
 	//Getters and Setters
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -101,7 +102,7 @@ public class Artikel implements Comparable<Artikel>{
 		this.bestelArtikel = bestelArtikel;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -142,7 +143,7 @@ public class Artikel implements Comparable<Artikel>{
 
 	@Override
 	public String toString(){
-		return "ARTIKEL: " + id + "\t " + artikelNaam + "\t $" + artikelPrijs.toPlainString()
+		return "ARTIKEL: " + artikelNaam + "\t $" + artikelPrijs.toPlainString()
 		+ "\t " + datumAanmaak + "\t " + verwachteLevertijd + "\t "
 		+ inAssortiment;
 	}

@@ -18,7 +18,7 @@ public enum Betaalwijze {
 	@Id
 	@SequenceGenerator(name = "betaalwijzeId", sequenceName = "zbetaalwijze_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "betaalwijzeId")
-	private long id;
+	private Long id;
 
 	private String text;
 	
@@ -30,11 +30,11 @@ public enum Betaalwijze {
 		return text;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

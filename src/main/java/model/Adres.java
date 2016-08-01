@@ -18,7 +18,7 @@ public class Adres {
 	@Id
 	@SequenceGenerator(name = "adresId", sequenceName = "zadres_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresId")
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String straatnaam;
@@ -95,7 +95,7 @@ public class Adres {
 	public String getWoonplaats() {
 		return woonplaats;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public String getDatumAanmaak() {
@@ -141,7 +141,7 @@ public class Adres {
 	public void setWoonplaats(String woonplaats) {
 		this.woonplaats = woonplaats;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public void setDatumAanmaak(String datumAanmaak) {

@@ -22,7 +22,7 @@ public class Prijs {
 	@Id
 	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
-	protected long id;
+	protected Long id;
 
 	@ManyToOne
 	@JoinTable(name = "prijsArtikel",
@@ -42,7 +42,7 @@ public class Prijs {
 	
 	public Prijs(){}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -59,7 +59,7 @@ public class Prijs {
 	public void setDatumAanmaak(Date datumAanmaak) {
 		this.datumAanmaak = datumAanmaak;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }
