@@ -14,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 public class Account {
 
 	@Id
-	@SequenceGenerator(name = "accountId", sequenceName = "zaccount_sequence")
+	@SequenceGenerator(name = "accountId", sequenceName = "zaccount_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "accountId")
 	private Long id;
 	

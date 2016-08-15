@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 public class Factuur {
 
 	@Id
-	@SequenceGenerator(name = "factuurId", sequenceName = "zfactuur_sequence")
+	@SequenceGenerator(name = "factuurId", sequenceName = "zfactuur_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "factuurId")
 	private Long id;
 	

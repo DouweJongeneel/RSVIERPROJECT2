@@ -1,5 +1,7 @@
 package com.adm.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,8 +24,8 @@ import javax.persistence.SequenceGenerator;
 public class Klant{
 
 	@Id
-	@SequenceGenerator(name = "klantId", sequenceName = "zKlant_sequence")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "klantId")
+	@SequenceGenerator(name = "klantId", sequenceName = "zKlant_sequence", allocationSize = 1)
 	private Long id;
 
 	@Column(nullable = false)

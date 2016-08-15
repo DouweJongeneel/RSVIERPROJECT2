@@ -16,7 +16,7 @@ public class Adres {
 	//Datafield
 
 	@Id
-	@SequenceGenerator(name = "adresId", sequenceName = "zadres_sequence")
+	@SequenceGenerator(name = "adresId", sequenceName = "zadres_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresId")
 	private Long id;
 

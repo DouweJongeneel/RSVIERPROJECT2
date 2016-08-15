@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 public class Prijs {
 	
 	@Id
-	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence")
+	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
 	protected Long id;
 

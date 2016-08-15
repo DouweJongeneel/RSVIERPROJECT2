@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 public class BestelArtikel {
 
 	@Id
-	@SequenceGenerator(name = "bestArtid", sequenceName = "zBestel_artikel_sequence")
+	@SequenceGenerator(name = "bestArtid", sequenceName = "zBestel_artikel_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestArtid")
 	private Long id;
 

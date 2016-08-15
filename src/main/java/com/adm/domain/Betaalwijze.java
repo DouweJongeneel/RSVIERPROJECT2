@@ -16,7 +16,7 @@ public enum Betaalwijze {
 	NATURA ("Natura");
 	
 	@Id
-	@SequenceGenerator(name = "betaalwijzeId", sequenceName = "zbetaalwijze_sequence")
+	@SequenceGenerator(name = "betaalwijzeId", sequenceName = "zbetaalwijze_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "betaalwijzeId")
 	private Long id;
 

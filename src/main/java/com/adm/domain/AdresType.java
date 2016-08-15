@@ -14,7 +14,7 @@ public enum AdresType {
 	BEZORGADRES ("Bezorgadres");
 	
 	@Id
-	@SequenceGenerator(name = "adresTypeId", sequenceName = "zadresType_sequence")
+	@SequenceGenerator(name = "adresTypeId", sequenceName = "zadresType_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresTypeId")
 	private Long id;
 

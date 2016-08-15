@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 public class Bestelling{
 
 	@Id
-	@SequenceGenerator(name = "bestellingId", sequenceName = "zBestelling_sequence")
+	@SequenceGenerator(name = "bestellingId", sequenceName = "zBestelling_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "bestellingId")
 	private Long id;
 

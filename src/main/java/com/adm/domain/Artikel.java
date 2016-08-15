@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 public class Artikel implements Comparable<Artikel>, Serializable{
 
 	@Id
-	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence")
+	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
 	private Long id; // hibernate returned nooit null wanneer het een primitiev type is
 
