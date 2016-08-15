@@ -1,4 +1,4 @@
-package com.adm.web;
+package com.adm.web.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import org.springframework.stereotype.Controller;

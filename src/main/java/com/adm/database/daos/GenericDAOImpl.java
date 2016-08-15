@@ -1,6 +1,8 @@
 package com.adm.database.daos;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,20 +11,26 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import com.adm.database.interfaces.GenericDAO;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
+@Transactional
+@Profile({"persistence", "production"})
 public abstract class GenericDAOImpl<E, ID extends Serializable> implements GenericDAO<E, ID> {
 	
 	/*
 	 * Een generiekeDAO heeft een entitymanager en een entityclass nodig om te werken.
 	 * De entityManager kan in JavaEE geleverd worden door een subklasse die de persistence
-	 * context begrijpt. Anders kan setEntityManager() gebruikt worden. 
-	 * 
+	 * context begrijpt. Anders kan setEntityManager() gebruikt worden.
 	 */
+
 	@PersistenceContext
-	protected EntityManager entityManager;
+	private EntityManager entityManager;
 	
-	protected final Class<E> entityClass;
-	
+	private final Class<E> entityClass;
+
 	protected GenericDAOImpl(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
