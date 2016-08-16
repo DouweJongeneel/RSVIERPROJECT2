@@ -13,14 +13,20 @@
 <div id="content">
     <h1 th:text="#{harrie.home.welcome}"></h1>
 
-    <span><a th:href="@{/klant/login}">Login</a></span>
-        <span> | </span>
     <span><a th:href="@{/klant/profile}" th:text="#{harrie.home.profile}">Profile</a></span>
         <span> | </span>
     <!--TODO: Vanuit session klant ophalen en doorsturen naar juiste klant -->
     <span><a th:href="@{/klant/register}" th:text="#{harrie.home.register}">Register</a></span>
         <span> | </span>
     <span><a th:href="@{/artikel/}" th:text="#{harrie.home.products}">Products</a></span>
+        <span> | </span>
+    <span><a th:href="@{/bestelling/}" th:text="#{harrie.home.orders}">Orders</a></span>
+
+    <span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" th:value="#{harrie.home.logout}"></input>
+        </form>
+    </span>
 
     <br/>
 

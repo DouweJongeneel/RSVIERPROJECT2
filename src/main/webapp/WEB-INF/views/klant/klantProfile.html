@@ -10,7 +10,11 @@
 <div id="header" th:include="page :: header"></div>
 
 <div id="content">
+    <div id="currentProfile" class="currentProfile">
     <h1 th:text="#{harrie.profile.profile}"></h1>
+
+    <span th:text="#{harrie.klant.id}"></span>:
+        <span th:text="${klant.id}"></span><br />
 
     <span th:text="#{harrie.klant.firstName}"></span>:
         <span th:text="${klant.voornaam}"></span><br/>
@@ -29,7 +33,15 @@
 
     <span th:text="#{harrie.klant.active}"></span>:
         <span th:text="${klant.klantActief}"></span><br/>
+    </div>
+
+    <br/>
+
+    <div id = "clientList" class="clientList">
+        Clientenlijst
+    </div>
 </div>
+
 
 <div id="footer" th:include="page :: copy"></div>
 </body>

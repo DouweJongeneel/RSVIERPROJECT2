@@ -1,5 +1,7 @@
-package com.adm.config;
+package com.adm.config.initializers;
 
+import com.adm.config.RootConfig;
+import com.adm.config.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.MultipartConfigElement;

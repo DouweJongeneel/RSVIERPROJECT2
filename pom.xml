@@ -67,6 +67,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.2.RELEASE</spring.version>
+        <spring.security.version>4.1.2.RELEASE</spring.security.version>
         <javax.servlet.version>3.1.0</javax.servlet.version>
         <junit.version>4.12</junit.version>
         <commons.version>3.4</commons.version>
@@ -84,7 +85,7 @@
 
     <dependencies>
 
-        <!-- SPRING DEPENDENCIES -->
+        <!-- SPRING MVC DEPENDENCIES -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -119,6 +120,26 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <!-- SPRING SECURITY DEPENDENCIES -->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
 
         <!-- DATABASE DEPENDENCIES (EMBEDDED)-->
@@ -184,6 +205,13 @@
             <artifactId>thymeleaf-spring4</artifactId>
             <version>${thymeleaf.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>3.0.0.RELEASE</version>
+        </dependency>
+
 
         <!-- TESTING DEPENDENCIES -->
         <dependency>

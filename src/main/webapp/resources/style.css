@@ -78,3 +78,10 @@ td {
     font-size: 16pt;
 }
 
+.currentProfile div {
+    border-style: solid;
+}
+
+.clientlist div {
+    border-style: solid;
+}

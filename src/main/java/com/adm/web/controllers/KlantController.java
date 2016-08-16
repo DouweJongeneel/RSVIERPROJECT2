@@ -4,11 +4,13 @@ import com.adm.database.daos.KlantDAO;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,7 +60,7 @@ public class KlantController {
             return "/klant/klantRegisterForm";
         }
 
-        // Save Spitter to repository
+        // Save klant to repository
         Klant nieuweKlant = klantRegisterForm.toKlant();
         klantDAO.makePersistent(nieuweKlant);
 
@@ -69,13 +71,10 @@ public class KlantController {
 
         //TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
 
-        // Save profile name to model
-        model.addAttribute("username", (nieuweKlant.getVoornaam() + nieuweKlant.getAchternaam()));
-
-        // Save flash attribute Spitter model
+        // Save flash attribute
         model.addFlashAttribute("klant", nieuweKlant);
 
-        // Redirect to created Spitter profile
+        // Redirect to created profile
         return "redirect:/klant/{username}";
     }
 
@@ -88,5 +87,11 @@ public class KlantController {
         }
 
         return "klant/klantProfile";
+    }
+
+    @RequestMapping(value="/me", method=GET)
+    public String me() {
+        System.out.println("ME ME ME ME ME ME ME ME ME ME ME");
+        return "home";
     }
 }

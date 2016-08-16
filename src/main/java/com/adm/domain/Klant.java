@@ -1,7 +1,5 @@
 package com.adm.domain;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
