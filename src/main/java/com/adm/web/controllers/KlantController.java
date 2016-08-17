@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,7 +38,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class KlantController {
 
     private KlantDAO klantDAO;
-//    private Klant klant;
 
     @Autowired
     public KlantController(KlantDAO klantDAO) {
