@@ -50,11 +50,19 @@
             </tr>
 
             <tr>
+                <td><label th:class="${#fields.hasErrors('password')}? 'error'"
+                           th:text="#{harrie.klant.password}"></label>:</td>
+                <td><input type="password" th:field="*{password}"
+                           th:class="${#fields.hasErrors('password')}? 'error'" /></td>
+            </tr>
+
+            <tr>
                 <td><label th:text="#{harrie.klant.profilePicture}"></label></td>
                 <td><input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /></td>
             </tr>
         </table>
         <input type="submit" value="Push Da Button!" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </form>
 </div>
 

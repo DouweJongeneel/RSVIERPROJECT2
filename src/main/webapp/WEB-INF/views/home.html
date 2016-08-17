@@ -15,6 +15,8 @@
 
     <span><a th:href="@{/klant/profile}" th:text="#{harrie.home.profile}">Profile</a></span>
         <span> | </span>
+    <span><a th:href="@{/klant/klanten}" th:text="#{harrie.home.clients}">Clients</a></span>
+        <span> | </span>
     <!--TODO: Vanuit session klant ophalen en doorsturen naar juiste klant -->
     <span><a th:href="@{/klant/register}" th:text="#{harrie.home.register}">Register</a></span>
         <span> | </span>
@@ -27,9 +29,6 @@
             <input type="submit" th:value="#{harrie.home.logout}" />
         </form>
     </span>
-
-
-    <span th:text="${globalKlant.achternaam}"></span>
 
     <br/>
 

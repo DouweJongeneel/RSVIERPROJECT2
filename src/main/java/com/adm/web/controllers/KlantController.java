@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -37,19 +39,20 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class KlantController {
 
     private KlantDAO klantDAO;
+//    private Klant klant;
 
     @Autowired
     public KlantController(KlantDAO klantDAO) {
         this.klantDAO = klantDAO;
     }
 
-    @RequestMapping(value = "/register", method=GET)
+    @RequestMapping(value = "/register", method = GET)
     public String showRegistrationForm(Model model) {
         model.addAttribute("klantRegisterForm", new KlantRegisterForm());
         return "klant/klantRegisterForm";
     }
 
-    @RequestMapping(value = "/register", method=POST)
+    @RequestMapping(value = "/register", method = POST)
     public String processRegistration(
             @Valid KlantRegisterForm klantRegisterForm,
             Errors errors,
@@ -73,25 +76,66 @@ public class KlantController {
 
         // Save flash attribute
         model.addFlashAttribute("klant", nieuweKlant);
+        model.addAttribute("email", nieuweKlant.getEmail());
 
         // Redirect to created profile
-        return "redirect:/klant/{username}";
+        return "redirect:/klant/{email}";
     }
 
-    @RequestMapping(value="/{username}", method=GET)
-    public String showSpitterProfile(@PathVariable String username, Model model) {
-
-        if (!model.containsAttribute("klant")) {
-            Klant klantje = new Klant(null, "FOUT", "FOUT", "FOUT", "FOUT", null);
-            model.addAttribute("klant", klantje);
-        }
+    // Profiel pagina (leeg)
+    @RequestMapping(value = "/profile", method = GET)
+    public String showProfile(Model model, Klant klant) {
+        model.addAttribute("klant", klant);
 
         return "klant/klantProfile";
     }
 
-    @RequestMapping(value="/me", method=GET)
-    public String me() {
-        System.out.println("ME ME ME ME ME ME ME ME ME ME ME");
-        return "home";
+    // Profielpagina(op basis van url met email)
+    @RequestMapping(value = "/{email}", method = GET)
+    public String showKlantProfile(@PathVariable String email, Model model, Klant globalKlant) {
+
+        if (!model.containsAttribute("klant")) {
+            Klant klantje = new Klant(null, "FOUT", "FOUT", "FOUT", "FOUT", "FOUT", null);
+            model.addAttribute("klant", klantje);
+        }
+
+        model.addAttribute("klant", globalKlant);
+
+        return "klant/klantProfile";
+    }
+
+    // Klantenlijst pagina
+    @RequestMapping(value = "/klanten", method = GET)
+    public String showKlanten(Model model) {
+        List<Klant> klantenLijst = klantDAO.findAll();
+
+        model.addAttribute("klantenList", klantenLijst);
+        return "klant/klantenLijst";
+    }
+
+    // Tumble status methode
+    @RequestMapping(value = "/delete/{id}", method = GET)
+    public String tumbleStatusKlant(@PathVariable Long id, Model model) {
+        Klant klant = klantDAO.findById(id);
+
+        if (klant.getKlantActief().charAt(0) == '0')
+            klant.setKlantActief("1");
+        else
+            klant.setKlantActief("0");
+
+        klantDAO.makePersistent(klant);
+
+
+        return showKlanten(model);
+    }
+
+    // Select Client
+    @RequestMapping(value = "/select/{id}", method = GET)
+    public String selectKlant(@PathVariable Long id, Model model) {
+        Klant klant = klantDAO.findById(id);
+
+        model.addAttribute(klant);
+
+        return showProfile(model, klant);
     }
 }

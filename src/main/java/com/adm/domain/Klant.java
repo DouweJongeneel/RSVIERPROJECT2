@@ -48,6 +48,9 @@ public class Klant implements Serializable {
 	@Column(nullable = false)
 	private String email;
 
+    @Column(nullable = false)
+    private String password;
+
 	@Column(nullable = false)
 	private String datumAanmaak;
 
@@ -77,7 +80,7 @@ public class Klant implements Serializable {
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
-			String email,
+			String email, String password,
 			Map<Adres, AdresType> adresGegevens) {
 
 		if (adresGegevens != null){
@@ -90,6 +93,7 @@ public class Klant implements Serializable {
 		this.tussenvoegsel = tussenvoegsel;
 		this.datumAanmaak = new Date(System.currentTimeMillis()).toString();
 		this.email = email;
+        this.password = password;
 	}
 
 	// Constructor voor alle variabelen, wordt over het algemeen gebruikt tijdens testwerkzaamheden
@@ -99,6 +103,7 @@ public class Klant implements Serializable {
 			String achternaam,
 			String tussenvoegsel,
 			String email,
+                 String password,
 			String datumAanmaak,
 			String datumGewijzigd,
 			String klantActief,
@@ -114,6 +119,7 @@ public class Klant implements Serializable {
 		this.achternaam = achternaam;
 		this.tussenvoegsel = tussenvoegsel;
 		this.email = email;
+        this.password = password;
 		this.datumAanmaak = datumAanmaak;
 		this.datumGewijzigd = datumGewijzigd;
 		this.klantActief = klantActief;
@@ -176,9 +182,15 @@ public class Klant implements Serializable {
 	}
 	public void setAdresGegevens(Map<Adres, AdresType> adresGegevens) {
 		this.adresGegevens = adresGegevens;
-	} 
+	}
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Set<Bestelling> getBestellingen() {
+    public Set<Bestelling> getBestellingen() {
 		return bestellingen;
 	}
 	public void setBestellingen(Set<Bestelling> bestellingGegevens) {
