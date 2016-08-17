@@ -8,28 +8,17 @@
 </head>
 
 <body>
-<div id="header" th:include="page :: header"></div>
+<div id="header" th:include="page :: headerAuthenticated"></div>
 
 <div id="content">
-    <h1 th:text="#{harrie.home.welcome}"></h1>
 
-    <span><a th:href="@{/klant/profile}" th:text="#{harrie.home.profile}">Profile</a></span>
-        <span> | </span>
-    <span><a th:href="@{/klant/klanten}" th:text="#{harrie.home.clients}">Clients</a></span>
-        <span> | </span>
-    <!--TODO: Vanuit session klant ophalen en doorsturen naar juiste klant -->
-    <span><a th:href="@{/klant/register}" th:text="#{harrie.home.register}">Register</a></span>
-        <span> | </span>
-    <span><a th:href="@{/artikel/}" th:text="#{harrie.home.products}">Products</a></span>
-        <span> | </span>
-    <span><a th:href="@{/bestelling/}" th:text="#{harrie.home.orders}">Orders</a></span>
-
-    <span>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" th:value="#{harrie.home.logout}" />
-        </form>
-    </span>
-
+    <p>
+    Door veel te lezen vergroot je je vocabulaire en ontwikkel je gevoel voor stijl en genre-kenmerken. Dit gaat
+    gewoonlijk vanzelf, maar je kunt het ook doelbewust en gericht doen. Als je voorafgaand aan een schrijfopdracht
+    vergelijkbare, bestaande teksten bekijkt, kun je je al lezend een beeld vormen van de eisen en verwachtingen
+    waaraan je eigen werk moet voldoen. Het verschaft vaak helderheid over aspecten van tekstsoorten die in
+    opdrachtinstructies niet onder woorden (kunnen) worden gebracht.
+    </p>
     <br/>
 
 </div>
