@@ -1,5 +1,11 @@
 package com.adm.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +25,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Klant{
+@Component
+@Scope(
+		value= WebApplicationContext.SCOPE_GLOBAL_SESSION,
+		proxyMode = ScopedProxyMode.INTERFACES)
+public class Klant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "klantId")

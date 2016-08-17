@@ -24,9 +24,12 @@
 
     <span>
         <form th:action="@{/logout}" method="post">
-            <input type="submit" th:value="#{harrie.home.logout}"></input>
+            <input type="submit" th:value="#{harrie.home.logout}" />
         </form>
     </span>
+
+
+    <span th:text="${globalKlant.achternaam}"></span>
 
     <br/>
 

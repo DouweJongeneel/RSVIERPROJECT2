@@ -4,7 +4,6 @@ import com.adm.database.daos.KlantDAO;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -34,6 +33,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/klant")
+@SessionAttributes("klant")
 public class KlantController {
 
     private KlantDAO klantDAO;
