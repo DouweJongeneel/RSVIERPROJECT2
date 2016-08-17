@@ -3,10 +3,13 @@ package com.adm.web.controllers;
 import com.adm.database.daos.KlantDAO;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -14,8 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -33,6 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 
 @Controller
+@Component
 @RequestMapping("/klant")
 @SessionAttributes("klant")
 public class KlantController {
@@ -46,7 +53,9 @@ public class KlantController {
 
     @RequestMapping(value = "/register", method = GET)
     public String showRegistrationForm(Model model) {
+
         model.addAttribute("klantRegisterForm", new KlantRegisterForm());
+
         return "klant/klantRegisterForm";
     }
 
@@ -63,12 +72,12 @@ public class KlantController {
 
         // Save klant to repository
         Klant nieuweKlant = klantRegisterForm.toKlant();
-        klantDAO.makePersistent(nieuweKlant);
+        nieuweKlant = klantDAO.makePersistent(nieuweKlant);
 
         // Save profilePicture
         MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
         profilePicture.transferTo(new File("/data/profilePictures/"
-                + nieuweKlant.getVoornaam() + nieuweKlant.getAchternaam() + ".jpg"));
+                + nieuweKlant.getId() + ".jpg"));
 
         //TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
 
@@ -107,6 +116,7 @@ public class KlantController {
     public String showKlanten(Model model) {
         List<Klant> klantenLijst = klantDAO.findAll();
 
+
         model.addAttribute("klantenList", klantenLijst);
         return "klant/klantenLijst";
     }
@@ -129,9 +139,15 @@ public class KlantController {
 
     // Select Client
     @RequestMapping(value = "/select/{id}", method = GET)
-    public String selectKlant(@PathVariable Long id, Model model) {
+    public String selectKlant(@PathVariable Long id, Model model) throws Exception {
         Klant klant = klantDAO.findById(id);
 
+        byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
+                + klant.getId() + ".jpg").toPath());
+
+        String imageDataString = Base64.encode(array);
+
+        model.addAttribute("plaatje", imageDataString);
         model.addAttribute(klant);
 
         return showProfile(model, klant);

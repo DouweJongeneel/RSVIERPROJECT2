@@ -84,3 +84,8 @@ table td.klantList {
 .spittleForm h1 {
     font-size: 16pt;
 }
+
+img.profilePicture {
+    width: 200px;
+    height: 200px;
+}

@@ -65,6 +65,9 @@
                     <span><a th:href="@{/klant/wijzigen/{id}(id=${klant.id})}">Modify</a></span><br />
                     <span><a th:href="@{/klant/verwijderen/{id}(id=${klant.id})}">Tumble Status</a></span><br />
                 </td>
+                <td>
+                    <img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" />
+                </td>
 
             </tr>
 
