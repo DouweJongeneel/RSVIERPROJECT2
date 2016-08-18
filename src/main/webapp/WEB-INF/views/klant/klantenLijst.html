@@ -68,6 +68,10 @@
                     <span><a th:href="@{/klant/delete/{id}(id=${klant.id})}">Tumble Status</a></span><br />
                 </td>
 
+                <td class = "klantListProfilePicture">
+                    <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatjesList.get((klant.id - 1))}}" /></span>
+                </td>
+
             </tr>
         </table>
     </div>

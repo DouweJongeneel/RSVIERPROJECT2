@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2061336287">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="rsvierproject2PU/Hibernate" read-only="true" uuid="cddc6bad-f0a5-4e6a-a2ce-7164334b2265">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

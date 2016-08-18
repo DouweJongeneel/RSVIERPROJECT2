@@ -85,6 +85,11 @@ table td.klantList {
     font-size: 16pt;
 }
 
+table td.klantListProfilePicture {
+    width: 200px;
+    height: 200px;
+}
+
 img.profilePicture {
     width: 200px;
     height: 200px;

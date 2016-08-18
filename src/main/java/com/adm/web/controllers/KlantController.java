@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -38,10 +39,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  *
  */
 
+//TODO Exception handling
+
 @Controller
 @Component
 @RequestMapping("/klant")
-@SessionAttributes("klant")
+@SessionAttributes({ "klant", "plaatje"})
 public class KlantController {
 
     private KlantDAO klantDAO;
@@ -113,17 +116,27 @@ public class KlantController {
 
     // Klantenlijst pagina
     @RequestMapping(value = "/klanten", method = GET)
-    public String showKlanten(Model model) {
+    public String showKlanten(Model model) throws Exception {
         List<Klant> klantenLijst = klantDAO.findAll();
 
+        ArrayList<String> plaatjesList = new ArrayList<>();
 
+        // Laad de profielpictures in
+        for (int i = 0; i < klantenLijst.size(); i++) {
+            byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
+                    + klantenLijst.get(i).getId() + ".jpg").toPath());
+
+            plaatjesList.add((i), Base64.encode(array));
+        }
+
+        model.addAttribute("plaatjesList", plaatjesList);
         model.addAttribute("klantenList", klantenLijst);
         return "klant/klantenLijst";
     }
 
     // Tumble status methode
     @RequestMapping(value = "/delete/{id}", method = GET)
-    public String tumbleStatusKlant(@PathVariable Long id, Model model) {
+    public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
         Klant klant = klantDAO.findById(id);
 
         if (klant.getKlantActief().charAt(0) == '0')

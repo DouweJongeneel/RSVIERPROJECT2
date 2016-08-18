@@ -17,6 +17,7 @@
             <tr>
                 <th align="left">Client</th>
                 <th align="left">Actions</th>
+                <th align="left">Profile Picture</th>
             </tr>
 
             <tr class = "klantList">
@@ -65,8 +66,9 @@
                     <span><a th:href="@{/klant/wijzigen/{id}(id=${klant.id})}">Modify</a></span><br />
                     <span><a th:href="@{/klant/verwijderen/{id}(id=${klant.id})}">Tumble Status</a></span><br />
                 </td>
-                <td>
-                    <img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" />
+
+                <td class = "klantListProfilePicture">
+                   <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" /></span>
                 </td>
 
             </tr>
