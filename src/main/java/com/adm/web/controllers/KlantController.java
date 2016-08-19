@@ -49,6 +49,9 @@ public class KlantController {
 
     private KlantDAO klantDAO;
 
+//    private String pictureFolder = "C:/harrie/uploads/data/profilePictures"; // Windows
+    private String pictureFolder = "/tmp/harrie/uploads/data/profilePictures/"; // Unix-Based
+
     @Autowired
     public KlantController(KlantService klantService) {
         this.klantDAO = klantService.getDAO();
@@ -113,7 +116,7 @@ public class KlantController {
 
         // Laad de profielpictures in
         for (int i = 0; i < klantenLijst.size(); i++) {
-            byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
+            byte[] array = Files.readAllBytes(new File(pictureFolder
                     + klantenLijst.get(i).getId() + ".jpg").toPath());
 
             plaatjesList.add((i), Base64.encode(array));
