@@ -8,6 +8,7 @@ import com.adm.domain.Adres;
 import com.adm.domain.AdresType;
 import com.adm.domain.Klant;
 import com.adm.web.forms.AdresRegisterForm;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -46,9 +47,10 @@ public class AdresController {
     }
 
     @RequestMapping(value = "/register", method = GET)
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, Klant klant) {
 
         model.addAttribute("adresRegisterForm", new AdresRegisterForm());
+        model.addAttribute("klant", klant);
 
         return "klant/adres/adresRegisterForm";
     }
@@ -65,13 +67,15 @@ public class AdresController {
             return "/klant/adres/adresRegisterForm";
         }
 
-        // Save klant to repository
+        // Maak van adersForm -> adres
         Adres nieuwAdres = adresRegisterForm.toAdres();
 
-        Klant klantInMethod = klant;
-        klantInMethod.getAdresGegevens().put(nieuwAdres, AdresType.THUISADRES);
+        //Zet het adres in de klant en persist die shit
+        Hibernate.initialize(klant.getAdresGegevens());
+        klant.getAdresGegevens().put(nieuwAdres, AdresType.THUISADRES);
+        klantDAO.makePersistent(klant);
 
-        klantDAO.makePersistent(klantInMethod);
+        // Update dat adres enzo wat betreft persistence
         nieuwAdres = adresDAO.makePersistent(nieuwAdres);
 
         // Save flash attribute
@@ -79,7 +83,7 @@ public class AdresController {
         model.addAttribute("id", nieuwAdres.getId());
 
         // Redirect to created profile
-        return "redirect:/klant/{id}";
+        return "redirect:/klant/profile";
     }
 
 }

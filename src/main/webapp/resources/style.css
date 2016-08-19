@@ -1,3 +1,5 @@
+/* Generic stuff */
+
 body {
     background: #ffffff;
     /*fixed left top;*/
@@ -50,11 +52,22 @@ div.errors {
     margin-right: auto;
 }
 
+/* Generic Klant */
+.klantId {
+    font-size: 9pt;
+}
+
+.klantInformation {
+    font-size: 8pt;
+}
+
+
+/*Klantenlijst*/
+
 .klantList h1 {
     font-size: 16pt;
 }
 
-/*Klantenlijst*/
 table th.klantList {
     font-size: 10pt;
 }
@@ -73,21 +86,6 @@ table td.klantList {
     border: 1px dotted darkred;
 }
 
-.klantAdresHeader {
-    font-size: 12pt;
-}
-
-.klantId {
-    font-size: 9pt;
-}
-
-.klantInformation {
-    font-size: 8pt;
-}
-
-.spittleForm h1 {
-    font-size: 16pt;
-}
 
 table td.klantListProfilePicture {
     width: 200px;
@@ -97,4 +95,33 @@ table td.klantListProfilePicture {
 img.profilePicture {
     width: 200px;
     height: 200px;
+}
+
+
+
+/* Adres Lijst */
+.klantAdresHeader {
+    font-size: 12pt;
+}
+
+.adresList h1 {
+    font-size: 16pt;
+}
+
+table th.adresList {
+    font-size: 10pt;
+}
+
+table.adresList {
+    border: 1px solid darkred;
+    background-color: #F3D392;
+    font-size: 8pt;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td.adresList {
+    background-color: #F9F7F3;
+    border: 1px dotted darkred;
 }

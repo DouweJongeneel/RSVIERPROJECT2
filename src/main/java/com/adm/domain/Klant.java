@@ -64,7 +64,6 @@ public class Klant implements Serializable {
 	@JoinTable(name = "klantAdresAdresType",
 		joinColumns = @JoinColumn(name = "klantId", nullable = false),
 		inverseJoinColumns = @JoinColumn(name = "adresTypeId", nullable = false))
-
 	@MapKeyJoinColumn(name = "adresId", nullable = false)
 	protected Map<Adres, AdresType> adresGegevens = new HashMap<Adres, AdresType>();
 

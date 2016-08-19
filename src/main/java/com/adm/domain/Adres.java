@@ -46,6 +46,7 @@ public class Adres {
 	protected Set<Klant> klant = new HashSet<Klant>();
 
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	protected AdresType type;
 	
 	//Constructors
