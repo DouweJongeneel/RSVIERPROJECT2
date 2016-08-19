@@ -13,6 +13,12 @@ body {
     text-align: center;
 }
 
+p {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 table.center {
     margin-left: auto;
     margin-right: auto;
@@ -40,48 +46,41 @@ div.errors {
     margin-right: auto;
 }
 
-table {
-    border-spacing: 3px;
-}
-
-td {
-    padding: 3px;
-}
-
-.spittleList h1 {
+.klantList h1 {
     font-size: 16pt;
 }
 
-.spittleList ul {
-    list-style: square;
-    /*margin-left: 0px;*/
-    /*padding-left: 0px;*/
+/*Klantenlijst*/
+table th.klantList {
+    font-size: 10pt;
 }
 
-.spittleList ul li:first-child {
-    border-top: 0px;
-}
-
-.spittleList ul li {
-    border-top: 1px solid #cccccc;
-}
-
-.spittleTime {
+table.klantList {
+    border: 1px solid darkred;
+    background-color: #F3D392;
     font-size: 8pt;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.spittleLocation {
+table td.klantList {
+    background-color: #F9F7F3;
+    border: 1px dotted darkred;
+}
+
+.klantEmail {
+    font-size: 12pt;
+}
+
+.klantId {
+    font-size: 9pt;
+}
+
+.klantInformation {
     font-size: 8pt;
 }
 
 .spittleForm h1 {
     font-size: 16pt;
-}
-
-.currentProfile div {
-    border-style: solid;
-}
-
-.clientlist div {
-    border-style: solid;
 }

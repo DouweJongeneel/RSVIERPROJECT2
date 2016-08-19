@@ -10,16 +10,17 @@
 <div id="header" th:include="page :: headerAuthenticated"></div>
 
 <div id="content">
-    <div id="currentProfile" class="currentProfile">
-        <h1 th:text="#{harrie.profile.profile}"></h1>
 
+    <div>
+        <h1>Klantenlijst</h1>
         <table class="klantList">
             <tr>
                 <th align="left">Client</th>
                 <th align="left">Actions</th>
             </tr>
 
-            <tr class = "klantList">
+            <tr class = "klantList" th:each="klant : ${klantenList}"
+                th:id="'spittle_' + ${klant.getId()}">
                 <td class="klantList">
                     <div class="klantEmail"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
@@ -62,17 +63,14 @@
                 </td>
 
                 <td class = "klantList">
-                    <span><a th:href="@{/klant/wijzigen/{id}(id=${klant.id})}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/verwijderen/{id}(id=${klant.id})}">Tumble Status</a></span><br />
+                    <span><a th:href="@{/klant/select/{id}(id=${klant.id})}">Select</a></span><br />
+                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/delete/{id}(id=${klant.id})}">Tumble Status</a></span><br />
                 </td>
 
             </tr>
-
         </table>
     </div>
-
-
-    <br/>
 
 </div>
 

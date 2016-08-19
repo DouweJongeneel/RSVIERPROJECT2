@@ -1,6 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+
 <body>
 
 <div th:fragment="header">
@@ -8,8 +14,33 @@
         <img th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a>
 </div>
 
+
+<div th:fragment="headerAuthenticated">
+    <a th:href="@{/}">
+        <img th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a> <br/>
+
+
+    <h1 th:text="#{harrie.home.welcome}"></h1>
+
+    <span><a th:href="@{/klant/profile}" th:text="#{harrie.home.profile}">Profile</a></span>
+    <span> | </span>
+    <span><a th:href="@{/klant/klanten}" th:text="#{harrie.home.clients}">Clients</a></span>
+    <span> | </span>
+    <span><a th:href="@{/klant/register}" th:text="#{harrie.home.register}">Register</a></span>
+    <span> | </span>
+    <span><a th:href="@{/artikel/}" th:text="#{harrie.home.products}">Products</a></span>
+    <span> | </span>
+    <span><a th:href="@{/bestelling/}" th:text="#{harrie.home.orders}">Orders</a></span>
+
+    <span>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" th:value="#{harrie.home.logout}" />
+        </form>
+    </span>
+</div>
+
 <div>
-   CONTENT GOES HERE
+    CONTENT GOES HERE
 </div>
 
 <div th:fragment="copy">Copyright &copy; ADM Development</div>

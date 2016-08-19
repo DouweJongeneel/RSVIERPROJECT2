@@ -32,6 +32,10 @@ public class KlantRegisterForm {
     @Email
     private String email;
 
+    @NotNull
+    @Size(min=5, max=25, message="{password.size}")
+    private String password;
+
     private MultipartFile profilePicture;
 
     // Setters & Getters
@@ -65,10 +69,16 @@ public class KlantRegisterForm {
     public void setProfilePicture(MultipartFile profilePicture) {
         this.profilePicture = profilePicture;
     }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     // Extra methods
     public Klant toKlant() {
-        return new Klant(null, voornaam, achternaam, tussenvoegsel, email,
+        return new Klant(null, voornaam, achternaam, tussenvoegsel, email, password,
                         (new Date()).toString(), "", "1", null, null);
     }
 }

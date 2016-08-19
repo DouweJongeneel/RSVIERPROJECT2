@@ -1,5 +1,11 @@
 package com.adm.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +25,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Klant{
+@Component
+@Scope(
+		value= WebApplicationContext.SCOPE_GLOBAL_SESSION,
+		proxyMode = ScopedProxyMode.INTERFACES)
+public class Klant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "klantId")
@@ -37,6 +47,9 @@ public class Klant{
 
 	@Column(nullable = false)
 	private String email;
+
+    @Column(nullable = false)
+    private String password;
 
 	@Column(nullable = false)
 	private String datumAanmaak;
@@ -67,7 +80,7 @@ public class Klant{
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
-			String email,
+			String email, String password,
 			Map<Adres, AdresType> adresGegevens) {
 
 		if (adresGegevens != null){
@@ -80,6 +93,7 @@ public class Klant{
 		this.tussenvoegsel = tussenvoegsel;
 		this.datumAanmaak = new Date(System.currentTimeMillis()).toString();
 		this.email = email;
+        this.password = password;
 	}
 
 	// Constructor voor alle variabelen, wordt over het algemeen gebruikt tijdens testwerkzaamheden
@@ -89,6 +103,7 @@ public class Klant{
 			String achternaam,
 			String tussenvoegsel,
 			String email,
+                 String password,
 			String datumAanmaak,
 			String datumGewijzigd,
 			String klantActief,
@@ -104,6 +119,7 @@ public class Klant{
 		this.achternaam = achternaam;
 		this.tussenvoegsel = tussenvoegsel;
 		this.email = email;
+        this.password = password;
 		this.datumAanmaak = datumAanmaak;
 		this.datumGewijzigd = datumGewijzigd;
 		this.klantActief = klantActief;
@@ -166,9 +182,15 @@ public class Klant{
 	}
 	public void setAdresGegevens(Map<Adres, AdresType> adresGegevens) {
 		this.adresGegevens = adresGegevens;
-	} 
+	}
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Set<Bestelling> getBestellingen() {
+    public Set<Bestelling> getBestellingen() {
 		return bestellingen;
 	}
 	public void setBestellingen(Set<Bestelling> bestellingGegevens) {
