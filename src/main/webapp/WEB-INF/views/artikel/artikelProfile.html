@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harrie and Marie-Claire</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+<body>
+<div id="header" th:include="page :: headerAuthenticated"></div>
+
+<div id="content">
+    <div id="currentProfile" class="currentProfile">
+        <h1 th:text="#{harrie.products.productInformation}"></h1>
+
+        <table class="artikelList"> <!--  TODO style.css milan -->
+            <tr>
+                <th align="left">Product</th>
+                <th align="left">Actions</th>
+            </tr>
+
+            <tr class = "artikelList">
+                <td class="artikelList">
+                    <div class="klantEmail"> <span th:text="${klant.email}"></span>
+                        <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
+                        <table>
+                            <tr>
+                                <td><span class="klantInformation">Password:</span></td>
+                                <td><span class="klantInformation" th:text="${klant.password}">-</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table>
+                            <tr><br/></tr>
+                            <tr>
+                                <td><span class="klantInformation">First Name:</span></td>
+                                <td><span class="klantInformation" th:text="${klant.voornaam}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Prefix:</span></td>
+                                <td><span class="klantInformation" th:text="${klant.tussenvoegsel}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Last Name</span></td>
+                                <td><span class="klantInformation" th:text="${klant.achternaam}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Date Created</span></td>
+                                <td><span class="klantInformation" th:text="${klant.datumAanmaak}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Date Modified</span></td>
+                                <td><span class="klantInformation" th:text="${klant.datumGewijzigd}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Active</span></td>
+                                <td><span class="klantInformation" th:text="${klant.klantActief}">-</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+
+                <td class = "artikelList">
+                    <span><a th:href="@{/klant/wijzigen/{id}(id=${klant.id})}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/verwijderen/{id}(id=${klant.id})}">Tumble Status</a></span><br />
+                </td>
+                <td>
+                    <img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" />
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+
+
+    <br/>
+
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

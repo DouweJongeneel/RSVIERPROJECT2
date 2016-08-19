@@ -45,6 +45,6 @@ public class HarrieWebAppInitializer extends AbstractAnnotationConfigDispatcherS
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(
-                new MultipartConfigElement("/tmp/spittr/uploads", 20197152, 4194304, 0));
+                new MultipartConfigElement("/tmp/harrie/uploads", 20197152, 4194304, 0));
     }
 }
