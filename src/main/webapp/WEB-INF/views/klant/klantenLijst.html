@@ -22,7 +22,7 @@
             <tr class = "klantList" th:each="klant : ${klantenList}"
                 th:id="'spittle_' + ${klant.getId()}">
                 <td class="klantList">
-                    <div class="klantEmail"> <span th:text="${klant.email}"></span>
+                    <div class="klandAdresHeader"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
                         <table>
                             <tr>

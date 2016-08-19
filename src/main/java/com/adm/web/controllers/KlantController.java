@@ -1,15 +1,17 @@
 package com.adm.web.controllers;
 
 import com.adm.database.daos.KlantDAO;
+import com.adm.database.service.KlantService;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -17,13 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -44,14 +43,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 @Component
 @RequestMapping("/klant")
+@Transactional
 @SessionAttributes({ "klant", "plaatje"})
 public class KlantController {
 
     private KlantDAO klantDAO;
 
     @Autowired
-    public KlantController(KlantDAO klantDAO) {
-        this.klantDAO = klantDAO;
+    public KlantController(KlantService klantService) {
+        this.klantDAO = klantService.getDAO();
     }
 
     @RequestMapping(value = "/register", method = GET)
@@ -95,21 +95,11 @@ public class KlantController {
     // Profiel pagina (leeg)
     @RequestMapping(value = "/profile", method = GET)
     public String showProfile(Model model, Klant klant) {
+
+        Hibernate.initialize(klant.getAdresGegevens()); //TODO: Is niet Hibernate-onafhankelijk
+
+        model.addAttribute("adresMap", klant.getAdresGegevens());
         model.addAttribute("klant", klant);
-
-        return "klant/klantProfile";
-    }
-
-    // Profielpagina(op basis van url met email)
-    @RequestMapping(value = "/{email}", method = GET)
-    public String showKlantProfile(@PathVariable String email, Model model, Klant globalKlant) {
-
-        if (!model.containsAttribute("klant")) {
-            Klant klantje = new Klant(null, "FOUT", "FOUT", "FOUT", "FOUT", "FOUT", null);
-            model.addAttribute("klant", klantje);
-        }
-
-        model.addAttribute("klant", globalKlant);
 
         return "klant/klantProfile";
     }
@@ -160,9 +150,26 @@ public class KlantController {
 
         String imageDataString = Base64.encode(array);
 
-        model.addAttribute("plaatje", imageDataString);
         model.addAttribute(klant);
+        model.addAttribute("plaatje", imageDataString);
 
         return showProfile(model, klant);
     }
 }
+
+
+
+
+//    // Profielpagina(op basis van url met email)
+//    @RequestMapping(value = "/{email}", method = GET)
+//    public String showKlantProfile(@PathVariable String email, Model model, Klant globalKlant) {
+//
+//        if (!model.containsAttribute("klant")) {
+//            Klant klantje = new Klant(null, "FOUT", "FOUT", "FOUT", "FOUT", "FOUT", null);
+//            model.addAttribute("klant", klantje);
+//        }
+//
+//        model.addAttribute("klant", globalKlant);
+//
+//        return "klant/klantProfile";
+//    }

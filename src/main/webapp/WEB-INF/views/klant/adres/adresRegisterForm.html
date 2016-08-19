@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harrie and Marie-Claire</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+<body>
+<div id="header" th:include="page :: headerAuthenticated"></div>
+
+<div id="content">
+    <h1 th:text="#{harrie.adres.register}"></h1>
+
+    <form method="POST" th:object="${adresRegisterForm}" enctype="multipart/form-data">
+        <div class="errors" th:if="${#fields.hasErrors('*')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}"
+                    th:text="${err}">Input is incorrect</li>
+            </ul>
+        </div>
+
+        <table class="center">
+            <tr>
+                <td><label th:class="${#fields.hasErrors('straatnaam')}? 'error'"
+                           th:text="#{harrie.adres.street}"></label>:</td>
+                <td><input type="text" th:field="*{straatnaam}"
+                           th:class="${#fields.hasErrors('straatnaam')}? 'error'" /></td>
+            </tr>
+
+            <tr>
+                <td><label th:class="${#fields.hasErrors('huisnummer')}? 'error'"
+                           th:text="#{harrie.adres.number}"></label>:</td>
+                <td><input type="text" th:field="*{huisnummer}"
+                           th:class="${#fields.hasErrors('huisnummer')}? 'error'" /></td>
+            </tr>
+
+            <tr>
+                <td><label th:class="${#fields.hasErrors('postcode')}? 'error'"
+                           th:text="#{harrie.adres.zipcode}"></label>:</td>
+                <td><input type="text" th:field="*{postcode}"
+                           th:class="${#fields.hasErrors('postcode')}? 'error'" /></td>
+            </tr>
+
+            <tr>
+                <td><label th:class="${#fields.hasErrors('toevoeging')}? 'error'"
+                           th:text="#{harrie.adres.prefix}"></label>:</td>
+                <td><input type="text" th:field="*{toevoeging}"
+                           th:class="${#fields.hasErrors('toevoeging')}? 'error'" /></td>
+            </tr>
+
+            <tr>
+                <td><label th:class="${#fields.hasErrors('woonplaats')}? 'error'"
+                           th:text="#{harrie.adres.city}"></label>:</td>
+                <td><input type="text" th:field="*{woonplaats}"
+                           th:class="${#fields.hasErrors('woonplaats')}? 'error'" /></td>
+            </tr>
+
+        </table>
+        <input type="submit" value="Push Da Button!" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+
+</body>
+</html>

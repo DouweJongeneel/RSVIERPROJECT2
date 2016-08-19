@@ -22,7 +22,7 @@
 
             <tr class = "klantList">
                 <td class="klantList">
-                    <div class="klantEmail"> <span th:text="${klant.email}"></span>
+                    <div class="klandAdresHeader"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
                         <table>
                             <tr>
@@ -68,9 +68,34 @@
                 </td>
 
                 <td class = "klantListProfilePicture">
-                   <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" /></span>
+                    <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" /></span>
                 </td>
 
+            </tr>
+        </table>
+
+        <table class="adresList">
+            <tr>
+                <th align="left">Adres</th>
+                <th align="left">Actions</th>
+                <th align="left">Google maps? :P</th>
+            </tr>
+
+            <tr th:each="instance : ${adresMap}">
+                <td>
+                    <table>
+                        <tr>
+                            <td th:text="${instance.key}">keyvalue</td>
+                            <td th:text="${instance.value.id}">num</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>actiones</td>
+                <td>googlie Mappies</td>
+            </tr>
+
+            <tr>
+                <span><a th:href="@{/klant/adres/register}">Register address</a></span><br />
             </tr>
 
         </table>

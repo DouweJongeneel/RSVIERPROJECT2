@@ -1,10 +1,7 @@
 package com.adm.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+
+import javax.persistence.*;
 
 @Entity
 public enum AdresType {
@@ -12,14 +9,14 @@ public enum AdresType {
 	THUISADRES ("Thuisadres"),
 	WERKADRES ("Werkadres"),
 	BEZORGADRES ("Bezorgadres");
-	
+
 	@Id
 	@SequenceGenerator(name = "adresTypeId", sequenceName = "zadresType_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresTypeId")
 	private Long id;
 
 	private String text;
-	
+
 	AdresType(String text){
 		this.text = text;
 	}
@@ -39,5 +36,5 @@ public enum AdresType {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 }

@@ -13,6 +13,10 @@ body {
     text-align: center;
 }
 
+img.header {
+    width: 100%;
+}
+
 p {
     width: 50%;
     margin-left: auto;
@@ -69,7 +73,7 @@ table td.klantList {
     border: 1px dotted darkred;
 }
 
-.klantEmail {
+.klantAdresHeader {
     font-size: 12pt;
 }
 
