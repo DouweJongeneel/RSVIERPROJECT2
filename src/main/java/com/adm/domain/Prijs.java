@@ -53,6 +53,22 @@ public class Prijs {
 		return datumAanmaak;
 	}
 
+	public Artikel getArtikel() {
+		return artikel;
+	}
+
+	public BigDecimal getPrijs() {
+		return prijs;
+	}
+
+	public void setArtikel(Artikel artikel) {
+		this.artikel = artikel;
+	}
+
+	public void setPrijs(BigDecimal prijs) {
+		this.prijs = prijs;
+	}
+
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
 		this.bestelArtikel = bestelArtikel;
 	}

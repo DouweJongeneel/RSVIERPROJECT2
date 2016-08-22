@@ -82,6 +82,10 @@ public class BestelArtikel {
 
 	@Override
 	public int hashCode() {
+		if(id == null)
+			id = 0L;
+			
+		
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));

@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Harrie and Marie-Claire</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
+</head>
+<body>
+	<div id="header" th:include="page :: headerAuthenticated"></div>
+
+	<div id="content">
+
+		<div>
+			<h1>Bestellingenlijst</h1>
+			<table>
+				<tr>
+					<td>Bestellingnummer</td>
+					<td>Datum</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr th:each="best,iterationStatus : ${bestellingList}">
+					<td th:text="${best.bestelNummer}">2016-01</td>
+					<td th:text="${best.datumAanmaak}">18-08-2016</td>
+					<td><a th:href="@{/bestelling/select/{id}(id=${best.id})}">View Bestelling</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

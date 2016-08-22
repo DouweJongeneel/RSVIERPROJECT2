@@ -1,8 +1,10 @@
 package com.adm.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Bestelling{
+public class Bestelling implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7141412659590558982L;
 
 	@Id
 	@SequenceGenerator(name = "bestellingId", sequenceName = "zBestelling_sequence", allocationSize = 1)
@@ -36,7 +43,8 @@ public class Bestelling{
 	@ManyToOne(optional = false)
 	private Klant klant;
 
-	@OneToMany(mappedBy = "bestelling")
+	@OneToMany(mappedBy = "bestelling",
+	        cascade = CascadeType.ALL)
 	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikelSet = new HashSet<BestelArtikel>();
 
