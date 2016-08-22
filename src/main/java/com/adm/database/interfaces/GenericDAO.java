@@ -15,7 +15,12 @@ import java.util.List;
  * state.
  */
 
-public interface GenericDAO<E, ID extends Serializable> {
+public interface GenericDAO<E, ID extends Serializable> extends Serializable {
+	
+	/* Deze methode moet aangeroepen worden voor elke DAO voordat data wordt opgeslagen, het zorgt
+	 * ervoor dat hibernate de persistence context flushed voordat data gelezen wordt.
+	 */
+	void joinTransaction();
 
     E findById(ID id);
 
