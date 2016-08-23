@@ -8,7 +8,6 @@ import com.adm.domain.Adres;
 import com.adm.domain.AdresType;
 import com.adm.domain.Klant;
 import com.adm.web.forms.AdresRegisterForm;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -59,7 +57,6 @@ public class AdresController {
     public String processRegistration(
             @Valid AdresRegisterForm adresRegisterForm,
             Errors errors,
-            RedirectAttributes model,
             Klant klant)
             throws IOException {
 
@@ -71,16 +68,16 @@ public class AdresController {
         Adres nieuwAdres = adresRegisterForm.toAdres();
 
         //Zet het adres in de klant en persist die shit
-        Hibernate.initialize(klant.getAdresGegevens());
-        klant.getAdresGegevens().put(nieuwAdres, AdresType.THUISADRES);
-        klantDAO.makePersistent(klant);
+        AdresType adresType = new AdresType();
+        adresType.setAdres_type(0);
 
-        // Update dat adres enzo wat betreft persistence
+        // AdresType in adres zetten en persisten
+        nieuwAdres.setType(adresType);
         nieuwAdres = adresDAO.makePersistent(nieuwAdres);
+        klant.getAdresGegevens().put(nieuwAdres, nieuwAdres.getType());
 
-        // Save flash attribute
-        model.addFlashAttribute("adres", nieuwAdres);
-        model.addAttribute("id", nieuwAdres.getId());
+        // Persist alles naar de klant
+        klantDAO.makePersistent(klant);
 
         // Redirect to created profile
         return "redirect:/klant/profile";

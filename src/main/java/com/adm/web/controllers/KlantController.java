@@ -69,8 +69,8 @@ public class KlantController {
     public String processRegistration(
             @Valid KlantRegisterForm klantRegisterForm,
             Errors errors,
-            RedirectAttributes model)
-            throws IOException {
+            Model model)
+            throws Exception {
 
         if (errors.hasErrors()) {
             return "/klant/klantRegisterForm";
@@ -87,12 +87,8 @@ public class KlantController {
 
         //TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
 
-        // Save flash attribute
-        model.addFlashAttribute("klant", nieuweKlant);
-        model.addAttribute("email", nieuweKlant.getEmail());
-
-        // Redirect to created profile
-        return "redirect:/klant/{email}";
+        // Terug naar klantenlijst, nieuwe klanten ophalen
+        return showKlanten(model);
     }
 
     // Profiel pagina (leeg)

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Component
 public class Adres {
+
 	//Datafield
 
 	@Id
@@ -41,14 +42,13 @@ public class Adres {
 	@Column(nullable = false)
 	private String adresActief;
 
-	@ManyToMany(mappedBy = "adresGegevens")
+	@ManyToMany(mappedBy = "adresGegevens", cascade={CascadeType.MERGE, CascadeType.PERSIST})
 	@Column(nullable = false)
 	protected Set<Klant> klant = new HashSet<Klant>();
 
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
+	@OneToOne(cascade = CascadeType.MERGE)
 	protected AdresType type;
-	
+
 	//Constructors
 	public Adres() {}
 
@@ -105,28 +105,22 @@ public class Adres {
 	public String getAdresActief() {
 		return adresActief;
 	}
-
 	public Set<Klant> getKlant() {
 		return klant;
 	}
-
 	public void setKlant(Set<Klant> klant) {
 		this.klant = klant;
 	}
-
 	public void setStraatnaam(String straatnaam) {
 		this.straatnaam = straatnaam;
 	}
-
 	public void voegKlantToe(Klant klant){
 		this.klant.add(klant);
 	}
-
 	public void haalKlantWeg(Klant klant){
 		if(this.klant.contains(klant))
 			this.klant.remove(klant);
 	}
-
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
@@ -150,6 +144,12 @@ public class Adres {
 	}
 	public void setAdresActief(String adresActief) {
 		this.adresActief = adresActief;
+	}
+	public AdresType getType() {
+		return type;
+	}
+	public void setType(AdresType type) {
+		this.type = type;
 	}
 
 	@Override

@@ -81,12 +81,13 @@
                 <th align="left">Google maps? :P</th>
             </tr>
 
-            <tr th:each="instance : ${adresMap}">
+            <tr th:each="adres : ${adresMap}">
                 <td>
                     <table>
                         <tr>
-                            <td th:text="${instance.key}">keyvalue</td>
-                            <td th:text="${instance.value.id}">num</td>
+                            <td th:text="${adres.key}">keyvalue</td>
+                            <td th:text="${adres.value.id}">num</td>
+                            <td th:text="${adres.key.type}">type</td>
                         </tr>
                     </table>
                 </td>

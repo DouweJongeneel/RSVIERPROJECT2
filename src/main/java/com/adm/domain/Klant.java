@@ -12,17 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 @Component
@@ -60,12 +50,12 @@ public class Klant implements Serializable {
 	@Column(nullable = false)
 	private String klantActief;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "klantAdresAdresType",
 		joinColumns = @JoinColumn(name = "klantId", nullable = false),
 		inverseJoinColumns = @JoinColumn(name = "adresTypeId", nullable = false))
 	@MapKeyJoinColumn(name = "adresId", nullable = false)
-	protected Map<Adres, AdresType> adresGegevens = new HashMap<Adres, AdresType>();
+	protected Map<Adres, AdresType> adresGegevens = new HashMap<>();
 
 	@OneToMany(mappedBy = "klant")
 	@Column(nullable = false)
