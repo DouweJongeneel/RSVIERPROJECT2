@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harrie and Marie-Claire (Exotic Diners and Clothing Inc.</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+
+<body>
+<div id="header" th:include="page :: headerAuthenticated"></div>
+
+<div id="content">
+
+    <p th:if="${klant.achternaam} == null" th:text="'Hey you anonoymous client!'"></p>
+    <p th:if="${klant.achternaam} != null" th:text="'Hey You! Mr or Mrs. ' + ${klant.achternaam}"></p>
+    <br/>
+    <p>
+    Door veel te lezen vergroot je je vocabulaire en ontwikkel je gevoel voor stijl en genre-kenmerken. Dit gaat
+    gewoonlijk vanzelf, maar je kunt het ook doelbewust en gericht doen. Als je voorafgaand aan een schrijfopdracht
+    vergelijkbare, bestaande teksten bekijkt, kun je je al lezend een beeld vormen van de eisen en verwachtingen
+    waaraan je eigen werk moet voldoen. Het verschaft vaak helderheid over aspecten van tekstsoorten die in
+    opdrachtinstructies niet onder woorden (kunnen) worden gebracht.
+    </p>
+    <br/>
+    <p>
+        De Supermarine Spitfire was een Brits jachtvliegtuig. Het toestel werd in 1938 in productie genomen door
+        Supermarine Division, Vickers Armstrong Ltd.. Het toestel werd gedurende de gehele Tweede Wereldoorlog ingezet
+        door de geallieerden, voornamelijk door de RAF. Er werden in totaal 20.340 stuks gebouwd.Daarnaast bestond
+        ook nog de variant Seafire, waarvan er 2.594 werden gebouwd.
+        <br/>
+        De Spitfire valt op door zijn stroomlijn en ellipsvormige vleugels. De versie Mk. XIV haalde een maximumsnelheid
+        van 721 km/h op een hoogte van 8000 meter. Het vliegtuig is vooral bekend door de beslissende rol die het speelde
+        tijdens de Slag om Engeland.
+        <br />
+        De meeste deskundigen zijn van mening dat de vliegeigenschappen van de Spitfire en zijn Duitse tegenstander,
+        de Messerschmitt Bf 109 elkaar maar weinig ontliepen. De voordelen van de Spitfire waren de bijzondere vleugels,
+        die een betere manoeuvreerbaarheid gaven; een groter motorvermogen en een beter zicht vanuit de cockpit;
+        een kwestie van leven of dood voor een jachtpiloot. De bolvormige kap bood de mogelijkheid om zowel naar
+        beneden, naar boven als in het rond te kijken. Een aanvankelijk nadeel van de Spitfires was dat de erin toegepaste
+        Rolls-Royce Merlin-motor ter verkrijging van een maximaal vermogen met carburateurs was uitgerust, terwijl de
+        Messerschmitt over een injectiemotor beschikte. Door de carburateurs kon de Spitfire geen steile duiken uitvoeren,
+        omdat bij negatieve zwaartekrachten de motor te weinig brandstof kreeg en daardoor kon uitvallen.
+    </p>
+
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+
+</body>
+</html>

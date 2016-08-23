@@ -1,24 +1,1090 @@
-2016-07-27 14:25:20.905 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+2016-07-29 10:56:15.839 [main] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
 	name: rsvierproject2PU
 	...]
-2016-07-27 14:25:21.190 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.2.1.Final}
-2016-07-27 14:25:21.198 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
-2016-07-27 14:25:21.200 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
-2016-07-27 14:25:21.393 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-2016-07-27 14:25:21.732 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - Configuring HikariCP
-2016-07-27 14:25:22.343 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariCP pool HikariPool-0 is starting.
-2016-07-27 14:25:22.871 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - HikariCP Configured
-2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Database ->
+2016-07-29 10:56:16.065 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.2.1.Final}
+2016-07-29 10:56:16.067 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2016-07-29 10:56:16.070 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist
+2016-07-29 10:56:16.155 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2016-07-29 10:56:16.408 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - Configuring HikariCP
+2016-07-29 10:56:16.766 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariCP pool HikariPool-0 is starting.
+2016-07-29 10:56:17.188 [main] DEBUG org.hibernate.hikaricp.internal.HikariCPConnectionProvider - HikariCP Configured
+2016-07-29 10:56:17.189 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Database ->
        name : MySQL
-    version : 5.5.42
+    version : 5.5.49-0+deb8u1
       major : 5
       minor : 5
-2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Driver ->
+2016-07-29 10:56:17.189 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - Driver ->
        name : MySQL Connector Java
     version : mysql-connector-java-5.1.39 ( Revision: 3289a357af6d09ecc1a10fd3c26e95183e5790ad )
       major : 5
       minor : 1
-2016-07-27 14:25:22.884 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - JDBC version : 4.0
-2016-07-27 14:25:22.929 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2016-07-27 14:25:22.989 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - JDBC driver metadata reported database stores quoted identifiers in more than one case
-2016-07-27 14:25:22.992 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - IdentifierCaseStrategy for both quoted and unquoted identifiers was set to the same strategy [MIXED]; that will likely lead to problems in schema update and validation if using quoted identifiers
+2016-07-29 10:56:17.189 [main] DEBUG org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator - JDBC version : 4.0
+2016-07-29 10:56:17.203 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2016-07-29 10:56:17.231 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - JDBC driver metadata reported com.adm.database stores quoted identifiers in more than one case
+2016-07-29 10:56:17.232 [main] DEBUG org.hibernate.engine.jdbc.env.spi.IdentifierHelperBuilder - IdentifierCaseStrategy for both quoted and unquoted identifiers was set to the same strategy [MIXED]; that will likely lead to problems in schema update and validation if using quoted identifiers
+2016-07-29 10:56:17.574 [main] DEBUG org.hibernate.engine.spi.CascadeStyles - External cascade style regsitration [persist : STYLE_PERSIST_SKIPLAZY] overrode base registration [STYLE_PERSIST]
+2016-07-29 10:56:17.681 [main] INFO  org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.adm.domain.Betaalwijze (class must be instantiated by Interceptor)
+2016-07-29 10:56:17.683 [main] INFO  org.hibernate.tuple.PojoInstantiator - HHH000182: No default (no-argument) constructor for class: com.adm.domain.AdresType (class must be instantiated by Interceptor)
+2016-07-29 10:56:17.858 [main] DEBUG org.hibernate.SQL - 
+    alter table Account 
+        drop 
+        foreign key FKrqjr4dlybskt58cbx5dvcwnuo
+2016-07-29 10:56:17.874 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Account 
+        drop 
+        foreign key FKrqjr4dlybskt58cbx5dvcwnuo]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Account 
+        drop 
+        foreign key FKrqjr4dlybskt58cbx5dvcwnuo]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Account' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.880 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        drop 
+        foreign key FKed29buica2g5n034gcl3t8ohx
+2016-07-29 10:56:17.883 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKed29buica2g5n034gcl3t8ohx]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKed29buica2g5n034gcl3t8ohx]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.BestelArtikel' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.883 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        drop 
+        foreign key FKl3n54jyk1u7qq0hschvnrddil
+2016-07-29 10:56:17.885 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKl3n54jyk1u7qq0hschvnrddil]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKl3n54jyk1u7qq0hschvnrddil]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.BestelArtikel' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.886 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        drop 
+        foreign key FKns4ag3o3x88r7lgj3s7otm2be
+2016-07-29 10:56:17.888 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKns4ag3o3x88r7lgj3s7otm2be]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table BestelArtikel 
+        drop 
+        foreign key FKns4ag3o3x88r7lgj3s7otm2be]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.BestelArtikel' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.889 [main] DEBUG org.hibernate.SQL - 
+    alter table Bestelling 
+        drop 
+        foreign key FKqyy1j36ikll8asl3mla1gbfhk
+2016-07-29 10:56:17.891 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Bestelling 
+        drop 
+        foreign key FKqyy1j36ikll8asl3mla1gbfhk]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Bestelling 
+        drop 
+        foreign key FKqyy1j36ikll8asl3mla1gbfhk]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Bestelling' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.892 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        drop 
+        foreign key FKr89e2fppc4nyd1i7rkevs9r66
+2016-07-29 10:56:17.894 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FKr89e2fppc4nyd1i7rkevs9r66]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FKr89e2fppc4nyd1i7rkevs9r66]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Betaling' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.895 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        drop 
+        foreign key FK20fjkvrish6jvr4d3un1t5tvx
+2016-07-29 10:56:17.898 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FK20fjkvrish6jvr4d3un1t5tvx]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FK20fjkvrish6jvr4d3un1t5tvx]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Betaling' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.898 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        drop 
+        foreign key FKngu47gter3no17ercj8cayt57
+2016-07-29 10:56:17.905 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FKngu47gter3no17ercj8cayt57]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Betaling 
+        drop 
+        foreign key FKngu47gter3no17ercj8cayt57]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Betaling' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.906 [main] DEBUG org.hibernate.SQL - 
+    alter table Factuur 
+        drop 
+        foreign key FK791h7rn23eqyif0kcgt79pcen
+2016-07-29 10:56:17.909 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table Factuur 
+        drop 
+        foreign key FK791h7rn23eqyif0kcgt79pcen]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table Factuur 
+        drop 
+        foreign key FK791h7rn23eqyif0kcgt79pcen]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.Factuur' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.909 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKl1nfntvltwioijtun2mabikq1
+2016-07-29 10:56:17.912 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKl1nfntvltwioijtun2mabikq1]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKl1nfntvltwioijtun2mabikq1]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.klantAdresAdresType' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.913 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FK7xmes93h4lq7orakup4m0s304
+2016-07-29 10:56:17.915 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FK7xmes93h4lq7orakup4m0s304]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FK7xmes93h4lq7orakup4m0s304]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.klantAdresAdresType' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.915 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKb2o2d8ttp0l5hpgy7kunqlla
+2016-07-29 10:56:17.918 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKb2o2d8ttp0l5hpgy7kunqlla]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table klantAdresAdresType 
+        drop 
+        foreign key FKb2o2d8ttp0l5hpgy7kunqlla]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.klantAdresAdresType' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.919 [main] DEBUG org.hibernate.SQL - 
+    alter table prijsArtikel 
+        drop 
+        foreign key FK80v9e6vf6ko8mric7rc0to3ss
+2016-07-29 10:56:17.921 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table prijsArtikel 
+        drop 
+        foreign key FK80v9e6vf6ko8mric7rc0to3ss]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table prijsArtikel 
+        drop 
+        foreign key FK80v9e6vf6ko8mric7rc0to3ss]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.prijsArtikel' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.922 [main] DEBUG org.hibernate.SQL - 
+    alter table prijsArtikel 
+        drop 
+        foreign key FKlai903l477kijadmxdnwifsp2
+2016-07-29 10:56:17.924 [main] WARN  org.hibernate.tool.schema.internal.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Unable to execute command [
+    alter table prijsArtikel 
+        drop 
+        foreign key FKlai903l477kijadmxdnwifsp2]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Unable to execute command [
+    alter table prijsArtikel 
+        drop 
+        foreign key FKlai903l477kijadmxdnwifsp2]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:63) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:370) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:355) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:327) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:229) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:153) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:125) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:111) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:137) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:65) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:308) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:483) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at org.hibernate.jpa.HibernatePersistenceProvider.createEntityManagerFactory(HibernatePersistenceProvider.java:58) [hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39) [hibernate-jpa-2.1-api-1.0.0.Final.jar:1.0.0.Final]
+	at com.adm.test.main(com.adm.test.java:9) [classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_77]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_77]
+	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147) [idea_rt.jar:?]
+Caused by: com.mysql.jdbc.com.adm.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'RSVIERPROJECTDEEL4.prijsArtikel' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_77]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_77]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_77]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_77]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:404) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.Util.getInstance(Util.java:387) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:942) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3966) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3902) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2526) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2673) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2545) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2503) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.mysql.jdbc.StatementImpl.execute(StatementImpl.java:739) ~[mysql-connector-java-5.1.39.jar:5.1.39]
+	at com.zaxxer.hikari.proxy.StatementProxy.execute(StatementProxy.java:83) ~[HikariCP-java6-2.3.9.jar:?]
+	at com.zaxxer.hikari.proxy.StatementJavassistProxy.execute(StatementJavassistProxy.java) ~[HikariCP-java6-2.3.9.jar:?]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:51) ~[hibernate-core-5.2.1.Final.jar:5.2.1.Final]
+	... 21 more
+2016-07-29 10:56:17.925 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Account
+2016-07-29 10:56:17.933 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Adres
+2016-07-29 10:56:17.939 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists AdresType
+2016-07-29 10:56:17.944 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Artikel
+2016-07-29 10:56:17.949 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists BestelArtikel
+2016-07-29 10:56:17.955 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Bestelling
+2016-07-29 10:56:17.960 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Betaalwijze
+2016-07-29 10:56:17.965 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Betaling
+2016-07-29 10:56:17.971 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Factuur
+2016-07-29 10:56:17.977 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists Klant
+2016-07-29 10:56:17.984 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists klantAdresAdresType
+2016-07-29 10:56:17.989 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists prijs
+2016-07-29 10:56:17.995 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists prijsArtikel
+2016-07-29 10:56:18.000 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zaccount_sequence
+2016-07-29 10:56:18.011 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zadres_sequence
+2016-07-29 10:56:18.016 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zadresType_sequence
+2016-07-29 10:56:18.023 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zArtikel_sequence
+2016-07-29 10:56:18.031 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zBestel_artikel_sequence
+2016-07-29 10:56:18.039 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zBestelling_sequence
+2016-07-29 10:56:18.044 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zbetaalwijze_sequence
+2016-07-29 10:56:18.050 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zbetaling_sequence
+2016-07-29 10:56:18.056 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zfactuur_sequence
+2016-07-29 10:56:18.061 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zKlant_sequence
+2016-07-29 10:56:18.066 [main] DEBUG org.hibernate.SQL - 
+    drop table if exists zprijs_sequence
+2016-07-29 10:56:18.075 [main] DEBUG org.hibernate.SQL - 
+    create table Account (
+        id bigint not null,
+        accountType varchar(255) not null,
+        creatieDatum date not null,
+        klant_id bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.186 [main] DEBUG org.hibernate.SQL - 
+    create table Adres (
+        id bigint not null,
+        adresActief varchar(255) not null,
+        datumAanmaak varchar(255) not null,
+        datumGewijzigd varchar(255) not null,
+        huisnummer integer not null,
+        postcode varchar(255) not null,
+        straatnaam varchar(255) not null,
+        toevoeging varchar(255) not null,
+        type integer not null,
+        woonplaats varchar(255) not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.301 [main] DEBUG org.hibernate.SQL - 
+    create table AdresType (
+        id bigint not null,
+        text varchar(255),
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.389 [main] DEBUG org.hibernate.SQL - 
+    create table Artikel (
+        id integer not null,
+        artikelNaam varchar(255) not null,
+        datumAanmaak varchar(255) not null,
+        inAssortiment bit not null,
+        verwachteLevertijd integer,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.475 [main] DEBUG org.hibernate.SQL - 
+    create table BestelArtikel (
+        id bigint not null,
+        aantal integer not null,
+        artikelId integer not null,
+        BestellingId bigint not null,
+        prijsId bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.547 [main] DEBUG org.hibernate.SQL - 
+    create table Bestelling (
+        id bigint not null,
+        bestelNummer varchar(255) not null,
+        bestellingActief bit not null,
+        datumAanmaak varchar(255) not null,
+        klant_id bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.636 [main] DEBUG org.hibernate.SQL - 
+    create table Betaalwijze (
+        id bigint not null,
+        text varchar(255),
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.727 [main] DEBUG org.hibernate.SQL - 
+    create table Betaling (
+        id bigint not null,
+        betaalDatum date not null,
+        betalingsGegevens varchar(255) not null,
+        betaalwijze_id bigint not null,
+        factuur_id bigint not null,
+        klant_id bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.828 [main] DEBUG org.hibernate.SQL - 
+    create table Factuur (
+        id bigint not null,
+        factureringsDatum date not null,
+        factuurNummer varchar(255) not null,
+        bestelling_id bigint not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:18.930 [main] DEBUG org.hibernate.SQL - 
+    create table Klant (
+        id bigint not null,
+        achternaam varchar(255) not null,
+        datumAanmaak varchar(255) not null,
+        datumGewijzigd varchar(255) not null,
+        email varchar(255) not null,
+        klantActief varchar(255) not null,
+        tussenvoegsel varchar(255) not null,
+        voornaam varchar(255) not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.027 [main] DEBUG org.hibernate.SQL - 
+    create table klantAdresAdresType (
+        klantId bigint not null,
+        adresTypeId bigint not null,
+        adresId bigint not null,
+        primary key (klantId, adresId)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.128 [main] DEBUG org.hibernate.SQL - 
+    create table prijs (
+        id bigint not null,
+        datumAanmaak date not null,
+        prijs decimal(19,2) not null,
+        primary key (id)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.229 [main] DEBUG org.hibernate.SQL - 
+    create table prijsArtikel (
+        artikelId integer not null,
+        prijsId bigint not null,
+        primary key (artikelId, prijsId)
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.331 [main] DEBUG org.hibernate.SQL - 
+    create table zaccount_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.432 [main] DEBUG org.hibernate.SQL - 
+    insert into zaccount_sequence values ( 1 )
+2016-07-29 10:56:19.474 [main] DEBUG org.hibernate.SQL - 
+    create table zadres_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.563 [main] DEBUG org.hibernate.SQL - 
+    insert into zadres_sequence values ( 1 )
+2016-07-29 10:56:19.625 [main] DEBUG org.hibernate.SQL - 
+    create table zadresType_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.737 [main] DEBUG org.hibernate.SQL - 
+    insert into zadresType_sequence values ( 1 )
+2016-07-29 10:56:19.794 [main] DEBUG org.hibernate.SQL - 
+    create table zArtikel_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:19.881 [main] DEBUG org.hibernate.SQL - 
+    insert into zArtikel_sequence values ( 1 )
+2016-07-29 10:56:19.938 [main] DEBUG org.hibernate.SQL - 
+    create table zBestel_artikel_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.025 [main] DEBUG org.hibernate.SQL - 
+    insert into zBestel_artikel_sequence values ( 1 )
+2016-07-29 10:56:20.083 [main] DEBUG org.hibernate.SQL - 
+    create table zBestelling_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.186 [main] DEBUG org.hibernate.SQL - 
+    insert into zBestelling_sequence values ( 1 )
+2016-07-29 10:56:20.241 [main] DEBUG org.hibernate.SQL - 
+    create table zbetaalwijze_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.356 [main] DEBUG org.hibernate.SQL - 
+    insert into zbetaalwijze_sequence values ( 1 )
+2016-07-29 10:56:20.399 [main] DEBUG org.hibernate.SQL - 
+    create table zbetaling_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.501 [main] DEBUG org.hibernate.SQL - 
+    insert into zbetaling_sequence values ( 1 )
+2016-07-29 10:56:20.544 [main] DEBUG org.hibernate.SQL - 
+    create table zfactuur_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.647 [main] DEBUG org.hibernate.SQL - 
+    insert into zfactuur_sequence values ( 1 )
+2016-07-29 10:56:20.690 [main] DEBUG org.hibernate.SQL - 
+    create table zKlant_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.792 [main] DEBUG org.hibernate.SQL - 
+    insert into zKlant_sequence values ( 1 )
+2016-07-29 10:56:20.849 [main] DEBUG org.hibernate.SQL - 
+    create table zprijs_sequence (
+        next_val bigint
+    ) ENGINE=InnoDB
+2016-07-29 10:56:20.935 [main] DEBUG org.hibernate.SQL - 
+    insert into zprijs_sequence values ( 1 )
+2016-07-29 10:56:20.996 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        add constraint UK_kipo041w6bo078w75kbq8n6vs unique (betaalwijze_id)
+2016-07-29 10:56:21.194 [main] DEBUG org.hibernate.SQL - 
+    alter table prijsArtikel 
+        add constraint UK_r97pmlxm928ekt3pnxl6b0ww1 unique (prijsId)
+2016-07-29 10:56:21.355 [main] DEBUG org.hibernate.SQL - 
+    alter table Account 
+        add constraint FKrqjr4dlybskt58cbx5dvcwnuo 
+        foreign key (klant_id) 
+        references Klant (id)
+2016-07-29 10:56:21.586 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        add constraint FKed29buica2g5n034gcl3t8ohx 
+        foreign key (artikelId) 
+        references Artikel (id)
+2016-07-29 10:56:21.821 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        add constraint FKl3n54jyk1u7qq0hschvnrddil 
+        foreign key (BestellingId) 
+        references Bestelling (id)
+2016-07-29 10:56:22.037 [main] DEBUG org.hibernate.SQL - 
+    alter table BestelArtikel 
+        add constraint FKns4ag3o3x88r7lgj3s7otm2be 
+        foreign key (prijsId) 
+        references prijs (id)
+2016-07-29 10:56:22.275 [main] DEBUG org.hibernate.SQL - 
+    alter table Bestelling 
+        add constraint FKqyy1j36ikll8asl3mla1gbfhk 
+        foreign key (klant_id) 
+        references Klant (id)
+2016-07-29 10:56:22.503 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        add constraint FKr89e2fppc4nyd1i7rkevs9r66 
+        foreign key (betaalwijze_id) 
+        references Betaalwijze (id)
+2016-07-29 10:56:22.750 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        add constraint FK20fjkvrish6jvr4d3un1t5tvx 
+        foreign key (factuur_id) 
+        references Factuur (id)
+2016-07-29 10:56:23.032 [main] DEBUG org.hibernate.SQL - 
+    alter table Betaling 
+        add constraint FKngu47gter3no17ercj8cayt57 
+        foreign key (klant_id) 
+        references Klant (id)
+2016-07-29 10:56:23.258 [main] DEBUG org.hibernate.SQL - 
+    alter table Factuur 
+        add constraint FK791h7rn23eqyif0kcgt79pcen 
+        foreign key (bestelling_id) 
+        references Bestelling (id)
+2016-07-29 10:56:23.476 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        add constraint FKl1nfntvltwioijtun2mabikq1 
+        foreign key (adresTypeId) 
+        references AdresType (id)
+2016-07-29 10:56:23.708 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        add constraint FK7xmes93h4lq7orakup4m0s304 
+        foreign key (adresId) 
+        references Adres (id)
+2016-07-29 10:56:23.942 [main] DEBUG org.hibernate.SQL - 
+    alter table klantAdresAdresType 
+        add constraint FKb2o2d8ttp0l5hpgy7kunqlla 
+        foreign key (klantId) 
+        references Klant (id)
+2016-07-29 10:56:24.182 [main] DEBUG org.hibernate.SQL - 
+    alter table prijsArtikel 
+        add constraint FK80v9e6vf6ko8mric7rc0to3ss 
+        foreign key (artikelId) 
+        references Artikel (id)
+2016-07-29 10:56:24.392 [main] DEBUG org.hibernate.SQL - 
+    alter table prijsArtikel 
+        add constraint FKlai903l477kijadmxdnwifsp2 
+        foreign key (prijsId) 
+        references prijs (id)
+2016-07-29 10:56:24.626 [main] INFO  org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@53bf7094'
+2016-07-29 10:56:24.627 [main] DEBUG org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - No JtaPlatform was specified, checking resolver
+2016-07-29 10:56:24.627 [main] DEBUG org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformResolverInitiator - No JtaPlatformResolver was specified, using default [org.hibernate.engine.transaction.jta.platform.internal.StandardJtaPlatformResolver]
+2016-07-29 10:56:24.629 [main] DEBUG org.hibernate.engine.transaction.jta.platform.internal.StandardJtaPlatformResolver - Could not resolve JtaPlatform, using default [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2016-07-29 10:56:24.637 [main] DEBUG org.hibernate.engine.spi.CascadeStyles - External cascade style regsitration [persist : STYLE_PERSIST] overrode base registration [STYLE_PERSIST_SKIPLAZY]
+2016-07-29 10:56:24.637 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariCP pool HikariPool-0 is shutting down.
