@@ -14,6 +14,11 @@ body {
     text-align: center;
 }
 
+img.headerAuthenticated {
+    width: 500px;
+    height: 200px;
+}
+
 img.header {
     width: 100%;
 }
@@ -58,6 +63,11 @@ div.errors {
 
 .klantInformation {
     font-size: 8pt;
+}
+
+.klantInformationItem {
+    font-size: 8pt;
+    font-weight: bold;
 }
 
 /*Klantenlijst*/

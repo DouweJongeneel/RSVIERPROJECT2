@@ -7,10 +7,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -55,7 +52,7 @@ public class Klant implements Serializable {
 		joinColumns = @JoinColumn(name = "klantId", nullable = false),
 		inverseJoinColumns = @JoinColumn(name = "adresTypeId", nullable = false))
 	@MapKeyJoinColumn(name = "adresId", nullable = false)
-	protected Map<Adres, AdresType> adresGegevens = new HashMap<>();
+	protected Map<Adres, AdresType> adresGegevens = new LinkedHashMap<>();
 
 	@OneToMany(mappedBy = "klant")
 	@Column(nullable = false)
@@ -70,6 +67,7 @@ public class Klant implements Serializable {
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
+			String datumAanmaak,
 			String email, String password,
 			Map<Adres, AdresType> adresGegevens) {
 
@@ -81,7 +79,8 @@ public class Klant implements Serializable {
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 		this.tussenvoegsel = tussenvoegsel;
-		this.datumAanmaak = new Date(System.currentTimeMillis()).toString();
+		this.datumAanmaak = datumAanmaak;
+		this.datumGewijzigd = "";
 		this.email = email;
         this.password = password;
 	}

@@ -26,7 +26,7 @@
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
                         <table>
                             <tr>
-                                <td><span class="klantInformation">Password:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.password}">Password:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.password}">-</span></td>
                             </tr>
                         </table>
@@ -35,27 +35,27 @@
                         <table>
                             <tr><br/></tr>
                             <tr>
-                                <td><span class="klantInformation">First Name:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.firstName}">First Name:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.voornaam}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Prefix:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.prefix}">Prefix:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.tussenvoegsel}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Last Name</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.lastName}">Last Name</span></td>
                                 <td><span class="klantInformation" th:text="${klant.achternaam}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Created</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.dateCreated}">Date Created</span></td>
                                 <td><span class="klantInformation" th:text="${klant.datumAanmaak}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Modified</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.dateModified}">Date Modified</span></td>
                                 <td><span class="klantInformation" th:text="${klant.datumGewijzigd}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Active</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.active}">Active</span></td>
                                 <td><span class="klantInformation" th:text="${klant.klantActief}">-</span></td>
                             </tr>
                         </table>
@@ -63,8 +63,8 @@
                 </td>
 
                 <td class = "klantList">
-                    <span><a th:href="@{/klant/wijzigen/{id}(id=${klant.id})}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/verwijderen/{id}(id=${klant.id})}">Tumble Status</a></span><br />
+                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}" th:text="#{harrie.actions.modify}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/tumble/{id}(id=${klant.id})}" th:text="#{harrie.actions.tumble}">Tumble Status</a></span><br />
                 </td>
 
                 <td class = "klantListProfilePicture">
@@ -79,11 +79,13 @@
 
         <table class="adresList">
             <tr>
-                <th align="left" th:text="#{harrie.adres.address}">Address</th>
 
-                <th align="left" th:text="#{harrie.adres.addressActions}">
-                    <span><a th:href="@{/klant/adres/register}" th:text="#{harrie.adres.register}">Register address</a></span>
+                <th align="left" >
+                    <span th:text="#{harrie.adres.address}">Address</span>
+                    <span><a th:href="@{/klant/adres/register}" th:text="'(' + #{harrie.adres.register} + ')'">Register address</a></span>
                 </th>
+
+                <th align="left" th:text="#{harrie.adres.addressActions}">Address Actions</th>
 
                 <th align="left" th:text="#{harrie.adres.googleMaps}">Google Maps</th>
             </tr>
@@ -93,11 +95,11 @@
                 <td class="adresList">
                     <div class="klantAdresHeader"> <span th:text="${adres.key.getStraatnaam()} + ' ' + ${adres.key.getHuisnummer()}"></span>
                         <span class="adresId" th:text="'(ID: ' + ${adres.key.id} + ')'"></span>
+                        <span class="klantInformation" th:text="'(ID(ADRES)): ' + ${adres.value.id} + ')'">Value ID</span>
                         <table>
                             <tr>
-                                <td><span class="klantInformation">Adres Type:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.adresType}">Adres Type:</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.type}">Key Type</span></td>
-                                <td><span class="klantInformation" th:text="'(ID: ' + ${adres.value.id} + ')'">Value ID</span></td>
                             </tr>
                         </table>
                     </div>
@@ -105,31 +107,31 @@
                         <table>
                             <tr><br/></tr>
                             <tr>
-                                <td><span class="klantInformation">Straatnaam:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.street}">Straatnaam:</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.straatnaam}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Huisnummer:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.number}">Huisnummer:</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.huisnummer}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Toevoeging</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.prefix}">Toevoeging</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.toevoeging}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Postcode</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.zipcode}">Postcode</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.postcode}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Created</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.dateCreated}">Date Created</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.datumAanmaak}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Modified</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.dateModified}">Date Modified</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.datumGewijzigd}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Active</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.adres.active}">Active</span></td>
                                 <td><span class="klantInformation" th:text="${adres.key.adresActief}">-</span></td>
                             </tr>
                         </table>
@@ -137,12 +139,12 @@
                 </td>
 
                 <td class = "adresList">
-                    <span><a th:href="@{/klant/adres/wijzigen/{id}(id=${adres.key.id})}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/adres/verwijderen/{id}(id=${adres.key.id})}">Tumble Status</a></span><br />
+                    <span><a th:href="@{/klant/adres/modify/{id}(id=${adres.key.id})}" th:text="#{harrie.actions.modify}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/adres/tumble/{id}(id=${adres.key.id})}" th:text="#{harrie.actions.tumble}">Tumble Status</a></span><br />
                 </td>
 
                 <td class = "adresList">
-                    <span class = "klantInformation" th:text="'Google Maps'"></span>
+                    <span class = "klantInformation" th:text="#{harrie.adres.googleMaps}"></span>
                 </td>
 
             </tr>

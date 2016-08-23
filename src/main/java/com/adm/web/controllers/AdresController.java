@@ -7,17 +7,20 @@ import com.adm.database.service.KlantService;
 import com.adm.domain.Adres;
 import com.adm.domain.Klant;
 import com.adm.web.forms.AdresRegisterForm;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Date;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -72,6 +75,32 @@ public class AdresController {
 
         // Persist alles naar de klant
         klantDAO.makePersistent(klant);
+
+        // Redirect to created profile
+        return "redirect:/klant/profile";
+    }
+
+    // Tumble status methode
+    @RequestMapping(value = "/tumble/{id}", method = GET)
+    public String tumbleStatusAdres(@PathVariable Long id, Klant klant, Model model) throws Exception {
+
+        //Achtung, the id is the id of the value in the map in the client
+        Adres adres = adresDAO.findById(id);
+
+        if (adres.getAdresActief().charAt(0) == '0')
+            adres.setAdresActief("1");
+        else
+            adres.setAdresActief("0");
+
+        adres.setDatumGewijzigd(new Date().toString());
+
+        // Update status of address
+        adresDAO.makePersistent(adres);
+
+        Hibernate.initialize(klant.getAdresGegevens());
+        klant = klantDAO.makePersistent(klant);
+
+        model.addAttribute("klant", klant);
 
         // Redirect to created profile
         return "redirect:/klant/profile";

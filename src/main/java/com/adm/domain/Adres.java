@@ -1,8 +1,9 @@
 package com.adm.domain;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -44,7 +45,7 @@ public class Adres {
 
 	@ManyToMany(mappedBy = "adresGegevens", cascade={CascadeType.MERGE, CascadeType.PERSIST})
 	@Column(nullable = false)
-	protected Set<Klant> klant = new HashSet<Klant>();
+	protected Set<Klant> klant = new LinkedHashSet<Klant>();
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	protected AdresType type;
@@ -179,4 +180,10 @@ public class Adres {
 			return true;
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(13, 37).toHashCode();
+	}
+	//TODO: Unieker maken
 }
