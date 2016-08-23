@@ -31,6 +31,12 @@ public class ArtikelRegisterForm {
 	
 	public ArtikelRegisterForm() {
 	}
+	public ArtikelRegisterForm(String naam, BigDecimal prijs, Integer levertijd, boolean opVoorraad) {
+		this.artikelNaam = naam;
+		this.artikelPrijs = prijs;
+		this.artikelLevertijd = levertijd;
+		this.artikelOpVoorraad = opVoorraad;
+	}
 	
 	//Getters and Setters
 	

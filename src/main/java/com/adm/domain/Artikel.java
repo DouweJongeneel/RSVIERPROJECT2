@@ -56,6 +56,9 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 	@OneToMany(mappedBy = "artikel")
 	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel;
+	
+	@Transient
+	private String plaatje;
 
 	//Constructors
 	public Artikel() {
@@ -101,6 +104,14 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 
 	public Set<BestelArtikel> getBestelArtikel() {
 		return bestelArtikel;
+	}
+
+	public String getPlaatje() {
+		return plaatje;
+	}
+
+	public void setPlaatje(String plaatje) {
+		this.plaatje = plaatje;
 	}
 
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {

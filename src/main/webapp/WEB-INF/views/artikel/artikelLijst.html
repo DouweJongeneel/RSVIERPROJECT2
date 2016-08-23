@@ -56,7 +56,7 @@
                 </td>
 
                 <td class = "artikelListProductPicture">
-                    <span><img class="productPicture" th:src="@{'data:image/jpeg;base64,'+${plaatjesArray[artikel.id - 1]}}" /></span>
+                    <span><img class="productPicture" th:src="@{'data:image/jpeg;base64,'+${artikelList.get(artikel.id - 1).getPlaatje()}}" /></span>
                 </td>
 
             </tr>
