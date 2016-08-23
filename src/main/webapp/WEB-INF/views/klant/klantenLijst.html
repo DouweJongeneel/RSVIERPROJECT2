@@ -15,12 +15,14 @@
         <h1>Klantenlijst</h1>
         <table class="klantList">
             <tr>
-                <th align="left">Client</th>
-                <th align="left">Actions</th>
+                <th align="left" th:text="#{harrie.klant.client}">Client</th>
+                <th align="left" th:text="#{harrie.klant.clientactions}">Actions</th>
+                <th align="left" th:text="#{harrie.klant.profilePicture}">Profile Picture</th>
             </tr>
 
             <tr class = "klantList" th:each="klant : ${klantenList}"
                 th:id="'spittle_' + ${klant.getId()}">
+                <!--TODO WAT DOET SPITTLE HIER NODIG TUSSEN-->
                 <td class="klantList">
                     <div class="klandAdresHeader"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>

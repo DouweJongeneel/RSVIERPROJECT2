@@ -5,7 +5,6 @@ import com.adm.database.daos.KlantDAO;
 import com.adm.database.service.AdresService;
 import com.adm.database.service.KlantService;
 import com.adm.domain.Adres;
-import com.adm.domain.AdresType;
 import com.adm.domain.Klant;
 import com.adm.web.forms.AdresRegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Milan_Verheij on 19-08-16.
  *
- * Adres Controller
+ * Address Controller
  */
 
 @Controller
@@ -67,12 +66,7 @@ public class AdresController {
         // Maak van adersForm -> adres
         Adres nieuwAdres = adresRegisterForm.toAdres();
 
-        //Zet het adres in de klant en persist die shit
-        AdresType adresType = new AdresType();
-        adresType.setAdres_type(0);
-
-        // AdresType in adres zetten en persisten
-        nieuwAdres.setType(adresType);
+        // Persisten
         nieuwAdres = adresDAO.makePersistent(nieuwAdres);
         klant.getAdresGegevens().put(nieuwAdres, nieuwAdres.getType());
 

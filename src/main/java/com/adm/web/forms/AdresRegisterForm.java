@@ -1,6 +1,7 @@
 package com.adm.web.forms;
 
 import com.adm.domain.Adres;
+import com.adm.domain.AdresType;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -27,6 +28,9 @@ public class AdresRegisterForm {
 
     @NotNull
     private String woonplaats;
+
+    @NotNull
+    private String adresType;
 
     // Getters and setters
     public String getStraatnaam() {
@@ -59,10 +63,22 @@ public class AdresRegisterForm {
     public void setWoonplaats(String woonplaats) {
         this.woonplaats = woonplaats;
     }
+    public String getAdresType() {
+        return adresType;
+    }
+    public void setAdresType(String adresType) {
+        this.adresType = adresType;
+    }
 
     // Extra methods
     public Adres toAdres() {
-        return new Adres(straatnaam, postcode, toevoeging, Integer.parseInt(huisnummer), woonplaats, new Date().toString(), "", "1");
+
+        // Set adres-type to correct index
+        AdresType adresType = new AdresType();
+        adresType.setAdres_type(Integer.parseInt(this.adresType));
+
+        return new Adres(straatnaam, postcode, toevoeging, Integer.parseInt(huisnummer),
+                woonplaats, adresType, new Date().toString(), "", "1");
     }
 
 }

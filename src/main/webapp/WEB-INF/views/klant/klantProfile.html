@@ -15,14 +15,14 @@
 
         <table class="klantList">
             <tr>
-                <th align="left">Client</th>
-                <th align="left">Actions</th>
-                <th align="left">Profile Picture</th>
+                <th align="left" th:text="#{harrie.klant.client}">Client</th>
+                <th align="left" th:text="#{harrie.klant.clientactions}">Client Actions</th>
+                <th align="left" th:text="#{harrie.klant.profilePicture}">Profile Picture</th>
             </tr>
 
             <tr class = "klantList">
                 <td class="klantList">
-                    <div class="klandAdresHeader"> <span th:text="${klant.email}"></span>
+                    <div class="klantAdresHeader"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
                         <table>
                             <tr>
@@ -74,29 +74,77 @@
             </tr>
         </table>
 
+        <br/><br/><br/>
+        <!--TODO: Want -> lelijk-->
+
         <table class="adresList">
             <tr>
-                <th align="left">Adres</th>
-                <th align="left">Actions</th>
-                <th align="left">Google maps? :P</th>
+                <th align="left" th:text="#{harrie.adres.address}">Address</th>
+
+                <th align="left" th:text="#{harrie.adres.addressActions}">
+                    <span><a th:href="@{/klant/adres/register}" th:text="#{harrie.adres.register}">Register address</a></span>
+                </th>
+
+                <th align="left" th:text="#{harrie.adres.googleMaps}">Google Maps</th>
             </tr>
 
-            <tr th:each="adres : ${adresMap}">
-                <td>
-                    <table>
-                        <tr>
-                            <td th:text="${adres.key}">keyvalue</td>
-                            <td th:text="${adres.value.id}">num</td>
-                            <td th:text="${adres.key.type}">type</td>
-                        </tr>
-                    </table>
+            <tr class = "adresList" th:each="adres : ${adresMap}"
+                th:id="'adres' + ${adres.key.id}">
+                <td class="adresList">
+                    <div class="klantAdresHeader"> <span th:text="${adres.key.getStraatnaam()} + ' ' + ${adres.key.getHuisnummer()}"></span>
+                        <span class="adresId" th:text="'(ID: ' + ${adres.key.id} + ')'"></span>
+                        <table>
+                            <tr>
+                                <td><span class="klantInformation">Adres Type:</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.type}">Key Type</span></td>
+                                <td><span class="klantInformation" th:text="'(ID: ' + ${adres.value.id} + ')'">Value ID</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <table>
+                            <tr><br/></tr>
+                            <tr>
+                                <td><span class="klantInformation">Straatnaam:</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.straatnaam}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Huisnummer:</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.huisnummer}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Toevoeging</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.toevoeging}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Postcode</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.postcode}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Date Created</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.datumAanmaak}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Date Modified</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.datumGewijzigd}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="klantInformation">Active</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.adresActief}">-</span></td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
-                <td>actiones</td>
-                <td>googlie Mappies</td>
-            </tr>
 
-            <tr>
-                <a th:href="@{/klant/adres/register}">Register address</a><br />
+                <td class = "adresList">
+                    <span><a th:href="@{/klant/adres/wijzigen/{id}(id=${adres.key.id})}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/adres/verwijderen/{id}(id=${adres.key.id})}">Tumble Status</a></span><br />
+                </td>
+
+                <td class = "adresList">
+                    <span class = "klantInformation" th:text="'Google Maps'"></span>
+                </td>
+
             </tr>
 
         </table>

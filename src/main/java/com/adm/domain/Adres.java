@@ -54,24 +54,26 @@ public class Adres {
 
 	// Constructor met basis gegevens
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats) {
+			int huisnummer, String woonplaats, AdresType adresType) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 	}
 
 	// Constructor met basis gegevens en gegevens welke enkel bij tests worden gewijzigd maar wel van
 	// belang zijn voor het opvragen van gegevens etc. in de DAO's
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats, String datumAanmaak,
-			String datumGewijzigd, String adresActief) {
+			int huisnummer, String woonplaats, AdresType adresType, String datumAanmaak,
+			 String datumGewijzigd, String adresActief) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 		this.datumAanmaak = datumAanmaak;
 		this.datumGewijzigd = datumGewijzigd;
 		this.adresActief = adresActief;
