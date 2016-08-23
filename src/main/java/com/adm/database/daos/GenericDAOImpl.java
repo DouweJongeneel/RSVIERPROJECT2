@@ -25,7 +25,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	 */
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
 	private final Class<E> entityClass;
 
@@ -47,6 +47,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	public E findReferenceById(ID id) {
 		return entityManager.getReference(entityClass, id);
 	}
+	
 	public List<E> findAll() {
 		CriteriaQuery<E> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entityClass);
 		criteriaQuery.select(criteriaQuery.from(entityClass));
