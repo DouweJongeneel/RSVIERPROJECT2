@@ -21,7 +21,7 @@ public class AdresType implements Serializable {
 	@Column
 	private String adres_type;
 
-	private static final String[] type = {"Thuisadres", "Werkadres", "Bezorgadres"};
+	private static final String[] type = {"Home Address", "Work Address", "Delivery Address"};
 
 	// Getters and setters
 	public Long getId() {
@@ -45,6 +45,7 @@ public class AdresType implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AdresType [adres_type_id=" + id + ", adres_type=" + adres_type + "]";
+		return adres_type;
+//		return "AdresType [adres_type_id=" + id + ", adres_type=" + adres_type + "]";
 	}
 }

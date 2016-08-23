@@ -1,8 +1,9 @@
 package com.adm.domain;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -44,7 +45,7 @@ public class Adres {
 
 	@ManyToMany(mappedBy = "adresGegevens", cascade={CascadeType.MERGE, CascadeType.PERSIST})
 	@Column(nullable = false)
-	protected Set<Klant> klant = new HashSet<Klant>();
+	protected Set<Klant> klant = new LinkedHashSet<Klant>();
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	protected AdresType type;
@@ -54,24 +55,26 @@ public class Adres {
 
 	// Constructor met basis gegevens
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats) {
+			int huisnummer, String woonplaats, AdresType adresType) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 	}
 
 	// Constructor met basis gegevens en gegevens welke enkel bij tests worden gewijzigd maar wel van
 	// belang zijn voor het opvragen van gegevens etc. in de DAO's
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats, String datumAanmaak,
-			String datumGewijzigd, String adresActief) {
+			int huisnummer, String woonplaats, AdresType adresType, String datumAanmaak,
+			 String datumGewijzigd, String adresActief) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 		this.datumAanmaak = datumAanmaak;
 		this.datumGewijzigd = datumGewijzigd;
 		this.adresActief = adresActief;
@@ -177,4 +180,10 @@ public class Adres {
 			return true;
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(13, 37).toHashCode();
+	}
+	//TODO: Unieker maken
 }

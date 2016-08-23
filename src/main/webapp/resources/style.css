@@ -2,7 +2,6 @@
 
 body {
     background: #ffffff;
-    /*fixed left top;*/
     color: #333333;
     font-family: sans-serif;
     font-size: 0.75em;
@@ -13,6 +12,11 @@ body {
     font-weight: normal;
     line-height: 1.5;
     text-align: center;
+}
+
+img.headerAuthenticated {
+    width: 500px;
+    height: 200px;
 }
 
 img.header {
@@ -61,6 +65,10 @@ div.errors {
     font-size: 8pt;
 }
 
+.klantInformationItem {
+    font-size: 8pt;
+    font-weight: bold;
+}
 
 /*Klantenlijst*/
 
@@ -84,6 +92,7 @@ table.klantList {
 table td.klantList {
     background-color: #F9F7F3;
     border: 1px dotted darkred;
+    padding: 5px;
 }
 
 
@@ -98,10 +107,10 @@ img.profilePicture {
 }
 
 
-
 /* Adres Lijst */
 .klantAdresHeader {
     font-size: 12pt;
+    font-weight: bold;
 }
 
 .adresList h1 {
@@ -113,15 +122,16 @@ table th.adresList {
 }
 
 table.adresList {
-    border: 1px solid darkred;
-    background-color: #F3D392;
+    border: 1px solid darkblue;
+    background-color: #CCF3F6;
     font-size: 8pt;
-    width: 50%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
 }
 
 table td.adresList {
-    background-color: #F9F7F3;
-    border: 1px dotted darkred;
+    background-color: #EEFFFF;
+    border: 1px dotted darkblue;
+    padding: 5px;
 }

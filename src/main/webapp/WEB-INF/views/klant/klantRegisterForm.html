@@ -61,7 +61,8 @@
                 <td><input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /></td>
             </tr>
         </table>
-        <input type="submit" value="Push Da Button!" />
+
+        <input type="submit" th:value="#{harrie.klant.register}" />
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </form>
 </div>

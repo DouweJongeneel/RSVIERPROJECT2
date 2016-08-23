@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
@@ -124,7 +122,7 @@ public class KlantController {
     }
 
     // Tumble status methode
-    @RequestMapping(value = "/delete/{id}", method = GET)
+    @RequestMapping(value = "/tumble/{id}", method = GET)
     public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
         Klant klant = klantDAO.findById(id);
 
@@ -133,8 +131,11 @@ public class KlantController {
         else
             klant.setKlantActief("0");
 
+        klant.setDatumGewijzigd( new Date().toString());
+
         klantDAO.makePersistent(klant);
 
+        //TODO: Als vanuit een profile page komt terug schakelen naar profile ipv terug naar klantenlijst
 
         return showKlanten(model);
     }
@@ -155,20 +156,3 @@ public class KlantController {
         return showProfile(model, klant);
     }
 }
-
-
-
-
-//    // Profielpagina(op basis van url met email)
-//    @RequestMapping(value = "/{email}", method = GET)
-//    public String showKlantProfile(@PathVariable String email, Model model, Klant globalKlant) {
-//
-//        if (!model.containsAttribute("klant")) {
-//            Klant klantje = new Klant(null, "FOUT", "FOUT", "FOUT", "FOUT", "FOUT", null);
-//            model.addAttribute("klant", klantje);
-//        }
-//
-//        model.addAttribute("klant", globalKlant);
-//
-//        return "klant/klantProfile";
-//    }
