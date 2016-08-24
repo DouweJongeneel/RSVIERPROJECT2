@@ -2,11 +2,15 @@ package com.adm.web.controllers;
 
 import com.adm.database.daos.KlantDAO;
 import com.adm.database.service.KlantService;
+import com.adm.domain.Adres;
+import com.adm.domain.AdresType;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,13 +50,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class KlantController {
 
     private KlantDAO klantDAO;
+    private MessageSource messageSource;
 
 //    private String pictureFolder = "C:/harrie/uploads/data/profilePictures"; // Windows
     private String pictureFolder = "/tmp/harrie/uploads/data/profilePictures/"; // Unix-Based
 
     @Autowired
-    public KlantController(KlantService klantService) {
+    public KlantController(KlantService klantService, MessageSource messageSource) {
         this.klantDAO = klantService.getDAO();
+        this.messageSource = messageSource;
     }
 
     @RequestMapping(value = "/register", method = GET)
@@ -93,8 +99,19 @@ public class KlantController {
     @RequestMapping(value = "/profile", method = GET)
     public String showProfile(Model model, Klant klant) {
 
+        // Initialize address data (lazy loading)
         Hibernate.initialize(klant.getAdresGegevens()); //TODO: Is niet Hibernate-onafhankelijk
 
+        // Fix language settings for Adress Type
+        Iterator<Adres> adresIterator = klant.getAdresGegevens().keySet().iterator();
+
+        while (adresIterator.hasNext()) {
+            Adres adres = adresIterator.next();
+            AdresType adresType = adres.getType();
+            adres.setAdresTypeString(messageSource.getMessage(adresType.toString(), new Object[] {}, LocaleContextHolder.getLocale()));
+        }
+
+        // Add Attributes in map
         model.addAttribute("adresMap", klant.getAdresGegevens());
         model.addAttribute("klant", klant);
 
@@ -175,11 +192,12 @@ public class KlantController {
             throws Exception {
 
         if (errors.hasErrors()) {
-            //TODO: A Error checking en B error weergeven
+            // TODO: A Error checking en B error weergeven
             return "klant/klantenLijst";
         }
 
         // Save klant to repository
+        klant.setDatumGewijzigd(new Date().toString());
         klant = klantDAO.makePersistent(klant);
         Hibernate.initialize(klant.getAdresGegevens());
         model.addAttribute(klant);
