@@ -12,7 +12,7 @@
 <div id="content">
     <h1 th:text="#{harrie.klant.modify}"></h1>
 
-    <form method="POST" th:object="${klant}" enctype="multipart/form-data">
+    <form method="POST" th:object="${klantRegisterForm}" enctype="multipart/form-data">
         <div class="errors" th:if="${#fields.hasErrors('*')}">
             <ul>
                 <li th:each="err : ${#fields.errors('*')}"
@@ -26,14 +26,14 @@
                            th:text="#{harrie.klant.email}"></label>:</td>
                 <td><input type="text" th:field="*{email}"
                            th:class="${#fields.hasErrors('email')}? 'error readonly' : 'readonly'"
-                           th:value="${klant.email}" th:readonly="true"/></td>
+                           th:value="${klantRegisterForm.email}" th:readonly="true"/></td>
             </tr>
             <tr>
                 <td><label th:class="${#fields.hasErrors('voornaam')}? 'error'"
                            th:text="#{harrie.klant.firstName}"></label>:</td>
                 <td><input type="text" th:field="*{voornaam}"
                            th:class="${#fields.hasErrors('voornaam')}? 'error'"
-                           th:value="${klant.voornaam}"/></td>
+                           th:value="${klantRegisterForm.voornaam}"/></td>
             </tr>
 
             <tr>
@@ -41,7 +41,7 @@
                            th:text="#{harrie.klant.prefix}"></label>:</td>
                 <td><input type="text" th:field="*{tussenvoegsel}"
                            th:class="${#fields.hasErrors('tussenvoegsel')}? 'error'"
-                           th:value="${klant.tussenvoegsel}"/></td>
+                           th:value="${klantRegisterForm.tussenvoegsel}"/></td>
             </tr>
 
             <tr>
@@ -49,16 +49,16 @@
                            th:text="#{harrie.klant.lastName}"></label>:</td>
                 <td><input type="text" th:field="*{achternaam}"
                            th:class="${#fields.hasErrors('achternaam')}? 'error'"
-                           th:value="${klant.achternaam}"/></td>
+                           th:value="${klantRegisterForm.achternaam}"/></td>
             </tr>
 
 
             <tr>
                 <td><label th:class="${#fields.hasErrors('password')}? 'error'"
                            th:text="#{harrie.klant.password}"></label>:</td>
-                <td><input type="password" th:field="*{password}"
+                <td><input th:type="password" th:field="*{password}"
                            th:class="${#fields.hasErrors('password')}? 'error'"
-                           th:value="${klant.password}"/></td>
+                           th:value="${klantRegisterForm.password}"/></td>
             </tr>
 
             <!--<tr>-->

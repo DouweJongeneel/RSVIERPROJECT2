@@ -22,6 +22,13 @@
 
         <table class="center">
             <tr>
+                <td><label th:class="${#fields.hasErrors('email')}? 'error'"
+                           th:text="#{harrie.klant.emailAccount}"></label>:</td>
+                <td><input type="text" th:field="*{email}"
+                           th:class="${#fields.hasErrors('email')}? 'error'" /></td>
+            </tr>
+
+            <tr>
                 <td><label th:class="${#fields.hasErrors('voornaam')}? 'error'"
                            th:text="#{harrie.klant.firstName}"></label>:</td>
                 <td><input type="text" th:field="*{voornaam}"
@@ -40,13 +47,6 @@
                            th:text="#{harrie.klant.lastName}"></label>:</td>
                 <td><input type="text" th:field="*{achternaam}"
                            th:class="${#fields.hasErrors('achternaam')}? 'error'" /></td>
-            </tr>
-
-            <tr>
-                <td><label th:class="${#fields.hasErrors('email')}? 'error'"
-                           th:text="#{harrie.klant.email}"></label>:</td>
-                <td><input type="text" th:field="*{email}"
-                           th:class="${#fields.hasErrors('email')}? 'error'" /></td>
             </tr>
 
             <tr>

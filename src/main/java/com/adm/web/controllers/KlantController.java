@@ -7,6 +7,7 @@ import com.adm.domain.AdresType;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,7 +54,7 @@ public class KlantController {
     private KlantDAO klantDAO;
     private MessageSource messageSource;
 
-//    private String pictureFolder = "C:/harrie/uploads/data/profilePictures"; // Windows
+    //    private String pictureFolder = "C:/harrie/uploads/data/profilePictures"; // Windows
     private String pictureFolder = "/tmp/harrie/uploads/data/profilePictures/"; // Unix-Based
 
     @Autowired
@@ -61,6 +63,7 @@ public class KlantController {
         this.messageSource = messageSource;
     }
 
+    /** CLIENT REGISTER METHOD (GET) **/
     @RequestMapping(value = "/register", method = GET)
     public String showRegistrationForm(Model model) {
 
@@ -69,6 +72,7 @@ public class KlantController {
         return "klant/klantRegister";
     }
 
+    /** CLIENT REGISTER METHOD (POST) **/
     @RequestMapping(value = "/register", method = POST)
     public String processRegistration(
             @Valid KlantRegisterForm klantRegisterForm,
@@ -86,21 +90,25 @@ public class KlantController {
 
         // Save profilePicture
         MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
+        String profielFotoNaam = profilePicture.getOriginalFilename();
         profilePicture.transferTo(new File("/data/profilePictures/"
-                + nieuweKlant.getId() + ".jpg"));
-
-        //TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
+                + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
 
         // Terug naar klantenlijst, nieuwe klanten ophalen
         return showKlanten(model);
     }
 
-    // Profiel pagina (leeg)
+    /** CLIENT PROFILE PAGE **/
     @RequestMapping(value = "/profile", method = GET)
-    public String showProfile(Model model, Klant klant) {
+    public String showProfile(Model model, Klant klant) throws Exception {
+
+        // If there no active client yet, return to clientList
+        if (klant.getEmail() == null) {
+            return showKlanten(model);
+        }
 
         // Initialize address data (lazy loading)
-        Hibernate.initialize(klant.getAdresGegevens()); //TODO: Is niet Hibernate-onafhankelijk
+        Hibernate.initialize(klant.getAdresGegevens()); //TODO: Hibernate.initialize in client JPA-independent
 
         // Fix language settings for Adress Type
         Iterator<Adres> adresIterator = klant.getAdresGegevens().keySet().iterator();
@@ -108,7 +116,7 @@ public class KlantController {
         while (adresIterator.hasNext()) {
             Adres adres = adresIterator.next();
             AdresType adresType = adres.getType();
-            adres.setAdresTypeString(messageSource.getMessage(adresType.toString(), new Object[] {}, LocaleContextHolder.getLocale()));
+            adres.setAdresTypeString(messageSource.getMessage(adresType.toString(), new Object[]{}, LocaleContextHolder.getLocale()));
         }
 
         // Add Attributes in map
@@ -118,7 +126,7 @@ public class KlantController {
         return "klant/klantProfile";
     }
 
-    // Klantenlijst pagina
+    /** CLIENT LIST METHOD **/
     @RequestMapping(value = "/klanten", method = GET)
     public String showKlanten(Model model) throws Exception {
         List<Klant> klantenLijst = klantDAO.findAll();
@@ -138,71 +146,106 @@ public class KlantController {
         return "klant/klantenLijst";
     }
 
-    // Tumble Status
+    /** TUMBLE CLIENT STATUS METHOD **/
     @RequestMapping(value = "/tumble/{id}", method = GET)
-    public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
+    public String tumbleStatusKlant(@PathVariable Long id,
+                                    Model model,
+                                    @RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage
+                                    ) throws Exception {
+        // Find the persisting client
         Klant klant = klantDAO.findById(id);
 
+        // Tumble status with respect to the current status
         if (klant.getKlantActief().charAt(0) == '0')
             klant.setKlantActief("1");
         else
             klant.setKlantActief("0");
 
+        // Fill in the date modified
         klant.setDatumGewijzigd( new Date().toString());
 
+        // Persist the new clientinfo
         klantDAO.makePersistent(klant);
 
         //TODO: Als vanuit een profile page komt terug schakelen naar profile ipv terug naar klantenlijst
 
+        // Return to the client list
         return showKlanten(model);
     }
 
-    // Select Client
+    /** SELECT CLIENT METHOD **/ //TODO: From profile using session client
     @RequestMapping(value = "/select/{id}", method = GET)
     public String selectKlant(@PathVariable Long id, Model model) throws Exception {
+        // Find the persisting client
         Klant klant = klantDAO.findById(id);
 
+        // Read in an the correct profile picture and encode in Base64
         byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
                 + klant.getId() + ".jpg").toPath());
 
         String imageDataString = Base64.encode(array);
 
+        //TODO: Opslaan in transient
+
+
+        // Add the client and picture attributes to the model
         model.addAttribute(klant);
         model.addAttribute("plaatje", imageDataString);
 
+        // Show the profile
         return showProfile(model, klant);
     }
 
 
-    // Modify Client (from clientlist) TODO: From profile using session client
+    /** MODIFY CLIENT (GET) METHOD **/ //TODO: From profile using session client
     @RequestMapping(value = "/modify/{id}", method = GET)
     public String modifyClient(@PathVariable Long id, Model model) throws Exception {
+        // Find client by ID
         Klant klant = klantDAO.findById(id);
 
+        //  Put clientdata in regfisterForm (which is error-checked)
+        KlantRegisterForm registerForm = new KlantRegisterForm(
+                klant.getVoornaam(),
+                klant.getAchternaam(),
+                klant.getTussenvoegsel(),
+                klant.getEmail(),
+                "",
+                null);
+
+        //  Add clientdata to model (klant has to be there to retain the 'other' fields')
         model.addAttribute("klant", klant);
+        model.addAttribute("klantRegisterForm", registerForm);
 
         return "klant/klantModify";
     }
 
+    /** MODIFY CLIENT (POST) METHOD **/
     @RequestMapping(value = "/modify/{id}", method = POST)
     public String processRegistration(
-            @Valid Klant klant,
+            @Valid KlantRegisterForm klantRegisterForm,
             Errors errors,
+            Klant klant,
             Model model)
             throws Exception {
 
+        // If there are errors in the input, redirect to the modify page
         if (errors.hasErrors()) {
-            // TODO: A Error checking en B error weergeven
-            return "klant/klantenLijst";
+            return "klant/klantModify";
         }
 
-        // Save klant to repository
+        // Set the modifed parameters in the existing client-object
+        klant.setVoornaam(klantRegisterForm.getVoornaam());
+        klant.setAchternaam(klantRegisterForm.getAchternaam());
+        klant.setTussenvoegsel(klantRegisterForm.getTussenvoegsel());
+        klant.setPassword(klantRegisterForm.getPassword());
+
+        // Save client to repository
         klant.setDatumGewijzigd(new Date().toString());
         klant = klantDAO.makePersistent(klant);
         Hibernate.initialize(klant.getAdresGegevens());
         model.addAttribute(klant);
 
-        // Terug naar klantenlijst, nieuwe klanten ophalen
+        // Redirect to the client list
         return showKlanten(model);
     }
 }

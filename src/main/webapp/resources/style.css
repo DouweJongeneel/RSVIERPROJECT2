@@ -46,10 +46,10 @@ input.readonly {
     background-color: lightgrey;
 }
 
-span.error {
-    color: red;
-    font-size: 8pt;
-}
+/*span.error {*/
+    /*color: red;*/
+    /*font-size: 8pt;*/
+/*}*/
 
 div.errors {
     font-size: 8pt;
