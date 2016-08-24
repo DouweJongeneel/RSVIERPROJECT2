@@ -52,7 +52,7 @@ public class AdresController {
         model.addAttribute("adresRegisterForm", new AdresRegisterForm());
         model.addAttribute("klant", klant);
 
-        return "klant/adres/adresRegisterForm";
+        return "klant/adres/adresRegister";
     }
 
     @RequestMapping(value = "/register", method = POST)
@@ -63,7 +63,7 @@ public class AdresController {
             throws IOException {
 
         if (errors.hasErrors()) {
-            return "/klant/adres/adresRegisterForm";
+            return "klant/adres/adresRegister";
         }
 
         // Maak van adersForm -> adres

@@ -42,6 +42,10 @@ input.error {
     background-color: #ffcccc;
 }
 
+input.readonly {
+    background-color: lightgrey;
+}
+
 span.error {
     color: red;
     font-size: 8pt;

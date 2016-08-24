@@ -60,7 +60,7 @@ public class KlantController {
 
         model.addAttribute("klantRegisterForm", new KlantRegisterForm());
 
-        return "klant/klantRegisterForm";
+        return "klant/klantRegister";
     }
 
     @RequestMapping(value = "/register", method = POST)
@@ -71,7 +71,7 @@ public class KlantController {
             throws Exception {
 
         if (errors.hasErrors()) {
-            return "/klant/klantRegisterForm";
+            return "klant/klantRegister";
         }
 
         // Save klant to repository
@@ -121,7 +121,7 @@ public class KlantController {
         return "klant/klantenLijst";
     }
 
-    // Tumble status methode
+    // Tumble Status
     @RequestMapping(value = "/tumble/{id}", method = GET)
     public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
         Klant klant = klantDAO.findById(id);
@@ -154,5 +154,37 @@ public class KlantController {
         model.addAttribute("plaatje", imageDataString);
 
         return showProfile(model, klant);
+    }
+
+
+    // Modify Client (from clientlist) TODO: From profile using session client
+    @RequestMapping(value = "/modify/{id}", method = GET)
+    public String modifyClient(@PathVariable Long id, Model model) throws Exception {
+        Klant klant = klantDAO.findById(id);
+
+        model.addAttribute("klant", klant);
+
+        return "klant/klantModify";
+    }
+
+    @RequestMapping(value = "/modify/{id}", method = POST)
+    public String processRegistration(
+            @Valid Klant klant,
+            Errors errors,
+            Model model)
+            throws Exception {
+
+        if (errors.hasErrors()) {
+            //TODO: A Error checking en B error weergeven
+            return "klant/klantenLijst";
+        }
+
+        // Save klant to repository
+        klant = klantDAO.makePersistent(klant);
+        Hibernate.initialize(klant.getAdresGegevens());
+        model.addAttribute(klant);
+
+        // Terug naar klantenlijst, nieuwe klanten ophalen
+        return showKlanten(model);
     }
 }
