@@ -34,15 +34,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 /**
  * Created by Milan_Verheij on 15-08-16.
  *
- * Klant controller
- *
- * - Inloggen klant
- * - Registeren klant
- * - Profiel klant
+ * Client controller
  *
  */
 
-//TODO Exception handling
+//TODO ClientController -> Exception handling in general
 
 @Controller
 @Component
@@ -67,8 +63,10 @@ public class KlantController {
     @RequestMapping(value = "/register", method = GET)
     public String showRegistrationForm(Model model) {
 
+        // Add registerform to model and sent to user
         model.addAttribute("klantRegisterForm", new KlantRegisterForm());
 
+        // Go to register form
         return "klant/klantRegister";
     }
 
@@ -80,22 +78,23 @@ public class KlantController {
             Model model)
             throws Exception {
 
+        // If the form has error's in input return to the user
         if (errors.hasErrors()) {
             return "klant/klantRegister";
         }
 
-        // Save klant to repository
+        // Save client to repository
         Klant nieuweKlant = klantRegisterForm.toKlant();
         nieuweKlant = klantDAO.makePersistent(nieuweKlant);
 
-        // Save profilePicture
+        // Save profilePicture to a file
         MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
         String profielFotoNaam = profilePicture.getOriginalFilename();
         profilePicture.transferTo(new File("/data/profilePictures/"
                 + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
 
         // Terug naar klantenlijst, nieuwe klanten ophalen
-        return showKlanten(model);
+        return showClients(model);
     }
 
     /** CLIENT PROFILE PAGE **/
@@ -104,7 +103,7 @@ public class KlantController {
 
         // If there no active client yet, return to clientList
         if (klant.getEmail() == null) {
-            return showKlanten(model);
+            return showClients(model);
         }
 
         // Initialize address data (lazy loading)
@@ -128,7 +127,7 @@ public class KlantController {
 
     /** CLIENT LIST METHOD **/
     @RequestMapping(value = "/klanten", method = GET)
-    public String showKlanten(Model model) throws Exception {
+    public String showClients(Model model) throws Exception {
         List<Klant> klantenLijst = klantDAO.findAll();
 
         ArrayList<String> plaatjesList = new ArrayList<>();
@@ -148,9 +147,9 @@ public class KlantController {
 
     /** TUMBLE CLIENT STATUS METHOD **/
     @RequestMapping(value = "/tumble/{id}", method = GET)
-    public String tumbleStatusKlant(@PathVariable Long id,
-                                    Model model,
-                                    @RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage
+    public String tumbleStatusClient(@PathVariable Long id,
+                                     Model model,
+                                     @RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage
                                     ) throws Exception {
         // Find the persisting client
         Klant klant = klantDAO.findById(id);
@@ -167,15 +166,18 @@ public class KlantController {
         // Persist the new clientinfo
         klantDAO.makePersistent(klant);
 
-        //TODO: Als vanuit een profile page komt terug schakelen naar profile ipv terug naar klantenlijst
+        // If the direct is from the profile page, redirect to the profilepage instead of the client list.
+        if (fromProfilePage == 1) {
+            return showProfile(model, klant);
+        }
 
         // Return to the client list
-        return showKlanten(model);
+        return showClients(model);
     }
 
-    /** SELECT CLIENT METHOD **/ //TODO: From profile using session client
+    /** SELECT CLIENT METHOD **/
     @RequestMapping(value = "/select/{id}", method = GET)
-    public String selectKlant(@PathVariable Long id, Model model) throws Exception {
+    public String selectClient(@PathVariable Long id, Model model) throws Exception {
         // Find the persisting client
         Klant klant = klantDAO.findById(id);
 
@@ -187,7 +189,6 @@ public class KlantController {
 
         //TODO: Opslaan in transient
 
-
         // Add the client and picture attributes to the model
         model.addAttribute(klant);
         model.addAttribute("plaatje", imageDataString);
@@ -197,7 +198,7 @@ public class KlantController {
     }
 
 
-    /** MODIFY CLIENT (GET) METHOD **/ //TODO: From profile using session client
+    /** MODIFY CLIENT (GET) METHOD **/
     @RequestMapping(value = "/modify/{id}", method = GET)
     public String modifyClient(@PathVariable Long id, Model model) throws Exception {
         // Find client by ID
@@ -221,7 +222,7 @@ public class KlantController {
 
     /** MODIFY CLIENT (POST) METHOD **/
     @RequestMapping(value = "/modify/{id}", method = POST)
-    public String processRegistration(
+    public String processModification(
             @Valid KlantRegisterForm klantRegisterForm,
             Errors errors,
             Klant klant,
@@ -246,6 +247,6 @@ public class KlantController {
         model.addAttribute(klant);
 
         // Redirect to the client list
-        return showKlanten(model);
+        return showClients(model);
     }
 }

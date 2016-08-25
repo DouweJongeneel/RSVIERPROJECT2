@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * Home controller
  *
- * Voegt vanaf begin af aan een Klant-object toe aan het model, als het goed is
- * is die klant een global session klant.
- *
  */
 @Controller
 @Component
@@ -30,7 +27,6 @@ public class HomeController {
     public String home(Model model, Klant klant) {
 
         model.addAttribute("klant", klant);
-
 
         return "home";
     }

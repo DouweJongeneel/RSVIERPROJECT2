@@ -51,15 +51,19 @@ public class AdresController {
         this.messageSource = messageSource;
     }
 
+    /** REGISTER METHOD FOR ADDRESSES (GET) **/
     @RequestMapping(value = "/register", method = GET)
     public String showRegistrationForm(Model model, Klant klant) {
 
+        // Add a registerform to the model including clientdata
         model.addAttribute("adresRegisterForm", new AdresRegisterForm());
         model.addAttribute("klant", klant);
 
+        // Show the registerview
         return "klant/adres/adresRegister";
     }
 
+    /** REGISTER METHOD FOR ADDRESSES (POST) **/ //TODO: Making known addresses addable
     @RequestMapping(value = "/register", method = POST)
     public String processRegistration(
             @Valid AdresRegisterForm adresRegisterForm,
@@ -67,25 +71,26 @@ public class AdresController {
             Klant klant)
             throws IOException {
 
+        // If the user entered wrong data return to register form
         if (errors.hasErrors()) {
             return "klant/adres/adresRegister";
         }
 
-        // Maak van adersForm -> adres
+        // Translate adressform into adress
         Adres nieuwAdres = adresRegisterForm.toAdres();
 
-        // Persisten
+        // Persist the adress
         nieuwAdres = adresDAO.makePersistent(nieuwAdres);
         klant.getAdresGegevens().put(nieuwAdres, nieuwAdres.getType());
 
-        // Persist alles naar de klant
+        // Persist the client
         klantDAO.makePersistent(klant);
 
         // Redirect to created profile
         return "redirect:/klant/profile";
     }
 
-    // Tumble status methode
+    /** TUMBLE STATUS METHOD **/
     @RequestMapping(value = "/tumble/{id}", method = GET)
     public String tumbleStatusAdres(@PathVariable Long id, Klant klant, Model model) throws Exception {
 
@@ -113,35 +118,53 @@ public class AdresController {
         return "redirect:/klant/profile";
     }
 
-    // Modify Client (from clientlist) TODO: From profile using session client
+    /** MODIFY ADDRESS METHOD (GET) **/
     @RequestMapping(value = "/modify/{id}", method = GET)
     public String modifyClient(@PathVariable Long id, Model model, Adres adres) throws Exception {
+        // Find the persistent address in the databas
         adres = adresDAO.findById(id);
 
-        // Fix language for adresType
+        // Fix language for adresType in address
         AdresType adresType = adres.getType();
         adres.setAdresTypeString(messageSource.getMessage(adresType.toString(), new Object[] {}, LocaleContextHolder.getLocale()));
 
-        // Add attributes
+        // Convert applicable address fields from address object to a adresRegisterForm
+        AdresRegisterForm registerForm = new AdresRegisterForm(
+                adres.getStraatnaam(),
+                adres.getPostcode(),
+                adres.getToevoeging(),
+                String.valueOf(adres.getHuisnummer()),
+                adres.getWoonplaats(),
+                adres.getAdresTypeString(),
+                adres.getAdresActief());
+
+        // Add attributes, address has to be there to retain the data
+        model.addAttribute("adresRegisterForm", registerForm);
         model.addAttribute("adres", adres);
 
         return "klant/adres/adresModify";
     }
 
+    /** MODIFY ADDRESS METHOD (POST) **/
     @RequestMapping(value = "/modify/{id}", method = POST)
     public String processRegistration(
-            @Valid Adres adres,
+            @Valid AdresRegisterForm adresRegisterForm,
             Errors errors,
             Model model,
-            Klant klant)
+            Klant klant,
+            Adres adres)
             throws Exception {
 
         if (errors.hasErrors()) {
-//             TODO: A Error checking en B error weergeven
-            return "redirect:/klant/profile";
+            return "klant/adres/adresModify";
         }
 
-        // TODO: ADRESTYPE?
+        // Convert applicable adress data from form -> address
+        adres.setStraatnaam(adresRegisterForm.getStraatnaam());
+        adres.setHuisnummer(Integer.parseInt(adresRegisterForm.getHuisnummer()));
+        adres.setToevoeging(adresRegisterForm.getToevoeging());
+        adres.setPostcode(adresRegisterForm.getPostcode());
+        adres.setWoonplaats(adresRegisterForm.getWoonplaats());
 
         // Save adres to repository
         adres.setDatumGewijzigd(new Date().toString());
@@ -154,7 +177,7 @@ public class AdresController {
         // Inject client into model for display
         model.addAttribute(klant);
 
-        // Terug naar klantenlijst, nieuwe klanten ophalen
+        // Return to client profile
         return "redirect:/klant/profile";
     }
 

@@ -63,8 +63,13 @@
                 </td>
 
                 <td class = "klantList">
-                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}" th:text="#{harrie.actions.modify}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/tumble/{id}(id=${klant.id})}" th:text="#{harrie.actions.tumble}">Tumble Status</a></span><br />
+                    <form th:action="@{/klant/modify/{id}(id=${klant.id})}">
+                        <input type="submit" th:value="#{harrie.actions.modify}"/>
+                    </form>
+                    <form th:action="@{/klant/tumble/{id}(id=${klant.id})}">
+                            <input type="hidden" name="fromProfile" value="1" />
+                            <input type="submit" th:value="#{harrie.actions.tumble}"/>
+                    </form>
                 </td>
 
                 <td class = "klantListProfilePicture">

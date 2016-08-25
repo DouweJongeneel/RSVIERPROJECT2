@@ -38,6 +38,28 @@ public class AdresRegisterForm {
     @NotNull
     private String adresType;
 
+    private String adresActief;
+
+
+    // Constructors
+    public AdresRegisterForm() {}
+
+    public AdresRegisterForm(String straatnaam,
+                             String postcode,
+                             String toevoeging,
+                             String huisnummer,
+                             String woonplaats,
+                             String adresType,
+                             String adresActief) {
+        this.straatnaam = straatnaam;
+        this.postcode = postcode;
+        this.toevoeging = toevoeging;
+        this.huisnummer = huisnummer;
+        this.woonplaats = woonplaats;
+        this.adresType = adresType;
+        this.adresActief = adresActief;
+    }
+
     // Getters and setters
     public String getStraatnaam() {
         return straatnaam;
@@ -74,6 +96,12 @@ public class AdresRegisterForm {
     }
     public void setAdresType(String adresType) {
         this.adresType = adresType;
+    }
+    public String getAdresActief() {
+        return adresActief;
+    }
+    public void setAdresActief(String adresActief) {
+        this.adresActief = adresActief;
     }
 
     // Extra methods

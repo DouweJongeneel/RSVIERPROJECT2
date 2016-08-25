@@ -12,7 +12,7 @@
 <div id="content">
     <h1 th:text="#{harrie.adres.modify}"></h1>
 
-    <form method="POST" th:object="${adres}" enctype="multipart/form-data">
+    <form method="POST" th:object="${adresRegisterForm}" enctype="multipart/form-data">
         <div class="errors" th:if="${#fields.hasErrors('*')}">
             <ul>
                 <li th:each="err : ${#fields.errors('*')}"
@@ -22,12 +22,12 @@
 
         <table class="center">
             <tr>
-                <td><label th:class="${#fields.hasErrors('type')}? 'error'"
+                <td><label th:class="${#fields.hasErrors('adresType')}? 'error'"
                            th:text="#{harrie.adres.adresType}"></label>:</td>
                 <td>
-                    <input type="text" th:field="*{adresTypeString}"
-                           th:class="${#fields.hasErrors('type')}? 'error readonly' : 'readonly'"
-                           th:value="${adres.adresTypeString}" th:readonly="true" th:disabled="true"/>
+                    <input type="text" th:field="*{adresType}"
+                           th:class="${#fields.hasErrors('adresType')}? 'error readonly' : 'readonly'"
+                           th:value="${adresRegisterForm.adresType}" th:readonly="true"/>
                 </td>
 
             </tr>
@@ -37,7 +37,7 @@
                 <td>
                     <input type="text" th:field="*{adresActief}"
                            th:class="${#fields.hasErrors('adresActief')}? 'error readonly' : 'readonly'"
-                           th:value="${adres.adresActief}" th:readonly="true" th:disabled="true"/>
+                           th:value="${adresRegisterForm.adresActief}" th:readonly="true" />
                 </td>
 
             </tr>
@@ -46,7 +46,7 @@
                            th:text="#{harrie.adres.street}"></label>:</td>
                 <td><input type="text" th:field="*{straatnaam}"
                            th:class="${#fields.hasErrors('straatnaam')}? 'error'"
-                           th:value="${adres.straatnaam}"/></td>
+                           th:value="${adresRegisterForm.straatnaam}"/></td>
             </tr>
 
             <tr>
@@ -54,7 +54,7 @@
                            th:text="#{harrie.adres.number}"></label>:</td>
                 <td><input type="text" th:field="*{huisnummer}"
                            th:class="${#fields.hasErrors('huisnummer')}? 'error'"
-                           th:value="${adres.huisnummer}"/></td>
+                           th:value="${adresRegisterForm.huisnummer}"/></td>
             </tr>
 
             <tr>
@@ -62,7 +62,7 @@
                            th:text="#{harrie.adres.prefix}"></label>:</td>
                 <td><input type="text" th:field="*{toevoeging}"
                            th:class="${#fields.hasErrors('toevoeging')}? 'error'"
-                           th:value="${adres.toevoeging}"/></td>
+                           th:value="${adresRegisterForm.toevoeging}"/></td>
             </tr>
 
 
@@ -71,7 +71,7 @@
                            th:text="#{harrie.adres.zipcode}"></label>:</td>
                 <td><input type="text" th:field="*{postcode}"
                            th:class="${#fields.hasErrors('postcode')}? 'error'"
-                           th:value="${adres.postcode}"/></td>
+                           th:value="${adresRegisterForm.postcode}"/></td>
             </tr>
 
             <tr>
@@ -79,7 +79,7 @@
                            th:text="#{harrie.adres.city}"></label>:</td>
                 <td><input type="text" th:field="*{woonplaats}"
                            th:class="${#fields.hasErrors('woonplaats')}? 'error'"
-                           th:value="${adres.woonplaats}"/></td>
+                           th:value="${adresRegisterForm.woonplaats}"/></td>
             </tr>
 
         </table>
