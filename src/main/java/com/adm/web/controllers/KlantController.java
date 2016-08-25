@@ -88,10 +88,12 @@ public class KlantController {
         nieuweKlant = klantDAO.makePersistent(nieuweKlant);
 
         // Save profilePicture to a file
-        MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
-        String profielFotoNaam = profilePicture.getOriginalFilename();
-        profilePicture.transferTo(new File("/data/profilePictures/"
-                + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
+        saveProfilePicture(nieuweKlant.getId(), klantRegisterForm.getProfilePicture());
+//
+//        MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
+//        String profielFotoNaam = profilePicture.getOriginalFilename();
+//        profilePicture.transferTo(new File("/data/profilePictures/"
+//                + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
 
         // Return to client list
         return showClients(model);
@@ -182,9 +184,7 @@ public class KlantController {
         Klant klant = klantDAO.findById(id);
 
         // Read in an the correct profile picture and encode in Base64 and add to client
-        byte[] profilePictureArray = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
-                + klant.getId() + ".jpg").toPath());
-        klant.setProfilePicture(Base64.encode(profilePictureArray));
+        klant.setClientProfilePicture(getProfilePicture(klant.getId()));
 
         // Add the client and picture attributes to the model
         model.addAttribute(klant);
@@ -199,6 +199,7 @@ public class KlantController {
     public String modifyClient(@PathVariable Long id, Model model) throws Exception {
         // Find client by ID
         Klant klant = klantDAO.findById(id);
+        klant.setClientProfilePicture(getProfilePicture(klant.getId()));
 
         //  Put clientdata in regfisterForm (which is error-checked)
         KlantRegisterForm registerForm = new KlantRegisterForm(
@@ -236,6 +237,11 @@ public class KlantController {
         klant.setTussenvoegsel(klantRegisterForm.getTussenvoegsel());
         klant.setPassword(klantRegisterForm.getPassword());
 
+        // Set new profile picture if a new one is uploaded
+        if (klantRegisterForm.getProfilePicture() != null) {
+            saveProfilePicture(klant.getId(), klantRegisterForm.getProfilePicture());
+        }
+
         // Save client to repository
         klant.setDatumGewijzigd(new Date().toString());
         klant = klantDAO.makePersistent(klant);
@@ -244,5 +250,23 @@ public class KlantController {
 
         // Redirect to the client list
         return showClients(model);
+    }
+
+    /** METHOD FOR GETTING PROFILE PICTURE FROM SERVER **/
+    private static String getProfilePicture(long id) throws Exception {
+        byte[] profilePictureArray = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
+                + id + ".jpg").toPath());
+
+        String profileString = Base64.encode(profilePictureArray);
+
+        return profileString;
+    }
+
+    /** METHOD FOR SAVING PROFILE PICTURE TO SERVER **/
+    private static void saveProfilePicture(long id, MultipartFile profilePicture) throws Exception {
+        // Save profilePicture to a file
+        String profielFotoNaam = profilePicture.getOriginalFilename();
+        profilePicture.transferTo(new File("/data/profilePictures/"
+                + id + "." + (FilenameUtils.getExtension(profielFotoNaam))));
     }
 }

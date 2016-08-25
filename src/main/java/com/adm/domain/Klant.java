@@ -59,7 +59,7 @@ public class Klant implements Serializable {
 	protected Set<Bestelling> bestellingen = new HashSet<Bestelling>();
 
 	@Transient
-	private String profilePicture;
+	private String clientProfilePicture;
 
 	//  Default public no-arg constructor
 	public Klant() {
@@ -181,11 +181,11 @@ public class Klant implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-	public String getProfilePicture() {
-		return profilePicture;
+	public String getClientProfilePicture() {
+		return clientProfilePicture;
 	}
-	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
+	public void setClientProfilePicture(String clientProfilePicture) {
+		this.clientProfilePicture = clientProfilePicture;
 	}
 
 	public Set<Bestelling> getBestellingen() {

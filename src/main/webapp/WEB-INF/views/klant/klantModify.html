@@ -61,10 +61,11 @@
                            th:value="${klantRegisterForm.password}"/></td>
             </tr>
 
-            <!--<tr>-->
-                <!--<td><label th:text="#{harrie.klant.profilePicture}"></label></td>-->
-                <!--<td><input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /></td>-->
-            <!--</tr>-->
+            <tr>
+                <td><label th:text="#{harrie.klant.profilePicture}"></label>:</td>
+                <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${klant.clientProfilePicture}}" /></span>
+                <td><input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /></td>
+            </tr>
 
             <!--TODO: Profilepicture veranderen-->
         </table>
