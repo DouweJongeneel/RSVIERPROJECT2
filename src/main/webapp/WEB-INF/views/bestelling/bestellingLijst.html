@@ -11,7 +11,7 @@
 
 		<div>
 			<h1>Bestellingenlijst</h1>
-			<table>
+			<table class="center">
 				<tr>
 					<td>Bestellingnummer</td>
 					<td>Datum</td>
@@ -21,6 +21,9 @@
 					<td th:text="${best.bestelNummer}">2016-01</td>
 					<td th:text="${best.datumAanmaak}">18-08-2016</td>
 					<td><a th:href="@{/bestelling/select/{id}(id=${best.id})}">View Bestelling</a></td>
+				</tr>
+				<tr>
+				<td><a th:href="@{/bestelling/catalogus}">Nieuwe Bestelling</a></td>
 				</tr>
 			</table>
 		</div>

@@ -1,7 +1,7 @@
 package com.adm.domain;
 
-import java.sql.Date;
-import java.util.HashSet;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,12 +28,21 @@ public class Factuur {
 	private Date factureringsDatum;
 	
 	@OneToMany(mappedBy = "factuur")
-	@Column(nullable = false)
-	private Set<Betaling> betalingSet = new HashSet<Betaling>();
+	@Column
+	private Set<Betaling> betalingSet = new LinkedHashSet<Betaling>();
 	
 	@ManyToOne(optional = false)
 	private Bestelling bestelling;
 
+	public void voegBetalingToe(Betaling betaling){
+		betalingSet.add(betaling);
+	}
+
+	public void haalBetalingWeg(Betaling betaling){
+		if(betalingSet.contains(betaling))
+			betalingSet.remove(betaling);
+	}
+	
 	public Long getId() {
 		return id;
 	}

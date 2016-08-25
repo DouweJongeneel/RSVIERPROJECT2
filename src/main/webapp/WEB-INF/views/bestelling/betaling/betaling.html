@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Harrie and Marie-Claire</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
+</head>
+<body>
+	<div id="header" th:include="page :: headerAuthenticated"></div>
+
+	<div id="content">
+		<h1 th:text="#{harrie.adres.register}"></h1>
+
+		<form method="POST" th:object="${betaalWijze}"
+			enctype="multipart/form-data">
+
+			<table class="center">
+				<tr th:each="art,iterationStatus : ${artikelLijst}">
+					<td th:text="${art.artikel.artikelNaam}">Art. naam</td>
+					<td th:text="${art.aantal}">Aantal</td>
+					<td th:text="${art.prijs.prijs}">prijs</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" th:text="#{harrie.betaling.totaalprijs}">Totaalprijs</td>
+					<td th:text="${totaal}">Totaalprijs</td>
+				</tr>
+
+				<tr>
+					<td colspan = "2"><span th:text="#{harrie.betaling.betalingsType}">Select
+							a payment type</span>:</td>
+					<td><select th:field="*{value}">
+							<option th:value="0" th:text="#{harrie.betaling.creditcard}">Credit
+								card</option>
+							<option th:value="1" th:text="#{harrie.betaling.cash}">Cash</option>
+							<option th:value="2" th:text="#{harrie.betaling.ideal}">IDeal</option>
+							<option th:value="3" th:text="#{harrie.betaling.paypal}">PayPal</option>
+							<option th:value="4" th:text="#{harrie.betaling.inkind}">Payment
+								in kind</option>
+					</select></td>
+				</tr>
+
+			</table>
+
+			<input type="submit" th:value="#{harrie.betaling.register}" /> <input
+				type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+		</form>
+	</div>
+
+	<div id="footer" th:include="page :: copy"></div>
+
+</body>
+</html>
