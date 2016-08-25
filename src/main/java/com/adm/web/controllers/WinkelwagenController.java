@@ -157,7 +157,7 @@ public class WinkelwagenController {
 		while(it.hasNext()){
 
 			art = it.next();
-			Iterator<Prijs> prijsIt = art.getPrijs().iterator();
+			Iterator<Prijs> prijsIt = art.getPrijzen().iterator();
 
 			while(prijsIt.hasNext())
 				pr = prijsIt.next();
