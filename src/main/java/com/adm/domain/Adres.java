@@ -3,6 +3,7 @@ package com.adm.domain;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Component
-public class Adres {
+public class Adres implements Serializable {
 
 	//Datafield
 
@@ -49,6 +50,11 @@ public class Adres {
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	protected AdresType type;
+
+    // Translation AdresType -> Readable Multi Language String
+    @Transient
+    private String adresTypeString;
+
 
 	//Constructors
 	public Adres() {}
@@ -154,8 +160,14 @@ public class Adres {
 	public void setType(AdresType type) {
 		this.type = type;
 	}
+    public String getAdresTypeString() {
+        return adresTypeString;
+    }
+    public void setAdresTypeString(String adresTypeString) {
+        this.adresTypeString = adresTypeString;
+    }
 
-	@Override
+    @Override
 	public String toString() {
 		return "[" +
 				straatnaam + ", " +

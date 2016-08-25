@@ -4,6 +4,7 @@ import com.adm.domain.Adres;
 import com.adm.domain.AdresType;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -16,21 +17,48 @@ public class AdresRegisterForm {
 
     // Fields
     @NotNull
+    @Size(min=6, max=30, message="{address.street.size}")
     private String straatnaam;
 
     @NotNull
+    @Size(min=3, max=16, message="{address.zipCode.size}")
     private String postcode;
 
+    @Size(max=6, message="{address.prefix.size")
     private String toevoeging;
 
     @NotNull
+    @Size(min=1, max=10, message="{address.number.size}")
     private String huisnummer;
 
     @NotNull
+    @Size(min=3, max=50, message="{address.city.size}")
     private String woonplaats;
 
     @NotNull
     private String adresType;
+
+    private String adresActief;
+
+
+    // Constructors
+    public AdresRegisterForm() {}
+
+    public AdresRegisterForm(String straatnaam,
+                             String postcode,
+                             String toevoeging,
+                             String huisnummer,
+                             String woonplaats,
+                             String adresType,
+                             String adresActief) {
+        this.straatnaam = straatnaam;
+        this.postcode = postcode;
+        this.toevoeging = toevoeging;
+        this.huisnummer = huisnummer;
+        this.woonplaats = woonplaats;
+        this.adresType = adresType;
+        this.adresActief = adresActief;
+    }
 
     // Getters and setters
     public String getStraatnaam() {
@@ -68,6 +96,12 @@ public class AdresRegisterForm {
     }
     public void setAdresType(String adresType) {
         this.adresType = adresType;
+    }
+    public String getAdresActief() {
+        return adresActief;
+    }
+    public void setAdresActief(String adresActief) {
+        this.adresActief = adresActief;
     }
 
     // Extra methods

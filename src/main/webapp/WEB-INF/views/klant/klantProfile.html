@@ -63,19 +63,23 @@
                 </td>
 
                 <td class = "klantList">
-                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}" th:text="#{harrie.actions.modify}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/tumble/{id}(id=${klant.id})}" th:text="#{harrie.actions.tumble}">Tumble Status</a></span><br />
+                    <form th:action="@{/klant/modify/{id}(id=${klant.id})}">
+                        <input type="submit" th:value="#{harrie.actions.modify}"/>
+                    </form>
+                    <form th:action="@{/klant/tumble/{id}(id=${klant.id})}">
+                            <input type="hidden" name="fromProfile" value="1" />
+                            <input type="submit" th:value="#{harrie.actions.tumble}"/>
+                    </form>
                 </td>
 
                 <td class = "klantListProfilePicture">
-                    <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" /></span>
+                    <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${klant.clientProfilePicture}}" /></span>
                 </td>
 
             </tr>
         </table>
 
         <br/><br/><br/>
-        <!--TODO: Want -> lelijk-->
 
         <table class="adresList">
             <tr>
@@ -99,7 +103,7 @@
                         <table>
                             <tr>
                                 <td><span class="klantInformationItem" th:text="#{harrie.adres.adresType}">Adres Type:</span></td>
-                                <td><span class="klantInformation" th:text="${adres.key.type}">Key Type</span></td>
+                                <td><span class="klantInformation" th:text="${adres.key.adresTypeString}">Key Type</span></td>
                             </tr>
                         </table>
                     </div>
