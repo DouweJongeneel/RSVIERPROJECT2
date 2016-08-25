@@ -44,154 +44,208 @@ import com.adm.web.forms.ArtikelRegisterForm;
 public class ArtikelController {
 
 	private static ArtikelDAO artikelDAO;
-	private PrijsDAO prijsDAO;
+	private static PrijsDAO prijsDAO;
 
 	@Autowired
 	public ArtikelController(ArtikelDAO artikelDAO, PrijsDAO prijsDAO) {
 		this.artikelDAO = artikelDAO;
 		this.prijsDAO = prijsDAO;
 	}
-
+	
+	/*
+	 * Controller die een overzicht van alle artikelen toont
+	 */
 	@SuppressWarnings("restriction")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showAlleArtikelen(Model model) throws Exception {
+	public String showAllArtikelen(Model model) throws Exception {
+		// verkrijg een lijst met alle artikelen
 		List<Artikel> artikelList = maakArtikelLijst();
-
+		
+		// stop de lijst met alle artikelen in het model
 		model.addAttribute("artikelList", artikelList);
-
+		
+		// toon alle artikelen
 		return "artikel/artikelLijst";
 	}
-
+	
+	/*
+	 * Controller die het artikelregistratieformulier toont
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("artikelRegisterForm", new ArtikelRegisterForm());
 		return "artikel/artikelRegisterForm";
 	}
-
+	
+	/*
+	 * Controller die het artikelRegistratieformulier verwerkt
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String processRegistration(
 			@Valid ArtikelRegisterForm artikelRegisterForm, 
 			Errors errors, RedirectAttributes model) throws Exception {
-
+		
+		// Toon fouten wanneer het artikelRegisterForm verkeerd is ingevuld
 		if (errors.hasErrors()) {
 			return "/artikel/artikelRegisterForm";
 		}
 
 		try {
-			// Save artikel
-			Artikel nieuwArtikel = new Artikel(
+			// Haal de artikelgegevens uit het artikelformulier
+			Artikel artikel = new Artikel(
 					hanteerNaamConventie(artikelRegisterForm.getArtikelNaam()),
 					artikelRegisterForm.getArtikelPrijs(), 
 					artikelRegisterForm.getArtikelLevertijd(),
 					artikelRegisterForm.isArtikelOpVoorraad());
 
-			nieuwArtikel = artikelDAO.makePersistent(nieuwArtikel);
-			nieuwArtikel.setArtikelPrijs(artikelRegisterForm.getArtikelPrijs());
-			prijsDAO.makePersistent(new Prijs(artikelRegisterForm.getArtikelPrijs(), nieuwArtikel));
+			artikel = artikelDAO.makePersistent(artikel);
+			prijsDAO.makePersistent(new Prijs(artikelRegisterForm.getArtikelPrijs(), artikel));
 
-			// Save artikelAfbeelding
-			MultipartFile artikelAfbeelding = artikelRegisterForm.getArtikelAfbeelding();
-			artikelAfbeelding.transferTo(new File("/data/productPictures/" +
-					nieuwArtikel.getId() + ".jpg"));
-
+			// Sla de afbeelding op
+			slaAfbeeldingOp(artikel.getId(), artikelRegisterForm.getArtikelAfbeelding());
+			artikel.setPlaatje(getProductPictureDataString(artikel.getId()));
+			
 			// Save flash attribute
-			model.addFlashAttribute("artikel", nieuwArtikel);
-			model.addAttribute("id", nieuwArtikel.getId());
+			model.addFlashAttribute("artikel", artikel);
+			model.addAttribute("id", artikel.getId());
 		}
 		catch (DataIntegrityViolationException ex) {
 			throw new DuplicateEntryException();
 		}
 
 		// Redirect to created profile
-		return "redirect:/artikel/{id}";
+		return "redirect:/artikel/select/{id}";
 
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String showProduct(
-			@PathVariable("id") Long id, Model model, Artikel globalArtikel) {
-
-		model.addAttribute("artikel", globalArtikel);
-		return "artikel/artikelProfile";
-
-	}
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String showProduct(Model model, Artikel artikel) {
-		model.addAttribute("artikel", artikel);
-		return "artikel/artikelProfile";
-	}
-
-	@RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
-	public String selectArtikel(@PathVariable Long id, Model model) throws Exception {
-		Artikel artikel = artikelDAO.findById(id);
-		String imageDataString = getProductPictureDataString(id);
-
-		model.addAttribute("plaatje", imageDataString);
-		model.addAttribute(artikel);
-
-		return showProduct(model, artikel);
 	}
 
 	/*
-	 * Methodes om een artikel te wijzigen
+	 * Controler die een enkel artikel toont
+	 */
+	@RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
+	public String selectArtikel(@PathVariable Long id, Model model) throws Exception {
+		// Verkrijg artikelgegevens en prijs
+		Artikel artikel = artikelDAO.findById(id);
+		stopDeActuelePrijsInHetArtikel(artikel);
+		
+		// Stop artikel met prijs en plaatje in model
+		model.addAttribute("plaatje", getProductPictureDataString(id));
+		model.addAttribute(artikel);
+
+		return "artikel/artikelProfile";
+	}
+
+	/*
+	 * Controler die het formulier om een artikel te wijzigen toont
 	 */
 	@RequestMapping(value = "/wijzigen/{id}", method = RequestMethod.GET)
 	public String modifyArtikel(@PathVariable Long id, Model model) {
 
 		// Verkrijg actuele artikel en prijs gegevens
 		Artikel teWijzigenArtikel = artikelDAO.findById(id);
-		Set<Prijs> artikelPrijzen = teWijzigenArtikel.getPrijzen();
+		stopDeActuelePrijsInHetArtikel(teWijzigenArtikel);
 
 		ArtikelRegisterForm artikelModificationForm = new ArtikelRegisterForm(
 				teWijzigenArtikel.getArtikelNaam(),
-				((Prijs)artikelPrijzen.toArray()[artikelPrijzen.size()-1]).getPrijs(),
+				teWijzigenArtikel.getArtikelPrijs(),
 				teWijzigenArtikel.getVerwachteLevertijd(),
 				teWijzigenArtikel.isInAssortiment());
 
 		model.addAttribute("artikelRegisterForm", artikelModificationForm);
+		model.addAttribute("artikel", teWijzigenArtikel);
 		model.addAttribute("plaatje", getProductPictureDataString(id));
 
 		return "artikel/artikelModificationForm";
 	}
-
+	
+	/*
+	 * Controller die de wijziging van het artikel verwerkt
+	 */
 	@RequestMapping(value = "/wijzigen/{id}", method = RequestMethod.POST)
-	public String procesArtikelModification(@PathVariable Long id, @Valid ArtikelRegisterForm artikelRegisterForm, 
+	public String procesArtikelModification(@PathVariable Long id, Artikel artikel, @Valid ArtikelRegisterForm artikelForm, 
 			Errors errors, RedirectAttributes model) throws Exception {
 
 		if (errors.hasErrors()) {
 			return "/artikel/artikelModificationForm";
 		}
-		return "redirect:/artikel/{id}"; // TODO - ?
+		
+		// Vergelijk de prijs voor en na de wijziging en geef aan of de prijs gewijzigd is
+		BigDecimal prijsVoorWijziging = artikel.getPrijzen().get(artikel.getPrijzen().size()-1).getPrijs();
+		boolean prijsIsGewijzigd = (prijsVoorWijziging.compareTo(artikelForm.getArtikelPrijs()) != 0);
+		
+		// Zet de gegevens uit het artikel formulier in het artikel
+		artikel.setArtikelNaam(artikelForm.getArtikelNaam());
+		artikel.setArtikelPrijs(artikelForm.getArtikelPrijs());
+		artikel.setVerwachteLevertijd(artikelForm.getArtikelLevertijd());
+		artikel.setInAssortiment(artikelForm.isArtikelOpVoorraad());
+		
+		// Sla het artikel op in de database
+		artikel = artikelDAO.makePersistent(artikel);
+		
+		// Wanneer de prijs gewijzigd is wordt er een nieuwe prijs opgeslagen in de database
+		if (prijsIsGewijzigd) {
+			prijsDAO.makePersistent(new Prijs(artikelForm.getArtikelPrijs(), artikel));
+		}
+		
+		// Sla de afbeelding op
+		slaAfbeeldingOp(artikel.getId(), artikelForm.getArtikelAfbeelding());
+		
+		model.addFlashAttribute("artikel", artikel);
+		
+		return "redirect:/artikel/select/{id}"; // TODO - ?
 	}
 
-
+	/* 
+	 * Controller die ervoor zorgt dat een artikel niet meer op voorraad is
+	 */
+	@RequestMapping(value = "/verwijderen/{id}")
+	public String processArtikelOutOfStock(@PathVariable Long id, RedirectAttributes model){
+		Artikel artikel = artikelDAO.findById(id);
+		
+		if (artikel.isInAssortiment()){
+			artikel.setInAssortiment(false);
+		}
+		else {
+			artikel.setInAssortiment(true);
+		}
+		
+		artikelDAO.makePersistent(artikel);
+		
+		model.addFlashAttribute("artikel", artikel);
+		
+		return "redirect:/artikel/select/{id}";
+	}
+	
 	// Utility methods
 	/*
 	 * Methode die een lijst met alle artikelen teruggeeft inclusief afbeelding
 	 */
 	public static List<Artikel> maakArtikelLijst() {
 		List<Artikel> artikelList = artikelDAO.findAll();
-		Set<Prijs> tempPrijsSet = null;
 
-		// Laad product afbeeldingen en prijzen
+		// Iterate door artikelList en haal voor elk artikel de actuele prijs en afbeelding op
 		for (int i = 0; i < artikelList.size(); i++) {
 
-			artikelList.get(i).setPlaatje(getProductPictureDataString(artikelList.get(i).getId()));
-
-			/*
-			 * Haal de prijslijst uit het artikel dat zich op de i'de index bevind en wijs de actuele
-			 * prijs toe aan het artikel object dat zich in de arikelLijst bevind zodat de actuele prijzen 
-			 * in de lijst met producten wordt getoond. 
-			 * 
-			 * TODO - Controleer of prijzen actueel zijn!!!
-			 */ 
-			tempPrijsSet = artikelList.get(i).getPrijzen();
-			artikelList.get(i).setArtikelPrijs(((Prijs)tempPrijsSet.toArray()[tempPrijsSet.size()-1]).getPrijs());
-			// Wanneer je door een collectie iterate wordt deze opgehaald uit de DB bij een actieve connectie
+			Artikel tempArtikel = artikelList.get(i);
+			tempArtikel.	setPlaatje(getProductPictureDataString(tempArtikel.getId()));
+			stopDeActuelePrijsInHetArtikel(tempArtikel);
 
 		}
 		return artikelList;
 	}
+	
+	/*
+	 * Methode die de afbeelding van een artikel opslaat
+	 */
+	public static void slaAfbeeldingOp(Long id, MultipartFile afbeelding) {
+		try {
+		afbeelding.transferTo(new File("/data/productPictures/" +
+				id + ".jpg"));
+		}
+		catch (IOException ex) {
+			// TODO
+		}
+	}
+	
 	/*
 	 * Method to get picture data String
 	 */
@@ -209,7 +263,16 @@ public class ArtikelController {
 
 		return Base64.encode(array);
 	}
-
+	
+	/*
+	 * Methode om de huidige prijs van het artikel op te vragen
+	 */
+	public static void stopDeActuelePrijsInHetArtikel(Artikel artikel) { // TODO - Controleer of de prijs actueel is
+		
+		List<Prijs> tempPrijsList = artikel.getPrijzen();
+		artikel.setArtikelPrijs(((Prijs)tempPrijsList.get(tempPrijsList.size()-1)).getPrijs());
+	}
+	
 	/*
 	 * Methode om ervoor te zorgen dat een artikel naam begin met een hoofdletter, en na elke spatie een hoofdletter.
 	 */

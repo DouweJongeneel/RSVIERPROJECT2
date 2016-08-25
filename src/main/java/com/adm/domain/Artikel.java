@@ -2,8 +2,10 @@ package com.adm.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -41,7 +43,7 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 //	@JoinTable(name = "prijsArtikel",
 //	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
 //	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
-	private Set<Prijs> prijzen = new LinkedHashSet<>();
+	private List<Prijs> prijzen = new ArrayList<>();
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "datumAanmaak", updatable = false, nullable = false)
@@ -86,7 +88,7 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		return artikelPrijs;
 	}
 
-	public Set<Prijs> getPrijzen() {
+	public List<Prijs> getPrijzen() {
 		return prijzen;
 	}
 
@@ -130,7 +132,7 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		this.artikelPrijs = artikelPrijs;
 	}
 
-	public void setPrijzen(Set<Prijs> prijzen) {
+	public void setPrijzen(List<Prijs> prijzen) {
 		this.prijzen = prijzen;
 	}
 
