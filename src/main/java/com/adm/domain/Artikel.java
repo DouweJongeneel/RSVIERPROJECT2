@@ -2,9 +2,13 @@ package com.adm.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,11 +18,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "artikelNaam"))
 public class Artikel implements Comparable<Artikel>, Serializable{
 
 	@Id
@@ -32,12 +39,12 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 	@Transient
 	private BigDecimal artikelPrijs;
 
-	@OneToMany
-	@JoinTable(name = "prijsArtikel",
-	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
-	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
-	private Set<Prijs> prijs;
-
+	@OneToMany(mappedBy = "artikel", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//	@JoinTable(name = "prijsArtikel",
+//	joinColumns = @JoinColumn(name = "artikelId", nullable = false),
+//	inverseJoinColumns = @JoinColumn(name = "prijsId", nullable = false))
+	private List<Prijs> prijzen = new ArrayList<>();
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "datumAanmaak", updatable = false, nullable = false)
 	protected Date datumAanmaak = null;
@@ -51,6 +58,9 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 	@OneToMany(mappedBy = "artikel")
 	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel;
+	
+	@Transient
+	private String plaatje;
 
 	//Constructors
 	public Artikel() {
@@ -78,8 +88,8 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		return artikelPrijs;
 	}
 
-	public Set<Prijs> getPrijs() {
-		return prijs;
+	public List<Prijs> getPrijzen() {
+		return prijzen;
 	}
 
 	public Date getDatumAanmaak() {
@@ -98,6 +108,14 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		return bestelArtikel;
 	}
 
+	public String getPlaatje() {
+		return plaatje;
+	}
+
+	public void setPlaatje(String plaatje) {
+		this.plaatje = plaatje;
+	}
+
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {
 		this.bestelArtikel = bestelArtikel;
 	}
@@ -114,8 +132,8 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		this.artikelPrijs = artikelPrijs;
 	}
 
-	public void setPrijs(Set<Prijs> prijs) {
-		this.prijs = prijs;
+	public void setPrijzen(List<Prijs> prijzen) {
+		this.prijzen = prijzen;
 	}
 
 	public void setDatumAanmaak(Date datumAanmaak) {

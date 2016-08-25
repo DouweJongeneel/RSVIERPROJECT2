@@ -145,7 +145,7 @@ public class BestellingController {
 		while(it.hasNext()){
 
 			art = it.next();
-			Iterator<Prijs> prijsIt = art.getPrijs().iterator();
+			Iterator<Prijs> prijsIt = art.getPrijzen().iterator(); // TODO - artikelMethodeNaam verandert, functionaliteit controleren
 
 			while(prijsIt.hasNext())
 				pr = prijsIt.next();

@@ -36,7 +36,13 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	public void setEntityManager(EntityManager em) {
 		this.entityManager = em;
 	}
-	
+	// join transaction
+	@Override
+	public void joinTransaction() {
+		if (!entityManager.isJoinedToTransaction()) {
+			entityManager.joinTransaction();
+		}
+	}
 	// finder methods
 	public E findById(ID id) {
 		return findById(id, LockModeType.NONE);
