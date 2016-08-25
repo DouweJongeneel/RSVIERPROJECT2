@@ -9,33 +9,36 @@
 
 	<div id="content">
 		<h1>Catalogus</h1>
+		
+		
+		<table  class="center">
+			<tr>
+				<td>Artikel</td>
+				<td>prijs</td>
+				<td>Verwachtte levertijd</td>
+				<td>Aantal</td>
+				<td th:text = "${winkelwagenCount}">winkelwagenCount</td>
+			</tr>
 
-
-		<form method="POST" th:object="${catalogusForm}">
-			<div class="errors" th:if="${#fields.hasErrors('*')}">
-            <ul>
-                <li th:each="err : ${#fields.errors('*')}"
-                    th:text="${err}">Input is incorrect</li>
-            </ul>
-        </div>
-			<table border="1">
-				<tr>
-					<td>Artikel</td>
-					<td>prijs</td>
-					<td>Verwachtte levertijd</td>
-					<td>Aantal</td>
-				</tr>
-
-				<tr th:each="art,iterationStatus : ${artikelen}">
-					<td th:text="${art.artikelNaam}">Artikelnaam</td>
-					<td th:text="${art.artikelPrijs}">prijs</td>
-					<td th:text="${art.verwachteLevertijd}">levertijd</td>
-					<td><input type="text" th:field="*{aantal}"
-                           th:class="${#fields.hasErrors('aantal')}? 'error'" /></td>
-				</tr>
-
-			</table>
-		</form>
+			<tr th:each="artikel,iterationStatus : ${artikelen}">
+				<form th:action="@{/bestelling/catalogus}" method="POST"
+					th:object="${artikel}">
+					<td th:text="${artikel.artikel.artikelNaam}">Artikelnaam</td>
+					<td th:text="${artikel.artikel.artikelPrijs}">prijs</td>
+					<td th:text="${artikel.artikel.verwachteLevertijd}">levertijd</td>
+					<td>
+					
+					<input type="text" id="*{artikel.aantal}" name="aantal" value = "0" />
+					<input type="hidden" id="*{artikelId}" name="artikelId" th:value = "${artikel.artikel.id}" />
+					<input type="hidden" id="*{prijsId}" name="prijsId" th:value = "${artikel.prijs.id}" /></td>
+					
+					
+					<td><input type="submit" value="Update!" /> <input
+						type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" /></td>
+				</form>
+			</tr>
+		</table>
 	</div>
 
 	<div id="footer" th:include="page :: copy"></div>

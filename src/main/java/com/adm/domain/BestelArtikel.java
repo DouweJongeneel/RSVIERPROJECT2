@@ -1,5 +1,7 @@
 package com.adm.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class BestelArtikel {
+public class BestelArtikel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7442307765204064473L;
 
 	@Id
 	@SequenceGenerator(name = "bestArtid", sequenceName = "zBestel_artikel_sequence", allocationSize = 1)
@@ -40,6 +47,12 @@ public class BestelArtikel {
 		this.aantal = aantal;		
 	}
 
+	public BestelArtikel(Prijs prijs, Artikel artikel, int aantal){
+		this.artikel = artikel;
+		this.prijs = prijs;
+		this.aantal = aantal;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -80,16 +93,18 @@ public class BestelArtikel {
 		this.aantal = aantal;
 	}	
 
+	
+	//Maak hashcode adhv artikelnaam en bestellingnummer
 	@Override
 	public int hashCode() {
-		if(id == null)
-			id = 0L;
-			
+		if(bestelling == null ){
+			bestelling = new Bestelling();
+		}
+		if(bestelling.getBestelNummer() == null)
+			bestelling.setBestelNummer("0");
 		
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
+		return BestelArtikel.class.hashCode() + artikel.getArtikelNaam().hashCode() + bestelling.getBestelNummer().hashCode();
+
 	}
 
 	@Override
@@ -97,14 +112,14 @@ public class BestelArtikel {
 		if (obj == null)
 			return false;
 		BestelArtikel other = (BestelArtikel) obj;
-		if (id == other.id)
+		if (hashCode() == other.hashCode())
 			return true;
 		if (this == obj)
 			return true;
 
 		if (getClass() != obj.getClass())
 			return false;
-		if (id != other.id)
+		if (hashCode() != other.hashCode())
 			return false;
 		return true;
 	}

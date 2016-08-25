@@ -2,6 +2,9 @@ package com.adm.web.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+import java.util.HashSet;
+
+import com.adm.domain.BestelArtikel;
 import com.adm.domain.Klant;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -21,16 +24,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @Component
 @RequestMapping({"/", "/homepage", "/index"})
-@SessionAttributes("klant")
+@SessionAttributes({"klant", "winkelwagen"})
 public class HomeController {
 
     private Klant klant;
-
+    private HashSet<BestelArtikel> winkelwagen;
+    
     @RequestMapping(method=GET)
-    public String home(Model model, Klant klant) {
+    public String home(Model model, Klant klant, HashSet<BestelArtikel> winkelwagen) {
 
-        model.addAttribute("klant", klant);
-
+    	model.addAttribute("klant", klant);
+    	model.addAttribute("winkelwagen", winkelwagen);
 
         return "home";
     }

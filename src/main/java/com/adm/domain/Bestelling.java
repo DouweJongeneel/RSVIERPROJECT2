@@ -36,8 +36,8 @@ public class Bestelling implements Serializable{
 	@Column(nullable = false)
 	private String datumAanmaak;
 	
-	@OneToMany(mappedBy = "bestelling")
-	@Column(nullable = false)
+	@OneToMany(mappedBy = "bestelling", cascade = CascadeType.ALL)
+	@Column
 	private Set<Factuur> factuurSet = new HashSet<Factuur>();
 	
 	@ManyToOne(optional = false)
@@ -90,6 +90,14 @@ public class Bestelling implements Serializable{
 
 	public Set<BestelArtikel> getBestelArtikelSet() {
 		return bestelArtikelSet;
+	}
+
+	public Set<Factuur> getFactuurSet() {
+		return factuurSet;
+	}
+
+	public void setFactuurSet(Set<Factuur> factuurSet) {
+		this.factuurSet = factuurSet;
 	}
 
 	public void setId(Long id) {

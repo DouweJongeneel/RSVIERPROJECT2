@@ -2,8 +2,15 @@ package com.adm.web.controllers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -22,17 +29,21 @@ import com.adm.database.service.BestellingService;
 import com.adm.domain.Artikel;
 import com.adm.domain.BestelArtikel;
 import com.adm.domain.Bestelling;
+import com.adm.domain.Betaalwijze;
+import com.adm.domain.Betaling;
+import com.adm.domain.Factuur;
 import com.adm.domain.Klant;
 import com.adm.domain.Prijs;
 
 @Controller
 @Component
 @Transactional
-@SessionAttributes({ "klant", "plaatje"})
+@SessionAttributes({ "klant", "winkelwagen", "nieuweBestelling"})
 public class BestellingController {
 
 	private BestellingDAO bestellingDAO;
 	private ArtikelDAO artikelDAO;
+
 
 	@Autowired(required=true)
 	@Qualifier(value="bestellingService")
@@ -46,65 +57,134 @@ public class BestellingController {
 		artikelDAO = as.getArtikelDAO();
 	}
 
+
+	/*
+	 * Bestelling maken
+	 * 
+	 */
+
 	@RequestMapping(value = "/bestelling", method = RequestMethod.GET)
-	public String listBestelling(Model model, Klant klant) {
+	public String listBestelling(Model model, Klant klant, HashSet<BestelArtikel> winkelwagen) {
+
 		List<Bestelling> bestellingen = bestellingDAO.findBestellingByKlantId(klant.getId());
 		model.addAttribute("bestellingList", bestellingen);
 		return "bestelling/bestellingLijst";
 	}
 
+	@RequestMapping(value = "/bestelling/catalogus", method = RequestMethod.GET)
+	public String viewCatalogus(Model model) {
+
+		//Zet een List<BestelArtikel> in het model
+		model.addAttribute("artikelen", setCatalogusPrijs(artikelDAO.findAll()));
+
+		return "bestelling/catalogus";
+	}
+
+	/*
+	 * 
+	 * Individuele bestellingen
+	 * 
+	 */
 	@RequestMapping(value = "/bestelling/select/{bestelId}", method = RequestMethod.GET)
 	public String listBestelling(@PathVariable("bestelId") long bestelId, Model model) {
 		List<BestelArtikel> bestelArtikelen = bestellingDAO.findBestellingArtikelen(bestelId);
+		Bestelling bestelling = bestellingDAO.findById(bestelId);
+		
+		BigDecimal totaal = totaalPrijsBestelling(bestelArtikelen.iterator());		
 
 		model.addAttribute("bestelArtikelen", bestelArtikelen);
-		model.addAttribute("leegBestelArtikel", new BestelArtikel());
-		model.addAttribute("totaalPrijs", totaalPrijsBestelling(bestelArtikelen));
+		model.addAttribute("factuur", bestelling.getFactuurSet().iterator().next());
+		model.addAttribute("totaalPrijsExBtw", totaal);
+		model.addAttribute("totaalPrijsIncBtw", totaal.multiply(new BigDecimal("1.21")));
 
-		return "bestelling/bestelling";
-	}
-
-	@RequestMapping(value = "/bestelling/select/{bestelId}", method = RequestMethod.POST)
-	public String editBestelling(@PathVariable("bestelId") long bestelId, long bestArtikelId, Model model, BestelArtikel bestelArtikel, int aantal) {
-		Bestelling bestelling = bestellingDAO.findById(bestelId);
-
-		Iterator<BestelArtikel> bestellingIterator = bestelling.getBestelArtikelSet().iterator();
-		BestelArtikel bestArt = new BestelArtikel();
-
-		bestArt.setId(0L);
-
-		while(bestellingIterator.hasNext() && (bestArt.getId() != bestArtikelId))
-			bestArt = bestellingIterator.next();
-
-		bestArt.setAantal(aantal);
-
-		model.addAttribute("bestelArtikelen", bestelling.getBestelArtikelSet());
-		return "bestelling/bestelling";
+		return "bestelling/factuur";
 	}
 
 
-	@RequestMapping(value = "/bestelling/catalogus", method = RequestMethod.GET)
-	public String maakBestelling(Model model) {
-		List<Artikel> artikelen = artikelDAO.findAll();
-		setCatalogusPrijs(artikelen);
-		model.addAttribute("artikelen", artikelen);
-		model.addAttribute("bestelLijst", new ArrayList<BestelArtikel>());
-		return "bestelling/catalogus";
+
+
+	@RequestMapping(value = "/bestelling/bevestigen", method = RequestMethod.GET)
+	public String kiesBetaalmethode(Model model, HttpSession session) {
+
+		@SuppressWarnings("unchecked")
+		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>)session.getAttribute("winkelwagen");
+		Klant klant = (Klant)session.getAttribute("klant");
+
+		Bestelling bestelling = new Bestelling();
+		bestelling.setBestelNummer(Calendar.getInstance().get(Calendar.YEAR) + "-" + bestellingDAO.getCount());
+		bestelling.setKlant(klant);
+		bestelling.setDatumAanmaak(new Date().toString());
+		bestelling.setFactuurSet(new LinkedHashSet<Factuur>());
+
+		ArrayList<BestelArtikel> list = new ArrayList<BestelArtikel>();
+		list.addAll(winkelwagen);
+
+
+		Betaalwijze betaalWijze = new Betaalwijze();
+
+		model.addAttribute("nieuweBestelling", bestelling);
+		model.addAttribute("artikelLijst", list);
+		model.addAttribute("betaalWijze", betaalWijze);
+		model.addAttribute("totaalPrijs", totaalPrijsBestelling(winkelwagen.iterator()));
+
+		return "bestelling/betaling/betaling";
 	}
 
-	@RequestMapping(value = "/bestelling/catalogus/", method = RequestMethod.POST)
-	public String voegToeAanBestelling(BestelArtikel bestArt, Bestelling best) {
-		best.voegArtikelToe(bestArt);
-		return "bestelling/catalogus";
+	/* Bestelling naar database schrijven */
+	@RequestMapping(value = "/bestelling/bevestigen", method = RequestMethod.POST)
+	public String bestellingGeplaatst(Model model, Betaalwijze betaalWijze, HttpSession session) {
+
+		Bestelling nieuweBestelling = (Bestelling)session.getAttribute("nieuweBestelling");
+
+		nieuweBestelling = bestellingDAO.makePersistent(nieuweBestelling);
+
+		@SuppressWarnings("unchecked")
+		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>) session.getAttribute("winkelwagen");
+
+		Iterator<BestelArtikel> it = winkelwagen.iterator();
+
+		while(it.hasNext()){
+			it.next().setBestelling(nieuweBestelling);
+		}
+
+		nieuweBestelling.setBestelArtikelSet(winkelwagen);
+
+		Factuur fact = maakFactuur(nieuweBestelling);
+		Betaling bet = new Betaling();
+		
+		bet.setBetaalDatum(new java.sql.Date(System.currentTimeMillis()));
+		bet.setBetaalwijze(betaalWijze);
+		bet.setFactuur(fact);
+		bet.setKlant(nieuweBestelling.getKlant());
+		
+		fact.voegBetalingToe(bet);
+		
+		nieuweBestelling.getFactuurSet().add(maakFactuur(nieuweBestelling));
+
+		return "bestelling/betaling/betaald";
 	}
 
-	@RequestMapping(value = "/bestelling/catalogus/bevestig", method = RequestMethod.POST)
-	public String bewaarBestelling(Bestelling bestelling) {
-		bestellingDAO.makePersistent(bestelling);
-		return "bestelling/catalogus";
-	}
+
 
 	/* Extra methoden voor verwerken data */
+
+
+	/*
+	 * 
+	 * Bouw factuur
+	 * Factuurnummer is bestelnummer met het aantal facturen in de bestelling + 1
+	 * 
+	 */
+	private Factuur maakFactuur(Bestelling bestelling){
+
+		Factuur factuur = new Factuur();
+
+		factuur.setBestelling(bestelling);
+		factuur.setFactureringsDatum(new java.sql.Date(System.currentTimeMillis()));
+		factuur.setFactuurNummer(bestelling.getBestelNummer() + "-" + (bestelling.getFactuurSet().size() + 1));
+
+		return factuur;
+	}
 
 
 	/*
@@ -113,14 +193,13 @@ public class BestellingController {
 	 * 
 	 */
 
-	private BigDecimal totaalPrijsBestelling(List<BestelArtikel> bestelArtikelen){
+	private BigDecimal totaalPrijsBestelling(Iterator<BestelArtikel> bestelArtikelen){
 
 		BigDecimal totaal = new BigDecimal("0");
-		Iterator<BestelArtikel> it = bestelArtikelen.iterator();
 
-		while(it.hasNext()){
+		while(bestelArtikelen.hasNext()){
 
-			BestelArtikel BA = it.next();
+			BestelArtikel BA = bestelArtikelen.next();
 			BigDecimal prijs = BA.getPrijs().getPrijs();
 			BigDecimal aantal = new BigDecimal(BA.getAantal());
 			totaal = totaal.add( prijs.multiply(aantal) );
@@ -137,8 +216,8 @@ public class BestellingController {
 	 * de catalogus weergave
 	 * 
 	 */
-	private void setCatalogusPrijs(List<Artikel> artikelen){
-
+	private List<BestelArtikel> setCatalogusPrijs(List<Artikel> artikelen){
+		List<BestelArtikel> artikelenLijst = new ArrayList<BestelArtikel>();
 		Iterator<Artikel> it = artikelen.iterator();
 		Artikel art;
 		Prijs pr = new Prijs();
@@ -150,6 +229,8 @@ public class BestellingController {
 			while(prijsIt.hasNext())
 				pr = prijsIt.next();
 			art.setArtikelPrijs(pr.getPrijs());
+			artikelenLijst.add(new BestelArtikel(pr, art, 0));
 		}
+		return artikelenLijst;
 	}
 }
