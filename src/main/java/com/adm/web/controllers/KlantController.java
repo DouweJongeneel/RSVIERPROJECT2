@@ -93,7 +93,7 @@ public class KlantController {
         profilePicture.transferTo(new File("/data/profilePictures/"
                 + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
 
-        // Terug naar klantenlijst, nieuwe klanten ophalen
+        // Return to client list
         return showClients(model);
     }
 
@@ -181,17 +181,13 @@ public class KlantController {
         // Find the persisting client
         Klant klant = klantDAO.findById(id);
 
-        // Read in an the correct profile picture and encode in Base64
-        byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
+        // Read in an the correct profile picture and encode in Base64 and add to client
+        byte[] profilePictureArray = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
                 + klant.getId() + ".jpg").toPath());
-
-        String imageDataString = Base64.encode(array);
-
-        //TODO: Opslaan in transient
+        klant.setProfilePicture(Base64.encode(profilePictureArray));
 
         // Add the client and picture attributes to the model
         model.addAttribute(klant);
-        model.addAttribute("plaatje", imageDataString);
 
         // Show the profile
         return showProfile(model, klant);
