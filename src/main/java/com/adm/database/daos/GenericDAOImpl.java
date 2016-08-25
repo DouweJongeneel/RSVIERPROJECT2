@@ -25,7 +25,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	 */
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
 	private final Class<E> entityClass;
 
@@ -36,7 +36,13 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	public void setEntityManager(EntityManager em) {
 		this.entityManager = em;
 	}
-	
+	// join transaction
+	@Override
+	public void joinTransaction() {
+		if (!entityManager.isJoinedToTransaction()) {
+			entityManager.joinTransaction();
+		}
+	}
 	// finder methods
 	public E findById(ID id) {
 		return findById(id, LockModeType.NONE);
@@ -47,6 +53,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	public E findReferenceById(ID id) {
 		return entityManager.getReference(entityClass, id);
 	}
+	
 	public List<E> findAll() {
 		CriteriaQuery<E> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entityClass);
 		criteriaQuery.select(criteriaQuery.from(entityClass));

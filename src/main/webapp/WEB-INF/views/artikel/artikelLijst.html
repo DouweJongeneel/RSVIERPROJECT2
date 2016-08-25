@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harrie and Marie-Claire</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+<body>
+<div id="header" th:include="page :: headerAuthenticated"></div>
+
+<div id="content">
+
+    <div>
+        <h1 th:text = "#{harrie.products.artikelLijst}">ArtikelLijst</h1>
+        <table class="artikelList">
+            <tr>
+                <th align="left">Client</th>
+                <th align="left">Actions</th>
+            </tr>
+
+            <tr class = "artikelList" th:each="artikel : ${artikelList}"
+                th:id="'artikel_' + ${artikel.getId()}">
+                <td class="artikelList">
+                    <div class="artikelNaam"> <span th:text="${artikel.artikelNaam}"></span>
+                        <span class="artikelId" th:text="'(ID: ' + ${artikel.id} + ')'"></span>
+                       
+                    </div>
+                    <div>
+                       	<table>
+                            <tr><br/></tr>
+                            <tr>
+                                <td><span class="artikelInformation">Product Name:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.artikelNaam}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation">Price:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.artikelPrijs}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation">Delivery Time:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.verwachteLevertijd}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation">In Stock:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.inAssortiment}">-</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+
+                <td class = "artikelList">
+                    <span><a th:href="@{/artikel/select/{id}(id=${artikel.id})}">Select</a></span><br />
+                    <span><a th:href="@{/artikel/wijzigen/{id}(id=${artikel.id})}">Modify</a></span><br />
+                    <span><a th:href="@{/artikel/verwijderen/{id}(id=${artikel.id})}">Tumble Status</a></span><br />
+                </td>
+
+                <td class = "artikelListProductPicture">
+                    <span><img class="productPicture" th:src="@{'data:image/jpeg;base64,'+${artikelList.get(artikel.id - 1).getPlaatje()}}" /></span>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+	<a th:href="@{/artikel/register}" th:text="#{harrie.products.nieuw}">New Product</a>
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

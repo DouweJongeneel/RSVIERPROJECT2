@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 @Profile({"persistence", "production" })
-public class ArtikelDAO extends GenericDAOImpl<Artikel, Integer>{
+public class ArtikelDAO extends GenericDAOImpl<Artikel, Long>{
 
 	/*
 	 * In principe is onderstaande constructor voldoende om de generiekeDAO te implementeren. 

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Prijs {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
 	protected Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinTable(name = "prijsArtikel",
 	joinColumns = @JoinColumn(name = "prijsId", nullable = false),
 	inverseJoinColumns = @JoinColumn(name = "artikelId", nullable = false))
@@ -40,10 +41,22 @@ public class Prijs {
 	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel = new HashSet<BestelArtikel>();
 	
-	public Prijs(){}
+	public Prijs(){
+	}
+	public Prijs(BigDecimal prijs) {
+		this.prijs = prijs;
+	}
+	
+	public Prijs(BigDecimal prijs, Artikel artikel) {
+		this.prijs = prijs;
+		this.artikel = artikel;
+	}
 
 	public Long getId() {
 		return id;
+	}
+	public BigDecimal getPrijs() {
+		return prijs;
 	}
 
 	public Set<BestelArtikel> getBestelArtikel() {
@@ -51,6 +64,18 @@ public class Prijs {
 	}
 	public Date getDatumAanmaak() {
 		return datumAanmaak;
+	}
+
+	public Artikel getArtikel() {
+		return artikel;
+	}
+
+	public void setArtikel(Artikel artikel) {
+		this.artikel = artikel;
+	}
+
+	public void setPrijs(BigDecimal prijs) {
+		this.prijs = prijs;
 	}
 
 	public void setBestelArtikel(Set<BestelArtikel> bestelArtikel) {

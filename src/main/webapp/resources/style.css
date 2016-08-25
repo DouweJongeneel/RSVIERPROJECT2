@@ -139,3 +139,51 @@ table td.adresList {
     border: 1px dotted darkblue;
     padding: 5px;
 }
+
+/*artikellijst*/
+.artikelList{
+	font-size: 16pt;
+}
+table th.artikelList {
+    font-size: 10pt;
+}
+
+table.artikelList {
+    border: 1px solid darkred;
+    background-color: #F3D392;
+    font-size: 8pt;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td.artikelList {
+    background-color: #F9F7F3;
+    border: 1px dotted darkred;
+}
+
+.artikelNaam {
+    font-size: 12pt;
+}
+
+.artikelPrijs {
+    font-size: 9pt;
+}
+
+.verwachteLevertijd{
+    font-size: 8pt;
+}
+.inAssortiment {
+	font-size: 8pt;
+}
+.artikelInformation {
+	font-size: 8pt;
+}
+table td.artikelListProductPicture {
+	width: 200px;
+	height: 200px;
+}
+img.productPicture {
+	width: 200px;
+	height: 200px;
+}
