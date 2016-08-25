@@ -24,6 +24,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -198,7 +199,8 @@ public class ArtikelController {
 	 * Controller die ervoor zorgt dat een artikel niet meer op voorraad is
 	 */
 	@RequestMapping(value = "/verwijderen/{id}")
-	public String processArtikelOutOfStock(@PathVariable Long id, RedirectAttributes model){
+	public String processArtikelOutOfStock(@PathVariable Long id, RedirectAttributes model,
+			@RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage){
 		Artikel artikel = artikelDAO.findById(id);
 		
 		if (artikel.isInAssortiment()){
@@ -212,7 +214,14 @@ public class ArtikelController {
 		
 		model.addFlashAttribute("artikel", artikel);
 		
-		return "redirect:/artikel/select/{id}";
+		
+		// If the direct is from the product profile page, redirect to profilepage instead of product list.
+        if (fromProfilePage == 1) {
+            return "redirect:/artikel/select/{id}";
+        }
+
+        // Return to the productlist page
+        return "redirect:/artikel/";
 	}
 	
 	// Utility methods

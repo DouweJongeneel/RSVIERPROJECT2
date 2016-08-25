@@ -50,8 +50,13 @@
                 </td>
 
                 <td class = "artikelList">
-                    <span><a th:href="@{/artikel/wijzigen/{id}(id=${artikel.id})}">Modify</a></span><br />
-                    <span><a th:href="@{/artikel/verwijderen/{id}(id=${artikel.id})}">Tumble Status</a></span><br />
+                    <form th:action="@{/artikel/wijzigen/{id}(id=${artikel.id})}">
+                        <input type="submit" th:value="#{harrie.actions.modify}"/>
+                    </form>
+                    <form th:action="@{/artikel/verwijderen/{id}(id=${artikel.id})}">
+                            <input type="hidden" name="fromProfile" value="1" />
+                            <input type="submit" th:value="#{harrie.actions.tumble}"/>
+                    </form>
                 </td>
                 <td class = "artikelListProductPicture">
                     <span><img class="productPicture" th:src="@{'data:image/jpeg;base64,'+${plaatje}}" /></span>
