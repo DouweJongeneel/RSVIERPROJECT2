@@ -1,6 +1,7 @@
+/* Generic stuff */
+
 body {
     background: #ffffff;
-    /*fixed left top;*/
     color: #333333;
     font-family: sans-serif;
     font-size: 0.75em;
@@ -11,6 +12,15 @@ body {
     font-weight: normal;
     line-height: 1.5;
     text-align: center;
+}
+
+img.headerAuthenticated {
+    width: 500px;
+    height: 200px;
+}
+
+img.header {
+    width: 100%;
 }
 
 p {
@@ -46,11 +56,26 @@ div.errors {
     margin-right: auto;
 }
 
+/* Generic Klant */
+.klantId {
+    font-size: 9pt;
+}
+
+.klantInformation {
+    font-size: 8pt;
+}
+
+.klantInformationItem {
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+/*Klantenlijst*/
+
 .klantList h1 {
     font-size: 16pt;
 }
 
-/*Klantenlijst*/
 table th.klantList {
     font-size: 10pt;
 }
@@ -67,18 +92,48 @@ table.klantList {
 table td.klantList {
     background-color: #F9F7F3;
     border: 1px dotted darkred;
+    padding: 5px;
 }
 
-.klantEmail {
+
+table td.klantListProfilePicture {
+    width: 200px;
+    height: 200px;
+}
+
+img.profilePicture {
+    width: 200px;
+    height: 200px;
+}
+
+
+/* Adres Lijst */
+.klantAdresHeader {
     font-size: 12pt;
+    font-weight: bold;
 }
 
-.klantId {
-    font-size: 9pt;
+.adresList h1 {
+    font-size: 16pt;
 }
 
-.klantInformation {
+table th.adresList {
+    font-size: 10pt;
+}
+
+table.adresList {
+    border: 1px solid darkblue;
+    background-color: #CCF3F6;
     font-size: 8pt;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td.adresList {
+    background-color: #EEFFFF;
+    border: 1px dotted darkblue;
+    padding: 5px;
 }
 
 /*artikellijst*/
@@ -127,7 +182,4 @@ table td.artikelListProductPicture {
 img.productPicture {
 	width: 200px;
 	height: 200px;
-}
-.spittleForm h1 {
-    font-size: 16pt;
 }

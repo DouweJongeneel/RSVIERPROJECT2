@@ -1,8 +1,6 @@
 package com.adm.database.daos;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -27,7 +25,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	 */
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	
 	private final Class<E> entityClass;
 
@@ -55,6 +53,7 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 	public E findReferenceById(ID id) {
 		return entityManager.getReference(entityClass, id);
 	}
+	
 	public List<E> findAll() {
 		CriteriaQuery<E> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(entityClass);
 		criteriaQuery.select(criteriaQuery.from(entityClass));
@@ -65,12 +64,13 @@ public abstract class GenericDAOImpl<E, ID extends Serializable> implements Gene
 		criteriaQuery.select(entityManager.getCriteriaBuilder().count(criteriaQuery.from(entityClass)));
 		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
-	
+
 	// state management operations
 	public E makePersistent(E instance) {
 		// merge() handles transient AND detached instances
 		return entityManager.merge(instance);
 	}
+
 	public void makeTransient(E instance) {
 		entityManager.remove(instance);
 	}

@@ -1,43 +1,51 @@
 package com.adm.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public enum AdresType {
+@Table
+@Component
+public class AdresType implements Serializable {
 
-	THUISADRES ("Thuisadres"),
-	WERKADRES ("Werkadres"),
-	BEZORGADRES ("Bezorgadres");
-	
+	public AdresType() {}
+
 	@Id
 	@SequenceGenerator(name = "adresTypeId", sequenceName = "zadresType_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "adresTypeId")
 	private Long id;
 
-	private String text;
-	
-	AdresType(String text){
-		this.text = text;
-	}
+	@Column
+	private String adres_type;
 
-	public String getText() {
-		return text;
-	}
+	private static final String[] type = {"Home Address", "Work Address", "Delivery Address"};
 
+	// Getters and setters
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public void setText(String text) {
-		this.text = text;
+	public String getAdres_type() {
+		return adres_type;
 	}
-	
+	public void setAdres_type(int adres_type) {
+		this.adres_type = type[adres_type];
+	}
+	public static String[] getType() {
+		return type;
+	}
+	public void setAdres_type(String adres_type) {
+		this.adres_type = adres_type;
+	}
+
+	@Override
+	public String toString() {
+		return adres_type;
+//		return "AdresType [adres_type_id=" + id + ", adres_type=" + adres_type + "]";
+	}
 }

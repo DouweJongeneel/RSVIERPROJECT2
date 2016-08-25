@@ -1,18 +1,17 @@
 package com.adm.domain;
 
-import java.util.HashSet;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.stereotype.Component;
+
+import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
+@Component
 public class Adres {
+
 	//Datafield
 
 	@Id
@@ -44,36 +43,38 @@ public class Adres {
 	@Column(nullable = false)
 	private String adresActief;
 
-	@ManyToMany(mappedBy = "adresGegevens")
+	@ManyToMany(mappedBy = "adresGegevens", cascade={CascadeType.MERGE, CascadeType.PERSIST})
 	@Column(nullable = false)
-	protected Set<Klant> klant = new HashSet<Klant>();
+	protected Set<Klant> klant = new LinkedHashSet<Klant>();
 
-	@Column(nullable = false)
+	@OneToOne(cascade = CascadeType.MERGE)
 	protected AdresType type;
-	
+
 	//Constructors
 	public Adres() {}
 
 	// Constructor met basis gegevens
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats) {
+			int huisnummer, String woonplaats, AdresType adresType) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 	}
 
 	// Constructor met basis gegevens en gegevens welke enkel bij tests worden gewijzigd maar wel van
 	// belang zijn voor het opvragen van gegevens etc. in de DAO's
 	public Adres(String straatnaam, String postcode, String toevoeging,
-			int huisnummer, String woonplaats, String datumAanmaak,
-			String datumGewijzigd, String adresActief) {
+			int huisnummer, String woonplaats, AdresType adresType, String datumAanmaak,
+			 String datumGewijzigd, String adresActief) {
 		this.straatnaam = straatnaam;
 		this.postcode = postcode;
 		this.toevoeging = toevoeging;
 		this.huisnummer = huisnummer;
 		this.woonplaats = woonplaats;
+		this.type = adresType;
 		this.datumAanmaak = datumAanmaak;
 		this.datumGewijzigd = datumGewijzigd;
 		this.adresActief = adresActief;
@@ -107,28 +108,22 @@ public class Adres {
 	public String getAdresActief() {
 		return adresActief;
 	}
-
 	public Set<Klant> getKlant() {
 		return klant;
 	}
-
 	public void setKlant(Set<Klant> klant) {
 		this.klant = klant;
 	}
-
 	public void setStraatnaam(String straatnaam) {
 		this.straatnaam = straatnaam;
 	}
-
 	public void voegKlantToe(Klant klant){
 		this.klant.add(klant);
 	}
-
 	public void haalKlantWeg(Klant klant){
 		if(this.klant.contains(klant))
 			this.klant.remove(klant);
 	}
-
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
@@ -152,6 +147,12 @@ public class Adres {
 	}
 	public void setAdresActief(String adresActief) {
 		this.adresActief = adresActief;
+	}
+	public AdresType getType() {
+		return type;
+	}
+	public void setType(AdresType type) {
+		this.type = type;
 	}
 
 	@Override
@@ -179,4 +180,10 @@ public class Adres {
 			return true;
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(13, 37).toHashCode();
+	}
+	//TODO: Unieker maken
 }

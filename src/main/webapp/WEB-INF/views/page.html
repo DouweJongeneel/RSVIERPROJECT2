@@ -11,13 +11,13 @@
 
 <div th:fragment="header">
     <a th:href="@{/}">
-        <img th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a>
+        <img class="header" th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a>
 </div>
 
 
 <div th:fragment="headerAuthenticated">
     <a th:href="@{/}">
-        <img th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a> <br/>
+        <img class="headerAuthenticated" th:src="@{/resources/images/zoo-banner-large.png}" border="0" /></a> <br/>
 
 
     <h1 th:text="#{harrie.home.welcome}"></h1>

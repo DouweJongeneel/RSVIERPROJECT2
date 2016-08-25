@@ -16,6 +16,10 @@ import javax.servlet.ServletRegistration;
  */
 public class HarrieWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+//    private String uploadFolder = "c:/harrie/uploads"; // Windows
+    private String uploadFolder = "/tmp/harrie/uploads"; // Unix-Based
+
+
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };
@@ -45,6 +49,6 @@ public class HarrieWebAppInitializer extends AbstractAnnotationConfigDispatcherS
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(
-                new MultipartConfigElement("/tmp/harrie/uploads", 20197152, 4194304, 0));
+                new MultipartConfigElement(uploadFolder, 20197152, 4194304, 0));
     }
 }

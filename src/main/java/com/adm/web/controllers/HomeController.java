@@ -3,6 +3,7 @@ package com.adm.web.controllers;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import com.adm.domain.Klant;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  */
 @Controller
+@Component
 @RequestMapping({"/", "/homepage", "/index"})
 @SessionAttributes("klant")
 public class HomeController {

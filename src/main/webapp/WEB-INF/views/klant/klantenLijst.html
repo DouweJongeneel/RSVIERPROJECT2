@@ -12,21 +12,25 @@
 <div id="content">
 
     <div>
-        <h1>Klantenlijst</h1>
+        <h1 th:text="#{harrie.klant.clientList}">Klantenlijst</h1>
         <table class="klantList">
             <tr>
-                <th align="left">Client</th>
-                <th align="left">Actions</th>
+                <th align="left" th:text="#{harrie.klant.client}">Client</th>
+                <th align="left" th:text="#{harrie.klant.clientactions}">Actions</th>
+                <th align="left" th:text="#{harrie.klant.profilePicture}">Profile Picture</th>
             </tr>
 
             <tr class = "klantList" th:each="klant : ${klantenList}"
                 th:id="'spittle_' + ${klant.getId()}">
+
+                <!--TODO WAT DOET SPITTLE HIER NOG TUSSEN? WEG?-->
+
                 <td class="klantList">
-                    <div class="klantEmail"> <span th:text="${klant.email}"></span>
+                    <div class="klantAdresHeader"> <span th:text="${klant.email}"></span>
                         <span class="klantId" th:text="'(ID: ' + ${klant.id} + ')'"></span>
                         <table>
                             <tr>
-                                <td><span class="klantInformation">Password:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.password}">Password:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.password}">-</span></td>
                             </tr>
                         </table>
@@ -35,27 +39,27 @@
                         <table>
                             <tr><br/></tr>
                             <tr>
-                                <td><span class="klantInformation">First Name:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.firstName}">First Name:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.voornaam}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Prefix:</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.prefix}">Prefix:</span></td>
                                 <td><span class="klantInformation" th:text="${klant.tussenvoegsel}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Last Name</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.lastName}">Last Name</span></td>
                                 <td><span class="klantInformation" th:text="${klant.achternaam}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Created</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.dateCreated}">Date Created</span></td>
                                 <td><span class="klantInformation" th:text="${klant.datumAanmaak}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Date Modified</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.dateModified}">Date Modified</span></td>
                                 <td><span class="klantInformation" th:text="${klant.datumGewijzigd}">-</span></td>
                             </tr>
                             <tr>
-                                <td><span class="klantInformation">Active</span></td>
+                                <td><span class="klantInformationItem" th:text="#{harrie.klant.active}">Active</span></td>
                                 <td><span class="klantInformation" th:text="${klant.klantActief}">-</span></td>
                             </tr>
                         </table>
@@ -63,9 +67,13 @@
                 </td>
 
                 <td class = "klantList">
-                    <span><a th:href="@{/klant/select/{id}(id=${klant.id})}">Select</a></span><br />
-                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}">Modify</a></span><br />
-                    <span><a th:href="@{/klant/delete/{id}(id=${klant.id})}">Tumble Status</a></span><br />
+                    <span><a th:href="@{/klant/select/{id}(id=${klant.id})}" th:text="#{harrie.actions.select}">Select</a></span><br />
+                    <span><a th:href="@{/klant/modify/{id}(id=${klant.id})}" th:text="#{harrie.actions.modify}">Modify</a></span><br />
+                    <span><a th:href="@{/klant/tumble/{id}(id=${klant.id})}" th:text="#{harrie.actions.tumble}">Tumble Status</a></span><br />
+                </td>
+
+                <td class = "klantListProfilePicture">
+                    <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${plaatjesList.get((klant.id - 1))}}" /></span>
                 </td>
 
             </tr>

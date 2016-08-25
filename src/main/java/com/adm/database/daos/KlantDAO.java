@@ -2,11 +2,13 @@ package com.adm.database.daos;
 
 import com.adm.domain.Klant;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
+@Component
 @Profile({"persistence", "production" })
 public class KlantDAO extends GenericDAOImpl<Klant, Long> {
 
@@ -19,6 +21,4 @@ public class KlantDAO extends GenericDAOImpl<Klant, Long> {
 	protected KlantDAO() {
 		super(Klant.class);
 	}
-	
-
 }
