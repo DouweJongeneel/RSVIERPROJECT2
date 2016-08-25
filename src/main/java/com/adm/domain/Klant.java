@@ -7,22 +7,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 @Entity
 @Component
@@ -60,16 +47,19 @@ public class Klant implements Serializable {
 	@Column(nullable = false)
 	private String klantActief;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "klantAdresAdresType",
 		joinColumns = @JoinColumn(name = "klantId", nullable = false),
 		inverseJoinColumns = @JoinColumn(name = "adresTypeId", nullable = false))
 	@MapKeyJoinColumn(name = "adresId", nullable = false)
-	protected Map<Adres, AdresType> adresGegevens = new HashMap<Adres, AdresType>();
+	protected Map<Adres, AdresType> adresGegevens = new LinkedHashMap<>();
 
 	@OneToMany(mappedBy = "klant")
 	@Column(nullable = false)
 	protected Set<Bestelling> bestellingen = new HashSet<Bestelling>();
+
+	@Transient
+	private String clientProfilePicture;
 
 	//  Default public no-arg constructor
 	public Klant() {
@@ -80,6 +70,7 @@ public class Klant implements Serializable {
 			String voornaam,
 			String achternaam,
 			String tussenvoegsel,
+			String datumAanmaak,
 			String email, String password,
 			Map<Adres, AdresType> adresGegevens) {
 
@@ -91,7 +82,8 @@ public class Klant implements Serializable {
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 		this.tussenvoegsel = tussenvoegsel;
-		this.datumAanmaak = new Date(System.currentTimeMillis()).toString();
+		this.datumAanmaak = datumAanmaak;
+		this.datumGewijzigd = "";
 		this.email = email;
         this.password = password;
 	}
@@ -189,8 +181,14 @@ public class Klant implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+	public String getClientProfilePicture() {
+		return clientProfilePicture;
+	}
+	public void setClientProfilePicture(String clientProfilePicture) {
+		this.clientProfilePicture = clientProfilePicture;
+	}
 
-    public Set<Bestelling> getBestellingen() {
+	public Set<Bestelling> getBestellingen() {
 		return bestellingen;
 	}
 	public void setBestellingen(Set<Bestelling> bestellingGegevens) {

@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Harrie and Marie-Claire</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" />
+</head>
+<body>
+<div id="header" th:include="page :: headerAuthenticated"></div>
+
+<div id="content">
+
+    <div>
+        <h1 th:text = "#{harrie.products.artikelLijst}">ArtikelLijst</h1>
+        
+        <form th:action="@{/artikel/register}">
+                		<input type = "submit" th:value = "#{harrie.actions.newProduct}"/>
+        </form>
+       
+        <table class="artikelList">
+            <tr>
+                <th align="left">Client</th>
+                <th align="left">Actions</th>
+            </tr>
+
+            <tr class = "artikelList" th:each="artikel : ${artikelList}"
+                th:id="'artikel_' + ${artikel.getId()}">
+                <td class="artikelList">
+                    <div class="artikelNaam"> <span th:text="${artikel.artikelNaam}"></span>
+                        <span class="artikelId" th:text="'(ID: ' + ${artikel.id} + ')'"></span>
+                       
+                    </div>
+                    <div>
+                       	 <table>
+                            <tr><br/></tr>
+                            <tr>
+                                <td><span class="artikelInformation" th:text = "#{harrie.products.naam}">Product Name</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.artikelNaam}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation" th:text = "#{harrie.products.prijs}">Price:</span></td>
+                                <td>&euro; <span class="artikelInformation" th:text="${#numbers.formatDecimal(artikel.artikelPrijs, 0, 'COMMA', 2, 'POINT')}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation" th:text = "#{harrie.products.levertijd}">Delivery Time:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.verwachteLevertijd}">-</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="artikelInformation" th:text = "#{harrie.products.voorraad}">In Stock:</span></td>
+                                <td><span class="artikelInformation" th:text="${artikel.inAssortiment}">-</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+
+                <td class = "artikelList">
+                	<form th:action="@{/artikel/select/{id}(id=${artikel.id})}">
+                		<input type = "submit" th:value = "#{harrie.actions.select}"/>
+                	</form>
+                	<form th:action="@{/artikel/wijzigen/{id}(id=${artikel.id})}">
+                        <input type="submit" th:value="#{harrie.actions.modify}"/>
+                    </form>
+                    <form th:action="@{/artikel/verwijderen/{id}(id=${artikel.id})}">
+                            <input type="hidden" name="fromProfile" value="1" />
+                            <input type="submit" th:value="#{harrie.actions.tumble}"/>
+                    </form>
+                </td>
+
+                <td class = "artikelListProductPicture">
+                    <span><img class="productPicture" th:src="@{'data:image/jpeg;base64,'+${artikelList.get(artikel.id - 1).getPlaatje()}}" /></span>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="footer" th:include="page :: copy"></div>
+</body>
+</html>

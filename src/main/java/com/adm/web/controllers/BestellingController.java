@@ -60,7 +60,7 @@ public class BestellingController {
 
 	/*
 	 * Bestelling maken
-	 * 
+	 *
 	 */
 
 	@RequestMapping(value = "/bestelling", method = RequestMethod.GET)
@@ -81,16 +81,16 @@ public class BestellingController {
 	}
 
 	/*
-	 * 
+	 *
 	 * Individuele bestellingen
-	 * 
+	 *
 	 */
 	@RequestMapping(value = "/bestelling/select/{bestelId}", method = RequestMethod.GET)
 	public String listBestelling(@PathVariable("bestelId") long bestelId, Model model) {
 		List<BestelArtikel> bestelArtikelen = bestellingDAO.findBestellingArtikelen(bestelId);
 		Bestelling bestelling = bestellingDAO.findById(bestelId);
-		
-		BigDecimal totaal = totaalPrijsBestelling(bestelArtikelen.iterator());		
+
+		BigDecimal totaal = totaalPrijsBestelling(bestelArtikelen.iterator());
 
 		model.addAttribute("bestelArtikelen", bestelArtikelen);
 		model.addAttribute("factuur", bestelling.getFactuurSet().iterator().next());
@@ -151,14 +151,14 @@ public class BestellingController {
 
 		Factuur fact = maakFactuur(nieuweBestelling);
 		Betaling bet = new Betaling();
-		
+
 		bet.setBetaalDatum(new java.sql.Date(System.currentTimeMillis()));
 		bet.setBetaalwijze(betaalWijze);
 		bet.setFactuur(fact);
 		bet.setKlant(nieuweBestelling.getKlant());
-		
+
 		fact.voegBetalingToe(bet);
-		
+
 		nieuweBestelling.getFactuurSet().add(maakFactuur(nieuweBestelling));
 
 		return "bestelling/betaling/betaald";
@@ -170,10 +170,10 @@ public class BestellingController {
 
 
 	/*
-	 * 
+	 *
 	 * Bouw factuur
 	 * Factuurnummer is bestelnummer met het aantal facturen in de bestelling + 1
-	 * 
+	 *
 	 */
 	private Factuur maakFactuur(Bestelling bestelling){
 

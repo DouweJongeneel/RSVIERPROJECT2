@@ -18,14 +18,14 @@ public class KlantRegisterForm {
 
     // Input fields
     @NotNull
-    @Size(min=3, max=16, message="{firstName.size}")
+    @Size(min=3, max=16, message="{client.firstName.size}")
     private String voornaam;
 
     @NotNull
-    @Size(min=3, max=16, message="{lastName.size}")
+    @Size(min=3, max=16, message="{client.lastName.size}")
     private String achternaam;
 
-    @Size(max=10, message="{prefix.size}")
+    @Size(max=10, message="{client.prefix.size}")
     private String tussenvoegsel;
 
     @NotNull
@@ -33,10 +33,28 @@ public class KlantRegisterForm {
     private String email;
 
     @NotNull
-    @Size(min=5, max=25, message="{password.size}")
+    @Size(min=5, max=25, message="{client.password.size}")
     private String password;
 
     private MultipartFile profilePicture;
+
+    // Constructors
+
+    public KlantRegisterForm() {}
+
+    public KlantRegisterForm(String voornaam,
+                             String achternaam,
+                             String tussenvoegsel,
+                             String email,
+                             String password,
+                             MultipartFile profilePicture) {
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.tussenvoegsel = tussenvoegsel;
+        this.email = email;
+        this.password = password;
+        this.profilePicture = profilePicture;
+    }
 
     // Setters & Getters
     public String getVoornaam() {

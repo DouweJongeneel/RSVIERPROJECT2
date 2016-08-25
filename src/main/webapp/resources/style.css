@@ -2,7 +2,6 @@
 
 body {
     background: #ffffff;
-    /*fixed left top;*/
     color: #333333;
     font-family: sans-serif;
     font-size: 0.75em;
@@ -13,6 +12,11 @@ body {
     font-weight: normal;
     line-height: 1.5;
     text-align: center;
+}
+
+img.headerAuthenticated {
+    width: 500px;
+    height: 200px;
 }
 
 img.header {
@@ -38,10 +42,14 @@ input.error {
     background-color: #ffcccc;
 }
 
-span.error {
-    color: red;
-    font-size: 8pt;
+input.readonly {
+    background-color: lightgrey;
 }
+
+/*span.error {*/
+    /*color: red;*/
+    /*font-size: 8pt;*/
+/*}*/
 
 div.errors {
     font-size: 8pt;
@@ -61,6 +69,10 @@ div.errors {
     font-size: 8pt;
 }
 
+.klantInformationItem {
+    font-size: 8pt;
+    font-weight: bold;
+}
 
 /*Klantenlijst*/
 
@@ -84,6 +96,7 @@ table.klantList {
 table td.klantList {
     background-color: #F9F7F3;
     border: 1px dotted darkred;
+    padding: 5px;
 }
 
 
@@ -98,10 +111,10 @@ img.profilePicture {
 }
 
 
-
 /* Adres Lijst */
 .klantAdresHeader {
     font-size: 12pt;
+    font-weight: bold;
 }
 
 .adresList h1 {
@@ -113,6 +126,29 @@ table th.adresList {
 }
 
 table.adresList {
+    border: 1px solid darkblue;
+    background-color: #CCF3F6;
+    font-size: 8pt;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td.adresList {
+    background-color: #EEFFFF;
+    border: 1px dotted darkblue;
+    padding: 5px;
+}
+
+/*artikellijst*/
+.artikelList{
+	font-size: 16pt;
+}
+table th.artikelList {
+    font-size: 10pt;
+}
+
+table.artikelList {
     border: 1px solid darkred;
     background-color: #F3D392;
     font-size: 8pt;
@@ -121,7 +157,33 @@ table.adresList {
     margin-right: auto;
 }
 
-table td.adresList {
+table td.artikelList {
     background-color: #F9F7F3;
     border: 1px dotted darkred;
+}
+
+.artikelNaam {
+    font-size: 12pt;
+}
+
+.artikelPrijs {
+    font-size: 9pt;
+}
+
+.verwachteLevertijd{
+    font-size: 8pt;
+}
+.inAssortiment {
+	font-size: 8pt;
+}
+.artikelInformation {
+	font-size: 8pt;
+}
+table td.artikelListProductPicture {
+	width: 200px;
+	height: 200px;
+}
+img.productPicture {
+	width: 200px;
+	height: 200px;
 }

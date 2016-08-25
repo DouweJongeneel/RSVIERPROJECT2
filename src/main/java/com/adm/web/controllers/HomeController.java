@@ -29,7 +29,7 @@ public class HomeController {
 
     private Klant klant;
     private HashSet<BestelArtikel> winkelwagen;
-    
+
     @RequestMapping(method=GET)
     public String home(Model model, Klant klant, HashSet<BestelArtikel> winkelwagen) {
 

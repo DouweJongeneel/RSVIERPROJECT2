@@ -10,7 +10,7 @@
 <div id="header" th:include="page :: headerAuthenticated"></div>
 
 <div id="content">
-    <h1 th:text="#{harrie.klant.register}"></h1>
+    <h1 th:text="#{harrie.klant.modify}"></h1>
 
     <form method="POST" th:object="${klantRegisterForm}" enctype="multipart/form-data">
         <div class="errors" th:if="${#fields.hasErrors('*')}">
@@ -22,46 +22,55 @@
 
         <table class="center">
             <tr>
+                <td><label th:class="${#fields.hasErrors('email')}? 'error'"
+                           th:text="#{harrie.klant.email}"></label>:</td>
+                <td><input type="text" th:field="*{email}"
+                           th:class="${#fields.hasErrors('email')}? 'error readonly' : 'readonly'"
+                           th:value="${klantRegisterForm.email}" th:readonly="true"/></td>
+            </tr>
+            <tr>
                 <td><label th:class="${#fields.hasErrors('voornaam')}? 'error'"
                            th:text="#{harrie.klant.firstName}"></label>:</td>
                 <td><input type="text" th:field="*{voornaam}"
-                           th:class="${#fields.hasErrors('voornaam')}? 'error'" /></td>
+                           th:class="${#fields.hasErrors('voornaam')}? 'error'"
+                           th:value="${klantRegisterForm.voornaam}"/></td>
             </tr>
 
             <tr>
                 <td><label th:class="${#fields.hasErrors('tussenvoegsel')}? 'error'"
                            th:text="#{harrie.klant.prefix}"></label>:</td>
                 <td><input type="text" th:field="*{tussenvoegsel}"
-                           th:class="${#fields.hasErrors('tussenvoegsel')}? 'error'" /></td>
+                           th:class="${#fields.hasErrors('tussenvoegsel')}? 'error'"
+                           th:value="${klantRegisterForm.tussenvoegsel}"/></td>
             </tr>
 
             <tr>
                 <td><label th:class="${#fields.hasErrors('achternaam')}? 'error'"
                            th:text="#{harrie.klant.lastName}"></label>:</td>
                 <td><input type="text" th:field="*{achternaam}"
-                           th:class="${#fields.hasErrors('achternaam')}? 'error'" /></td>
+                           th:class="${#fields.hasErrors('achternaam')}? 'error'"
+                           th:value="${klantRegisterForm.achternaam}"/></td>
             </tr>
 
-            <tr>
-                <td><label th:class="${#fields.hasErrors('email')}? 'error'"
-                           th:text="#{harrie.klant.email}"></label>:</td>
-                <td><input type="text" th:field="*{email}"
-                           th:class="${#fields.hasErrors('email')}? 'error'" /></td>
-            </tr>
 
             <tr>
                 <td><label th:class="${#fields.hasErrors('password')}? 'error'"
                            th:text="#{harrie.klant.password}"></label>:</td>
-                <td><input type="password" th:field="*{password}"
-                           th:class="${#fields.hasErrors('password')}? 'error'" /></td>
+                <td><input th:type="password" th:field="*{password}"
+                           th:class="${#fields.hasErrors('password')}? 'error'"
+                           th:value="${klantRegisterForm.password}"/></td>
             </tr>
 
             <tr>
-                <td><label th:text="#{harrie.klant.profilePicture}"></label></td>
+                <td><label th:text="#{harrie.klant.profilePicture}"></label>:</td>
+                <span><img class="profilePicture" th:src="@{'data:image/jpeg;base64,'+${klant.clientProfilePicture}}" /></span>
                 <td><input type="file" name="profilePicture" accept="image/jpeg,image/png,image/gif" /></td>
             </tr>
+
+            <!--TODO: Profilepicture veranderen-->
         </table>
-        <input type="submit" value="Push Da Button!" />
+
+        <input type="submit" th:value="#{harrie.klant.modify}" />
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </form>
 </div>
