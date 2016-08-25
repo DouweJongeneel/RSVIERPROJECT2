@@ -89,11 +89,6 @@ public class KlantController {
 
         // Save profilePicture to a file
         saveProfilePicture(nieuweKlant.getId(), klantRegisterForm.getProfilePicture());
-//
-//        MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
-//        String profielFotoNaam = profilePicture.getOriginalFilename();
-//        profilePicture.transferTo(new File("/data/profilePictures/"
-//                + nieuweKlant.getId() + "." + (FilenameUtils.getExtension(profielFotoNaam))));
 
         // Return to client list
         return showClients(model);
