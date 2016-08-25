@@ -162,7 +162,8 @@ public class ArtikelController {
 	 * Controller die de wijziging van het artikel verwerkt
 	 */
 	@RequestMapping(value = "/wijzigen/{id}", method = RequestMethod.POST)
-	public String procesArtikelModification(@PathVariable Long id, Artikel artikel, @Valid ArtikelRegisterForm artikelForm, 
+	public String procesArtikelModification(@PathVariable Long id, Artikel artikel, 
+			@Valid ArtikelRegisterForm artikelForm, 
 			Errors errors, RedirectAttributes model) throws Exception {
 
 		if (errors.hasErrors()) {
@@ -187,8 +188,10 @@ public class ArtikelController {
 			prijsDAO.makePersistent(new Prijs(artikelForm.getArtikelPrijs(), artikel));
 		}
 		
-		// Sla de afbeelding op
-		slaAfbeeldingOp(artikel.getId(), artikelForm.getArtikelAfbeelding());
+		// Sla de afbeelding op wanneer deze gewijzigd is
+		if (!artikelForm.getArtikelAfbeelding().getOriginalFilename().isEmpty()) {
+			slaAfbeeldingOp(artikel.getId(), artikelForm.getArtikelAfbeelding());
+		}
 		
 		model.addFlashAttribute("artikel", artikel);
 		
