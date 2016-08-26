@@ -11,38 +11,58 @@
 
 		<div>
 
-			<h1>Bestellingenlijst</h1>
-			<table>
+			<h1 th:text="#{harrie.factuur.title}">Bestellingenlijst</h1>
+
+			<table class="center">
 				<tr>
-					<td>Artikel</td>
-					<td>Aantal</td>
-					<td>Prijs</td>
-					<td></td>
+					<td th:text="#{harrie.factuur.number}">Factuurnummer</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td th:text="${factuur.factuurNummer}">Nummer</td>
 				</tr>
-				
-				<tr th:each="best,iterationStatus : ${bestelArtikelen}">
-					<td th:text="${best.Artikel.artikelNaam}">Artikelnaam</td>
-					
-					<form method="POST" th:object="${best}">
-					
-					<td><input type="text" id="*{aantal}"
-						th:value="${best.aantal}" name = "aantal"/>
-						<input type="hidden" id="*{bestArtikelId}"
-						th:value="${best.id}" name = "bestArtikelId"/></td>
-					
-					<td th:text="${best.Prijs.prijs}">Prijs</td>
-					
-					<td><input type="submit" value="Update!" />
-        			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></td>
-					</form>
+
+				<tr>
+					<td th:text="#{harrie.factuur.bestelling}">Bestelnummer</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td th:text="${factuur.bestelling.bestelNummer}">Nummer</td>
+				</tr>
+
+				<tr>
+					<td th:text="#{harrie.factuur.date}">Factureringsdatum</td>
+										<td>&nbsp;&nbsp;&nbsp;</td>
+					<td th:text="${factuur.factureringsDatum}">Datum</td>
+				</tr>
+<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td th:text="#{harrie.factuur.article}">Artikel</td>
+					<td th:text="#{harrie.factuur.price}">Prijs</td>
+					<td>&nbsp;</td>
+					<td th:text="#{harrie.factuur.amount}">Aantal</td>
 
 				</tr>
-				<tr>
-					<td>Totaal:</td>
-					<td></td>
-					<td th:text="${totaalPrijs}">Totaalprijs</td>
-					<td></td>
+
+				<tr th:each="best,iterationStatus : ${bestelArtikelen}">
+					<td th:text="${best.Artikel.artikelNaam}">Artikelnaam</td>
+					<td th:text="${best.Prijs.prijs}">Prijs</td>
+					<td>&nbsp;</td>
+					<td th:text="${best.aantal}">Aantal</td>
 				</tr>
+<tr>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td th:text="#{harrie.factuur.exbtw}">Ex. BTW</td>
+					<td th:text="${totaalPrijsExBtw}">Totaalprijs ex btw</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td th:text="#{harrie.factuur.incbtw}">Inc. BTW</td>
+					<td th:text="${totaalPrijsIncBtw}">Totaalprijs inc btw</td>
+				</tr>
+
 			</table>
 
 		</div>

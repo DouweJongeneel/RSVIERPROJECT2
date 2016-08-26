@@ -1,3 +1,4 @@
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,20 +11,20 @@
 	<div id="content">
 
 		<div>
-			<h1>Bestellingenlijst</h1>
+			<h1 th:text = "#{harrie.order.orderlist}">Bestellingenlijst</h1>
 			<table class="center">
 				<tr>
-					<td>Bestellingnummer</td>
-					<td>Datum</td>
+					<td th:text = "#{harrie.order.orderNumber}">Bestellingnummer</td>
+					<td th:text = "#{harrie.order.orderDate}">Datum</td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr th:each="best,iterationStatus : ${bestellingList}">
 					<td th:text="${best.bestelNummer}">2016-01</td>
 					<td th:text="${best.datumAanmaak}">18-08-2016</td>
-					<td><a th:href="@{/bestelling/select/{id}(id=${best.id})}">View Bestelling</a></td>
+					<td><a th:href="@{/bestelling/select/{id}(id=${best.id})}" th:text = "#{harrie.order.viewInvoice}">View invoice</a></td>
 				</tr>
 				<tr>
-				<td><a th:href="@{/bestelling/catalogus}">Nieuwe Bestelling</a></td>
+				<td><a th:href="@{/bestelling/catalogus}"  th:text = "#{harrie.order.newOrder}">Nieuwe Bestelling</a></td>
 				</tr>
 			</table>
 		</div>

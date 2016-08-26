@@ -47,117 +47,117 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @SessionAttributes({ "klant", "plaatje"})
 public class KlantController {
 
-    private KlantDAO klantDAO;
+	private KlantDAO klantDAO;
 
-//    private String pictureFolder = "C:/harrie/uploads/data/profilePictures"; // Windows
-    private String pictureFolder = "/tmp/harrie/uploads/data/profilePictures/"; // Unix-Based
+	private String pictureFolder = "C:/harrie/uploads/data/profilePictures/"; // Windows
+	//    private String pictureFolder = "/tmp/harrie/uploads/data/profilePictures/"; // Unix-Based
 
-    @Autowired
-    public KlantController(KlantService klantService) {
-        this.klantDAO = klantService.getDAO();
-    }
+	@Autowired
+	public KlantController(KlantService klantService) {
+		this.klantDAO = klantService.getDAO();
+	}
 
-    @RequestMapping(value = "/register", method = GET)
-    public String showRegistrationForm(Model model) {
+	@RequestMapping(value = "/register", method = GET)
+	public String showRegistrationForm(Model model) {
 
-        model.addAttribute("klantRegisterForm", new KlantRegisterForm());
+		model.addAttribute("klantRegisterForm", new KlantRegisterForm());
 
-        return "klant/klantRegisterForm";
-    }
+		return "klant/klantRegisterForm";
+	}
 
-    @RequestMapping(value = "/register", method = POST)
-    public String processRegistration(
-            @Valid KlantRegisterForm klantRegisterForm,
-            Errors errors,
-            RedirectAttributes model)
-            throws IOException {
+	@RequestMapping(value = "/register", method = POST)
+	public String processRegistration(
+			@Valid KlantRegisterForm klantRegisterForm,
+			Errors errors,
+			RedirectAttributes model)
+					throws IOException {
 
-        if (errors.hasErrors()) {
-            return "/klant/klantRegisterForm";
-        }
+		if (errors.hasErrors()) {
+			return "/klant/klantRegisterForm";
+		}
 
-        // Save klant to repository
-        Klant nieuweKlant = klantRegisterForm.toKlant();
-        nieuweKlant = klantDAO.makePersistent(nieuweKlant);
+		// Save klant to repository
+		Klant nieuweKlant = klantRegisterForm.toKlant();
+		nieuweKlant = klantDAO.makePersistent(nieuweKlant);
 
-        // Save profilePicture
-        MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
-        profilePicture.transferTo(new File("/data/profilePictures/"
-                + nieuweKlant.getId() + ".jpg"));
+		// Save profilePicture
+		MultipartFile profilePicture = klantRegisterForm.getProfilePicture();
+		profilePicture.transferTo(new File("/data/profilePictures/"
+				+ nieuweKlant.getId() + ".jpg"));
 
-        //TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
+		//TODO: Aan de hand van de oorspronkelijke filename opslaan met juiste bestandsnaam
 
-        // Save flash attribute
-        model.addFlashAttribute("klant", nieuweKlant);
-        model.addAttribute("email", nieuweKlant.getEmail());
+		// Save flash attribute
+		model.addFlashAttribute("klant", nieuweKlant);
+		model.addAttribute("email", nieuweKlant.getEmail());
 
-        // Redirect to created profile
-        return "redirect:/klant/{email}";
-    }
+		// Redirect to created profile
+		return "redirect:/klant/{email}";
+	}
 
-    // Profiel pagina (leeg)
-    @RequestMapping(value = "/profile", method = GET)
-    public String showProfile(Model model, Klant klant) {
+	// Profiel pagina (leeg)
+	@RequestMapping(value = "/profile", method = GET)
+	public String showProfile(Model model, Klant klant) {
 
-        Hibernate.initialize(klant.getAdresGegevens()); //TODO: Is niet Hibernate-onafhankelijk
+		Hibernate.initialize(klant.getAdresGegevens()); //TODO: Is niet Hibernate-onafhankelijk
 
-        model.addAttribute("adresMap", klant.getAdresGegevens());
-        model.addAttribute("klant", klant);
+		model.addAttribute("adresMap", klant.getAdresGegevens());
+		model.addAttribute("klant", klant);
 
-        return "klant/klantProfile";
-    }
+		return "klant/klantProfile";
+	}
 
-    // Klantenlijst pagina
-    @RequestMapping(value = "/klanten", method = GET)
-    public String showKlanten(Model model) throws Exception {
-        List<Klant> klantenLijst = klantDAO.findAll();
+	// Klantenlijst pagina
+	@RequestMapping(value = "/klanten", method = GET)
+	public String showKlanten(Model model) throws Exception {
+		List<Klant> klantenLijst = klantDAO.findAll();
 
-        ArrayList<String> plaatjesList = new ArrayList<>();
+		ArrayList<String> plaatjesList = new ArrayList<>();
 
-        // Laad de profielpictures in
-        for (int i = 0; i < klantenLijst.size(); i++) {
-            byte[] array = Files.readAllBytes(new File(pictureFolder
-                    + klantenLijst.get(i).getId() + ".jpg").toPath());
+		// Laad de profielpictures in
+		for (int i = 0; i < klantenLijst.size(); i++) {
+			byte[] array = Files.readAllBytes(new File(pictureFolder
+					+ klantenLijst.get(i).getId() + ".jpg").toPath());
 
-            plaatjesList.add((i), Base64.encode(array));
-        }
+			plaatjesList.add((i), Base64.encode(array));
+		}
 
-        model.addAttribute("plaatjesList", plaatjesList);
-        model.addAttribute("klantenList", klantenLijst);
-        return "klant/klantenLijst";
-    }
+		model.addAttribute("plaatjesList", plaatjesList);
+		model.addAttribute("klantenList", klantenLijst);
+		return "klant/klantenLijst";
+	}
 
-    // Tumble status methode
-    @RequestMapping(value = "/delete/{id}", method = GET)
-    public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
-        Klant klant = klantDAO.findById(id);
+	// Tumble status methode
+	@RequestMapping(value = "/delete/{id}", method = GET)
+	public String tumbleStatusKlant(@PathVariable Long id, Model model) throws Exception {
+		Klant klant = klantDAO.findById(id);
 
-        if (klant.getKlantActief().charAt(0) == '0')
-            klant.setKlantActief("1");
-        else
-            klant.setKlantActief("0");
+		if (klant.getKlantActief().charAt(0) == '0')
+			klant.setKlantActief("1");
+		else
+			klant.setKlantActief("0");
 
-        klantDAO.makePersistent(klant);
+		klantDAO.makePersistent(klant);
 
 
-        return showKlanten(model);
-    }
+		return showKlanten(model);
+	}
 
-    // Select Client
-    @RequestMapping(value = "/select/{id}", method = GET)
-    public String selectKlant(@PathVariable Long id, Model model) throws Exception {
-        Klant klant = klantDAO.findById(id);
+	// Select Client
+	@RequestMapping(value = "/select/{id}", method = GET)
+	public String selectKlant(@PathVariable Long id, Model model) throws Exception {
+		Klant klant = klantDAO.findById(id);
 
-        byte[] array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/profilePictures/"
-                + klant.getId() + ".jpg").toPath());
+		byte[] array = Files.readAllBytes(new File(pictureFolder
+				+ klant.getId() + ".jpg").toPath());
 
-        String imageDataString = Base64.encode(array);
+		String imageDataString = Base64.encode(array);
 
-        model.addAttribute(klant);
-        model.addAttribute("plaatje", imageDataString);
+		model.addAttribute(klant);
+		model.addAttribute("plaatje", imageDataString);
 
-        return showProfile(model, klant);
-    }
+		return showProfile(model, klant);
+	}
 }
 
 

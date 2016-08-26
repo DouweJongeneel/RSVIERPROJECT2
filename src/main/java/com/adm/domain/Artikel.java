@@ -18,13 +18,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+@SuppressWarnings("serial")
 @Entity
 public class Artikel implements Comparable<Artikel>, Serializable{
 
 	@Id
 	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "artikelId")
-	private Long id; // hibernate returned nooit null wanneer het een primitiev type is
+	protected Long id; // hibernate returned nooit null wanneer het een primitiev type is
 
 	@Column(nullable = false)
 	private String artikelNaam;
