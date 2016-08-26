@@ -44,9 +44,9 @@
 
 <div id="content">
 
-    <div sec:authorize="hasRole('USER')">
-        This will only be displayed if authenticated user has role ROLE_USER.
-    </div>
+    <!--<div sec:authorize="hasRole('USER')">-->
+        <!--This will only be displayed if authenticated user has role ROLE_USER.-->
+    <!--</div>-->
 
 
     <!-- hero landing -->
@@ -63,11 +63,10 @@
     <!-- hero landing -->
 
     <div class="container">
-        <div class="content inside-page home">
+        <div class="content inside-page home" >
 
             <p th:if="${klant.achternaam} == null" th:text="'Hey you anonoymous client!'"></p>
             <p th:if="${klant.achternaam} != null" th:text="'Hey You! Mr or Mrs. ' + ${klant.achternaam}"></p>
-            <a th:href="@{/logout}">Logout</a>
         </div>
     </div>
 </div>

@@ -57,8 +57,17 @@
                 </ul>
 
                 <ul class="nav navbar-nav">
-                    <li><a th:href="@{/login}" data-target="#login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-                    <li><a th:href="@{/klant/register}" data-target="#login"><span class="glyphicon glyphicon-user"></span>  Register</a></li>
+                    <!-- Conditional login / logout button -->
+                    <li><a sec:authorize="isAnonymous()" th:href="@{/login}" data-target="#login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}" data-target="#login"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+                    <!-- end confitional button -->
+
+                    <!-- Conditional register / profile button -->
+                    <li><a sec:authorize="isAnonymous()" th:href="@{/klant/register}" data-target="#login"><span class="glyphicon glyphicon-user"></span>  Register</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/klant/profile}" data-target="#login"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
+                    <!-- end Conditional register / profile button -->
+
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle cart" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Cart

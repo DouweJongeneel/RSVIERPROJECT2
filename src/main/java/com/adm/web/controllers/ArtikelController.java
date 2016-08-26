@@ -12,6 +12,7 @@ import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,6 +69,7 @@ public class ArtikelController {
 	 * Controller die het artikelregistratieformulier toont
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@Secured ({"ROLE_ADMIN"})
 	public String showRegistrationForm(Model model) {
 		model.addAttribute("artikelRegisterForm", new ArtikelRegisterForm());
 		return "artikel/artikelRegisterForm";

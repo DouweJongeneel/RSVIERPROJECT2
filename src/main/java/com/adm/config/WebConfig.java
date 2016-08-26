@@ -25,6 +25,8 @@ import java.io.IOException;
 
 /**
  * Created by Milan_Verheij on 15-08-16.
+ *
+ * WebConfig
  */
 @Configuration
 @EnableWebMvc
