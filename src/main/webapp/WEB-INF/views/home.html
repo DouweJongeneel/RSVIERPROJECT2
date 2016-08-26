@@ -40,7 +40,7 @@
 <body id="home">
 
 <div id="headerAuthenticated" sec:authorize="isAuthenticated()" th:include="template :: headerAuthenticated">AUTH</div>
-<div id="header" sec:authorize="isAnonymous()" th:include="template :: header"> NON AUTH</div>
+<div id="header" sec:authorize="isAnonymous()" th:include="template :: header">NON AUTH</div>
 
 <div id="content">
 
@@ -67,6 +67,7 @@
 
             <p th:if="${klant.achternaam} == null" th:text="'Hey you anonoymous client!'"></p>
             <p th:if="${klant.achternaam} != null" th:text="'Hey You! Mr or Mrs. ' + ${klant.achternaam}"></p>
+            <a th:href="@{/logout}">Logout</a>
         </div>
     </div>
 </div>

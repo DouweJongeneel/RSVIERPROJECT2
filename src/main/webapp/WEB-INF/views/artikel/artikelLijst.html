@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="en">
 
 <head>
@@ -37,7 +38,9 @@
 </head>
 
 <body>
-<div id="header" th:include="template :: headerAuthenticated"></div>
+
+<div id="headerAuthenticated" sec:authorize="isAuthenticated()" th:include="template :: headerAuthenticated">AUTH</div>
+<div id="header" sec:authorize="isAnonymous()" th:include="template :: header">NON AUTH</div>
 
 <div id="content">
 
