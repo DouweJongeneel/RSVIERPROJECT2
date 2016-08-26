@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.adm.domain.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ import com.adm.domain.Prijs;
 @Controller
 @Component
 @Transactional
-@SessionAttributes({ "klant", "winkelwagen"})
+@SessionAttributes({ "klant", "shoppingCart", "artikel"})
 public class WinkelwagenController {
 
 	private ArtikelDAO artikelDAO;
@@ -45,52 +46,49 @@ public class WinkelwagenController {
 		prijsDAO = pd;
 	}
 
-	@RequestMapping(value = "/bestelling/catalogus", method = RequestMethod.POST)
-	public String populateWinkelWagen(HttpSession session,
-			Model model, int aantal, long artikelId, long prijsId) {
 
-		@SuppressWarnings("unchecked")
-		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>)session.getAttribute("winkelwagen");
+	@RequestMapping(value = "/bestelling/{id}", method = RequestMethod.POST)
+	public String addArticleShoppingCart(HttpSession session,
+										 Model model, Artikel artikel,
+										 int aantal, ShoppingCart shoppingCart) {
 
-		BestelArtikel bestArt = new BestelArtikel(prijsDAO.findById(prijsId), artikelDAO.findById(artikelId), aantal);
-
-		winkelwagen.add(bestArt);
-
-		model.addAttribute("artikelen", setCatalogusPrijs(artikelDAO.findAll()));
-		model.addAttribute("winkelwagenCount", winkelwagen.size());
-		model.addAttribute("winkelwagen", winkelwagen);
-
-		return "bestelling/catalogus"; //TODO met redirect maken
-	}
-
-
-	@RequestMapping(value = "/bestelling/winkelwagen", method = RequestMethod.GET)
-	public String winkelwagen(Model model, HttpSession session) {
-
-		if(session.getAttribute("winkelwagen") == null){
-			@SuppressWarnings("unused")
-			HashSet<BestelArtikel> winkelwagen = new HashSet<BestelArtikel>();
+		Iterator<Prijs> itPrijs = artikel.getPrijzen().iterator();
+		Prijs p = null;
+		while(itPrijs.hasNext()){
+			p = itPrijs.next();
 		}
 
 		@SuppressWarnings("unchecked")
-		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>)session.getAttribute("winkelwagen");
+//		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>)session.getAttribute("winkelwagen");
+
+		BestelArtikel bestArt = new BestelArtikel(p, artikel, aantal);
+
+		shoppingCart.getWinkelwagen().add(bestArt);
+
+		model.addAttribute("artikelen", setCatalogusPrijs(artikelDAO.findAll()));
+		model.addAttribute("winkelwagenCount", shoppingCart.getWinkelwagen().size());
+		model.addAttribute("winkelwagen", shoppingCart.getWinkelwagen());
+
+		return winkelwagen(model, session, shoppingCart); //TODO met redirect maken
+	}
+
+	@RequestMapping(value = "/bestelling/winkelwagen", method = RequestMethod.GET)
+	public String winkelwagen(Model model, HttpSession session, ShoppingCart shoppingCart) {
+
 		ArrayList<BestelArtikel> list = new ArrayList<BestelArtikel>();
-		list.addAll(winkelwagen);
+		list.addAll(shoppingCart.getWinkelwagen());
 
 		model.addAttribute("artikelen", list);
-		model.addAttribute("totaalPrijs", totaalPrijsBestelling(winkelwagen.iterator()));
+		model.addAttribute("totaalPrijs", totaalPrijsBestelling(shoppingCart.getWinkelwagen().iterator()));
+		model.addAttribute("winkelwagen", shoppingCart.getWinkelwagen());
 
 		return "bestelling/winkelwagen/winkelwagen";
 	}
 
 	@RequestMapping(value = "/bestelling/winkelwagen", method = RequestMethod.POST)
-	public String editWinkelwagen(long artikelId, Model model, HttpSession session, int aantal) {
+	public String editWinkelwagen(long artikelId, Model model, HttpSession session, int aantal, ShoppingCart shoppingCart) {
 
-		@SuppressWarnings("unchecked")
-		HashSet<BestelArtikel> winkelwagen = ((HashSet<BestelArtikel>)session.getAttribute("winkelwagen"));
-
-
-		Iterator<BestelArtikel> bestellingIterator = winkelwagen.iterator();
+		Iterator<BestelArtikel> bestellingIterator = shoppingCart.getWinkelwagen().iterator();
 		BestelArtikel bestArt = new BestelArtikel();
 
 		while(bestellingIterator.hasNext()){
@@ -104,14 +102,15 @@ public class WinkelwagenController {
 		if(aantal > 0)
 			bestArt.setAantal(aantal);
 		else
-			winkelwagen.remove(bestArt);
+			shoppingCart.getWinkelwagen().remove(bestArt);
 
 
 		ArrayList<BestelArtikel> list = new ArrayList<BestelArtikel>();
-		list.addAll(winkelwagen);
+		list.addAll(shoppingCart.getWinkelwagen());
 
 		model.addAttribute("artikelen", list);
-		model.addAttribute("totaalPrijs", totaalPrijsBestelling(winkelwagen.iterator()));
+		model.addAttribute("totaalPrijs", totaalPrijsBestelling(shoppingCart.getWinkelwagen().iterator()));
+		model.addAttribute("winkelwagen", shoppingCart.getWinkelwagen());
 
 		return "bestelling/winkelwagen/winkelwagen";
 	}

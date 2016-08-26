@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
 </head>
 <body>
-	<div id="header" th:include="page :: headerAuthenticated"></div>
+	<div id="header" th:include="template :: headerAuthenticated"></div>
 
 	<div id="content">
 		<h1>Catalogus</h1>
@@ -41,7 +41,7 @@
 		</table>
 	</div>
 
-	<div id="footer" th:include="page :: copy"></div>
+	<div id="footer" th:include="template :: copy"></div>
 
 </body>
 </html>

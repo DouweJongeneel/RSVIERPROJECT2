@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
+
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -34,14 +30,13 @@ import com.adm.database.daos.PrijsDAO;
 import com.adm.domain.Artikel;
 import com.adm.domain.Prijs;
 import com.adm.exceptions.DuplicateEntryException;
-import com.adm.web.forms.KlantRegisterForm;
 import com.adm.web.forms.ArtikelRegisterForm;
 
 @Controller
 @Component
 @RequestMapping("/artikel")
 @Transactional
-@SessionAttributes({"artikel","plaatje"})
+@SessionAttributes({"artikel","plaatje", "shoppingCart"})
 public class ArtikelController {
 
 	private static ArtikelDAO artikelDAO;
@@ -123,7 +118,9 @@ public class ArtikelController {
 	 * Controler die een enkel artikel toont
 	 */
 	@RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
-	public String selectArtikel(@PathVariable Long id, Model model) throws Exception {
+	public String selectArtikel(@PathVariable Long id,
+								Model model) throws Exception {
+
 		// Verkrijg artikelgegevens en prijs
 		Artikel artikel = artikelDAO.findById(id);
 		stopDeActuelePrijsInHetArtikel(artikel);

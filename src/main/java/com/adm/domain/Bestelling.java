@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Bestelling implements Serializable{
+public class Bestelling implements Serializable {
 
 	/**
 	 * 

@@ -38,7 +38,7 @@ import com.adm.domain.Prijs;
 @Controller
 @Component
 @Transactional
-@SessionAttributes({ "klant", "winkelwagen", "nieuweBestelling"})
+@SessionAttributes({ "klant", "shoppingCart", "nieuweBestelling"})
 public class BestellingController {
 
 	private BestellingDAO bestellingDAO;

@@ -2,15 +2,14 @@ package com.adm.web.controllers;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
-import java.util.HashSet;
-
-import com.adm.domain.BestelArtikel;
 import com.adm.domain.Klant;
+import com.adm.domain.ShoppingCart;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 /**
  * Created by Milan_Verheij on 15-08-16.
@@ -24,17 +23,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @Component
 @RequestMapping({"/", "/homepage", "/index"})
-@SessionAttributes({"klant", "winkelwagen"})
+@SessionAttributes({"klant", "winkelwagen", "shoppingCart"})
 public class HomeController {
 
     private Klant klant;
-    private HashSet<BestelArtikel> winkelwagen;
+    private ShoppingCart shoppingCart;
 
     @RequestMapping(method=GET)
-    public String home(Model model, Klant klant, HashSet<BestelArtikel> winkelwagen) {
+    public String home(Model model, Klant klant, ShoppingCart shoppingCart) {
 
     	model.addAttribute("klant", klant);
-    	model.addAttribute("winkelwagen", winkelwagen);
+        model.addAttribute("shoppingCart", shoppingCart);
 
         return "home";
     }

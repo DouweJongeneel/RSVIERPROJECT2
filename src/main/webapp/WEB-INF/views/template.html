@@ -8,10 +8,7 @@
 
 <body id="home">
 
-<div class="header" th:fragment="header">
-    UNAUTHENTICATED HEADER
-</div>
-
+<!-- AUTHENTICTED -->
 <div class="header" th:fragment="headerAuthenticated">
 
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +61,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle cart" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Cart
-                            <span class="cart-counter">0</span> <span class="caret"></span></a>
+                            <span class="cart-counter" th:text="${shoppingCart.winkelwagen.size()}"></span> <span class="caret"></span></a>
 
                         <div class="dropdown-menu mini-cart">
                             <div class="row product-list">
@@ -91,6 +88,88 @@
     </nav>
 
 </div>
+
+<!-- UNAUTHENTICTED -->
+<div class="header" th:fragment="header">
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h1><a class="navbar-brand logo" th:href="@{/}">Harrie &amp; Marie-Claire </a></h1>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Harrie <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{/artikel/}">Meat</a></li>
+                            <li><a th:href="@{/artikel/}">Fish</a></li>
+                            <li><a th:href="@{/artikel/}">Greenies</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Marie-Claire <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{/artikel/}">Big Animals</a></li>
+                            <li><a th:href="@{/artikel/}">Small Animals</a></li>
+                            <li><a th:href="@{/artikel/}">Other</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{/about}">About</a></li>
+                            <li><a th:href="@{/about}">Terms</a></li>
+                            <li><a th:href="@{/about}">Contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li><a th:href="@{/login}" data-target="#login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a th:href="@{/klant/register}" data-target="#login"><span class="glyphicon glyphicon-user"></span>  Register</a></li>
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle cart" data-toggle="dropdown">-->
+                            <!--<span class="glyphicon glyphicon-shopping-cart"></span> Cart-->
+                            <!--<span class="cart-counter" th:text="${winkelwagen.size()}">0</span> <span class="caret"></span></a>-->
+
+                        <!--<div class="dropdown-menu mini-cart">-->
+                            <!--<div class="row product-list">-->
+                                <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/1.jpg}" class="img-responsive" alt="product" /></a></div>-->
+                                <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
+                                <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
+                            <!--</div>-->
+
+                            <!--<div class="row product-list">-->
+                                <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/2.jpg}" class="img-responsive" alt="product" /></a></div>-->
+                                <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
+                                <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
+                            <!--</div>-->
+
+                            <!--<div class="clearfix">-->
+                                <!--<a th:href="@{/bestelling/catalogus}" class="btn btn-primary">continue shopping</a> <a th:href="@{/bestelling}" class="btn btn-primary">checkout</a>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</li>-->
+                </ul>
+            </div><!-- Wnavbar-collapse -->
+        </div><!-- container-fluid -->
+    </nav>
+
+</div>
+
 
 <div>
     CONTENT GOES HERE

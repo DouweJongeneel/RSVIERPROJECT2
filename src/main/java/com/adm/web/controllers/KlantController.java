@@ -4,6 +4,7 @@ import com.adm.database.daos.KlantDAO;
 import com.adm.database.service.KlantService;
 import com.adm.domain.Adres;
 import com.adm.domain.AdresType;
+import com.adm.domain.BestelArtikel;
 import com.adm.domain.Klant;
 import com.adm.web.forms.KlantRegisterForm;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
@@ -44,7 +45,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Component
 @RequestMapping("/klant")
 @Transactional
-@SessionAttributes({ "klant", "plaatje"})
+@SessionAttributes({ "klant", "plaatje", "shoppingCart"})
 public class KlantController {
 
     private KlantDAO klantDAO;
@@ -217,6 +218,7 @@ public class KlantController {
     public String processModification(
             @Valid KlantRegisterForm klantRegisterForm,
             Errors errors,
+            HashSet<BestelArtikel> winkelwagen,
             Klant klant,
             Model model)
             throws Exception {
