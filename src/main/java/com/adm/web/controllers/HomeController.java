@@ -37,4 +37,13 @@ public class HomeController {
 
         return "home";
     }
+
+    @RequestMapping(value = "/about", method = GET)
+    public String about(Model model, Klant klant, ShoppingCart shoppingCart) {
+        model.addAttribute("klant", klant);
+        model.addAttribute("shoppingCart", shoppingCart);
+
+        return "about";
+    }
+
 }
