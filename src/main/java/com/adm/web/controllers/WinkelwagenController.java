@@ -3,6 +3,7 @@ package com.adm.web.controllers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
 
 import com.adm.domain.ShoppingCart;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.adm.domain.Artikel;
 import com.adm.domain.BestelArtikel;
 import com.adm.domain.Prijs;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Component
@@ -59,7 +62,8 @@ public class WinkelwagenController {
 
 	/** METHOD FOR UPDATING THE SHOPPING CART **/
 	@RequestMapping(value = "/bestelling/winkelwagen", method = RequestMethod.POST)
-	public String editWinkelwagen(long artikelId, Model model, int aantal, ShoppingCart shoppingCart) {
+	public String editWinkelwagen(long artikelId, Model model, int aantal, int navbar, ShoppingCart shoppingCart,
+                                  HttpServletRequest request) {
 
 		Iterator<BestelArtikel> bestellingIterator = shoppingCart.getWinkelwagen().iterator();
 
@@ -85,6 +89,13 @@ public class WinkelwagenController {
 		model.addAttribute("artikelen", list);
 		model.addAttribute("totaalPrijs", totaalPrijsBestelling(shoppingCart.getWinkelwagen().iterator()));
 		model.addAttribute("winkelwagen", shoppingCart.getWinkelwagen());
+
+
+        // Checks if an item has been updated from the navbar. If so it will return to the last visited page
+        // (aka previous page).
+        if (navbar == 1) {
+            return getPreviousPageByRequest(request).orElse("/"); //else go to home page
+        }
 
 		return "bestelling/winkelwagen/winkelwagen";
 	}
@@ -112,5 +123,17 @@ public class WinkelwagenController {
         }
 
         return totaal;
+    }
+
+    /**
+     * Returns the viewName to return for coming back to the sender url
+     *
+     * @param request Instance of {@link HttpServletRequest} or use an injected instance
+     * @return Optional with the view name. Recomended to use an alternativa url with
+     * {@link Optional#orElse(java.lang.Object)}
+     */
+    protected Optional<String> getPreviousPageByRequest(HttpServletRequest request)
+    {
+        return Optional.ofNullable(request.getHeader("Referer")).map(requestUrl -> "redirect:" + requestUrl);
     }
 }
