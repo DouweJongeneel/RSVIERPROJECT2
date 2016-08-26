@@ -47,12 +47,18 @@ public class WinkelwagenController {
 
 	@RequestMapping(value = "/bestelling/catalogus", method = RequestMethod.POST)
 	public String populateWinkelWagen(HttpSession session,
-			Model model, int aantal, long artikelId, long prijsId) {
+			Model model, Artikel artikel, int aantal /*, long artikelId, long prijsId */) {
 
+		Iterator<Prijs> itPrijs = artikel.getPrijzen().iterator();
+		Prijs p = null;
+		while(itPrijs.hasNext()){
+			p = itPrijs.next();
+		}
+		
 		@SuppressWarnings("unchecked")
 		HashSet<BestelArtikel> winkelwagen = (HashSet<BestelArtikel>)session.getAttribute("winkelwagen");
 
-		BestelArtikel bestArt = new BestelArtikel(prijsDAO.findById(prijsId), artikelDAO.findById(artikelId), aantal);
+		BestelArtikel bestArt = new BestelArtikel(p, artikel, aantal);
 
 		winkelwagen.add(bestArt);
 
@@ -157,7 +163,7 @@ public class WinkelwagenController {
 		while(it.hasNext()){
 
 			art = it.next();
-			Iterator<Prijs> prijsIt = art.getPrijs().iterator();
+			Iterator<Prijs> prijsIt = art.getPrijzen().iterator();
 
 			while(prijsIt.hasNext())
 				pr = prijsIt.next();
