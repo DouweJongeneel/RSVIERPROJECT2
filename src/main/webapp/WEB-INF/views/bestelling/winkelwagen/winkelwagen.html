@@ -38,67 +38,122 @@
 
 
 <body>
-	<div id="header" th:include="template :: headerAuthenticated"></div>
+<div id="header" th:include="template :: headerAuthenticated"></div>
 
-	<div id="content">
+<div id="content">
 
+	<div class="container">
 
-
-
-
-
-		<!--<div>-->
-
-			<!--<h1>Bestellingenlijst</h1>-->
-			<!--<table class="center">-->
-				<!--<tr>-->
-					<!--<td>Artikel</td>-->
-					<!--<td>Aantal</td>-->
-					<!--<td>Prijs</td>-->
-					<!--<td></td>-->
-				<!--</tr>-->
-				<!---->
-				<!--<tr th:each="best,iterationStatus : ${artikelen}">-->
-					<!--<td th:text="${best.Artikel.artikelNaam}">Artikelnaam</td>-->
-					<!---->
-					<!--<form method="POST" th:object="${best}">-->
-					<!---->
-					<!--<td><input type="text" id="*{aantal}"-->
-						<!--th:value="${best.aantal}" name = "aantal"/>-->
-						<!--<input type="hidden" id="*{artikelId}"-->
-						<!--th:value="${best.Artikel.id}" name = "artikelId"/>-->
-					<!--</td>-->
-					<!---->
-					<!--<td th:text="${best.Prijs.prijs}">Prijs</td>-->
-					<!---->
-					<!--<td><input type="submit" value="Update!" />-->
-        			<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></td>-->
-					<!--</form>-->
-
-				<!--</tr>-->
-
-				<!--<tr>-->
-					<!--<td>Totaal:</td>-->
-					<!--<td></td>-->
-					<!--<td th:text="${totaalPrijs}">Totaalprijs</td>-->
-					<!--<td></td>-->
-				<!--</tr>-->
-
-				<!--<tr>-->
-					<!--<td></td>-->
-					<!--<td></td>-->
-					<!--<td><a th:href="@{/bestelling/bevestigen}">Bestelling bevestigen</a></td>-->
-					<!--<td></td>-->
-				<!--</tr>-->
+		<div class="content inside-page checkout">
 
 
-			<!--</table>-->
+			<h2 class="title">Checkout</h2>
+			<div class="breadcrumb"><a th:href="@{/}">Home</a> / Checkout</div>
 
-		<!--</div>-->
+			<div class="shopping-cart">
+
+				<div class="row product-list title hidden-xs">
+					<div class="col-xs-8">Product</div>
+					<div class="col-xs-2 center price">Price</div>
+					<div class="col-xs-1">Qty</div>
+					<div class="col-xs-1 center">Action</div>
+				</div>
+				<hr />
+
+				<div class="row product-list" th:each="best,iterationStatus : ${artikelen}">
+					<form method="POST" th:object="${best}">
+						<div class="col-xs-3 col-sm-2"><a th:href="@{/artikel/select/{id}(id=${best.artikel.id})}"><img th:src="@{'data:image/jpeg;base64,'+${best.artikel.plaatje}}" class="img-responsive"  alt="product" /></a></div>
+						<div class="col-xs-9 col-sm-6 title"><a th:href="@{/artikel/select/{id}(id=${best.artikel.id})}" th:text="${best.artikel.artikelNaam}">X</a></div>
+						<div class="col-xs-4 col-sm-2 center price">&euro; <a th:text="${#numbers.formatDecimal(best.prijs.prijs, 0, 0)}"></a></div>
+						<div class="col-xs-3 col-sm-1"><input class="form-control" th:value="${best.aantal}" name="aantal"/></div>
+						<div class="col-xs-2 col-sm-1 center">
+							<input type="hidden" th:value="${best.artikel.id}" name="artikelId" />
+							<div class="col-xs-2 col-sm-1 center"><a href="#" onclick="$(this).closest('form').submit()"><i class="fa fa-refresh"></i></a></div>
+							<!--<div class="col-xs-2 col-sm-1 center"><a th:href="'#'" onclick="document.forms[0].submit();return false;"><i class="fa fa-spin fa-refresh"></i></a></div>-->
+							<!--<input type="submit" value="Update!" />-->
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						</div>
+					</form>
+				</div>
+
+				<div class="row product-list grandtotal">
+					<div class="col-xs-8">Total</div>
+					<div class="col-xs-2 center price">&euro; <a th:text="${totaalPrijs}"></a></div>
+				</div>
 
 
 
-	</div>
-	<div id="footer" th:include="template :: copy"></div>
+			</div> <!-- shopping cart -->
+
+			<hr />
+			<a th:href="@{/artikel/}" class="btn btn-primary pull-left">Continue Shopping</a>
+			<a th:href="@{/}" class="btn btn-primary pull-right">Proceed Checkout</a>
+
+
+		</div><!-- inside page -->
+	</div> <!-- container -->
+
+
+</div>
+
+<div id="footer" th:include="template :: copy"></div>
+
+<script th:src="@{/resources/assets/script.js}"></script>
+<script th:src="@{/resources/assets/respond.js}"></script>
+<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/resources/assets/jquery.js}"></script>
+<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
+
 </body>
 </html>
+
+<!-- fieldsets -->
+
+<!--<div>-->
+
+<!--<h1>Bestellingenlijst</h1>-->
+<!--<table class="center">-->
+<!--<tr>-->
+<!--<td>Artikel</td>-->
+<!--<td>Aantal</td>-->
+<!--<td>Prijs</td>-->
+<!--<td></td>-->
+<!--</tr>-->
+<!---->
+<!--<tr th:each="best,iterationStatus : ${artikelen}">-->
+<!--<td th:text="${best.Artikel.artikelNaam}">Artikelnaam</td>-->
+<!---->
+<!--<form method="POST" th:object="${best}">-->
+<!---->
+<!--<td><input type="text" id="*{aantal}"-->
+<!--th:value="${best.aantal}" name = "aantal"/>-->
+<!--<input type="hidden" id="*{artikelId}"-->
+<!--th:value="${best.Artikel.id}" name = "artikelId"/>-->
+<!--</td>-->
+<!---->
+<!--<td th:text="${best.Prijs.prijs}">Prijs</td>-->
+<!---->
+<!--<td><input type="submit" value="Update!" />-->
+<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></td>-->
+<!--</form>-->
+
+<!--</tr>-->
+
+<!--<tr>-->
+<!--<td>Totaal:</td>-->
+<!--<td></td>-->
+<!--<td th:text="${totaalPrijs}">Totaalprijs</td>-->
+<!--<td></td>-->
+<!--</tr>-->
+
+<!--<tr>-->
+<!--<td></td>-->
+<!--<td></td>-->
+<!--<td><a th:href="@{/bestelling/bevestigen}">Bestelling bevestigen</a></td>-->
+<!--<td></td>-->
+<!--</tr>-->
+
+
+<!--</table>-->
+
+<!--</div>-->

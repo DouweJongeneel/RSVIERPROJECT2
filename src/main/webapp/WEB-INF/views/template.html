@@ -64,15 +64,9 @@
                             <span class="cart-counter" th:text="${shoppingCart.winkelwagen.size()}"></span> <span class="caret"></span></a>
 
                         <div class="dropdown-menu mini-cart">
-                            <div class="row product-list">
-                                <div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/1.jpg}" class="img-responsive" alt="product" /></a></div>
-                                <div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>
-                                <div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>
-                            </div>
-
-                            <div class="row product-list">
-                                <div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/2.jpg}" class="img-responsive" alt="product" /></a></div>
-                                <div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>
+                            <div class="row product-list" th:each="best,iterationStatus : ${shoppingCart.winkelwagen}">
+                                <div class="col-xs-3"><a href="#"><img th:src="@{'data:image/jpeg;base64,'+${best.artikel.plaatje}}" class="img-responsive" alt="product" /></a></div>
+                                <div class="col-xs-7"><a th:href="@{/artikel/select/{id}(id=${best.artikel.id})}" th:text="${best.artikel.artikelNaam}" name="artikelId">X</a></div>
                                 <div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>
                             </div>
 
@@ -140,28 +134,28 @@
                     <li><a th:href="@{/login}" data-target="#login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
                     <li><a th:href="@{/klant/register}" data-target="#login"><span class="glyphicon glyphicon-user"></span>  Register</a></li>
                     <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle cart" data-toggle="dropdown">-->
-                            <!--<span class="glyphicon glyphicon-shopping-cart"></span> Cart-->
-                            <!--<span class="cart-counter" th:text="${winkelwagen.size()}">0</span> <span class="caret"></span></a>-->
+                    <!--<a href="#" class="dropdown-toggle cart" data-toggle="dropdown">-->
+                    <!--<span class="glyphicon glyphicon-shopping-cart"></span> Cart-->
+                    <!--<span class="cart-counter" th:text="${winkelwagen.size()}">0</span> <span class="caret"></span></a>-->
 
-                        <!--<div class="dropdown-menu mini-cart">-->
-                            <!--<div class="row product-list">-->
-                                <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/1.jpg}" class="img-responsive" alt="product" /></a></div>-->
-                                <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
-                                <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
-                            <!--</div>-->
+                    <!--<div class="dropdown-menu mini-cart">-->
+                    <!--<div class="row product-list">-->
+                    <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/1.jpg}" class="img-responsive" alt="product" /></a></div>-->
+                    <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
+                    <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
+                    <!--</div>-->
 
-                            <!--<div class="row product-list">-->
-                                <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/2.jpg}" class="img-responsive" alt="product" /></a></div>-->
-                                <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
-                                <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
-                            <!--</div>-->
+                    <!--<div class="row product-list">-->
+                    <!--<div class="col-xs-3"><a href="#"><img th:src="@{/resources/images/photos/2.jpg}" class="img-responsive" alt="product" /></a></div>-->
+                    <!--<div class="col-xs-7"><a href="#">White V-neck Tshirt</a></div>-->
+                    <!--<div class="col-xs-1"><a href="#"><i class="fa fa-close"></i></a></div>-->
+                    <!--</div>-->
 
-                            <!--<div class="clearfix">-->
-                                <!--<a th:href="@{/bestelling/catalogus}" class="btn btn-primary">continue shopping</a> <a th:href="@{/bestelling}" class="btn btn-primary">checkout</a>-->
-                            <!--</div>-->
+                    <!--<div class="clearfix">-->
+                    <!--<a th:href="@{/bestelling/catalogus}" class="btn btn-primary">continue shopping</a> <a th:href="@{/bestelling}" class="btn btn-primary">checkout</a>-->
+                    <!--</div>-->
 
-                        <!--</div>-->
+                    <!--</div>-->
                     <!--</li>-->
                 </ul>
             </div><!-- Wnavbar-collapse -->
@@ -234,6 +228,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 

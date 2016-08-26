@@ -124,7 +124,8 @@ public class ArtikelController {
 		// Verkrijg artikelgegevens en prijs
 		Artikel artikel = artikelDAO.findById(id);
 		stopDeActuelePrijsInHetArtikel(artikel);
-		
+		artikel.setPlaatje(getProductPictureDataString(id));
+
 		// Stop artikel met prijs en plaatje in model
 		model.addAttribute("plaatje", getProductPictureDataString(id));
 		model.addAttribute(artikel);
