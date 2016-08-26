@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-import com.adm.domain.ShoppingCart;
+import com.adm.domain.*;
+import com.adm.exceptions.NotLoggedInException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import com.adm.domain.Artikel;
-import com.adm.domain.BestelArtikel;
-import com.adm.domain.Prijs;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,7 +27,11 @@ public class WinkelwagenController {
 	/** METHOD TO ADD AN PRODUCT TO THE SHOPPING CART **/
 	@RequestMapping(value = "/bestelling/{id}", method = RequestMethod.POST)
 	public String addArticleShoppingCart(Model model, Artikel artikel,
-										 int aantal, ShoppingCart shoppingCart) {
+										 int aantal, ShoppingCart shoppingCart, Klant klant) throws Exception {
+
+	    if (klant.getAchternaam() == null) {
+	        throw new NotLoggedInException();
+        }
 
 		Iterator<Prijs> itPrijs = artikel.getPrijzen().iterator();
 		Prijs p = null;

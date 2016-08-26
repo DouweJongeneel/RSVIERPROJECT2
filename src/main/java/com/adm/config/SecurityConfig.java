@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                   .realmName("Harrie")
                 .and()
                 .authorizeRequests()
-                 .antMatchers("/").authenticated()
+//                 .antMatchers("/").authenticated()
 //                 .antMatchers(HttpMethod.POST, "/klanten/register").authenticated() //TODO: Veranderen
                  .anyRequest().permitAll();
     }
