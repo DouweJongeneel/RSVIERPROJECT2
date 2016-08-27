@@ -32,6 +32,7 @@ import com.adm.domain.Prijs;
 import com.adm.exceptions.DuplicateEntryException;
 import com.adm.web.forms.ArtikelRegisterForm;
 
+@SuppressWarnings("restriction")
 @Controller
 @Component
 @RequestMapping("/artikel")
@@ -39,9 +40,12 @@ import com.adm.web.forms.ArtikelRegisterForm;
 @SessionAttributes({"artikel","plaatje", "shoppingCart"})
 public class ArtikelController {
 
-	private static ArtikelDAO artikelDAO;
-	private static PrijsDAO prijsDAO;
+	private ArtikelDAO artikelDAO;
+	private PrijsDAO prijsDAO;
 
+    private static String pictureFolder = "c:/harrie/uploads/data/productPictures/"; // Windows
+//  private String pictureFolder = "/tmp/harrie/uploads/productPictures"; // Unix-Based
+	
 	@Autowired
 	public ArtikelController(ArtikelDAO artikelDAO, PrijsDAO prijsDAO) {
 		this.artikelDAO = artikelDAO;
@@ -51,11 +55,13 @@ public class ArtikelController {
 	/*
 	 * Controller die een overzicht van alle artikelen toont
 	 */
-	@SuppressWarnings("restriction")
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showAllArtikelen(Model model) throws Exception {
+	@RequestMapping(value = "/{type}", method = RequestMethod.GET)
+	public String showAllArtikelen(Model model, @PathVariable String type) throws Exception {
+
+		if(type.equals("all"))
+			type = "%";
 		// verkrijg een lijst met alle artikelen
-		List<Artikel> artikelList = maakArtikelLijst();
+		List<Artikel> artikelList = maakArtikelLijst(type);
 		
 		// stop de lijst met alle artikelen in het model
 		model.addAttribute("artikelList", artikelList);
@@ -85,11 +91,12 @@ public class ArtikelController {
 		if (errors.hasErrors()) {
 			return "/artikel/artikelRegisterForm";
 		}
-
+ 
 		try {
 			// Haal de artikelgegevens uit het artikelformulier
 			Artikel artikel = new Artikel(
 					hanteerNaamConventie(artikelRegisterForm.getArtikelNaam()),
+					artikelRegisterForm.getArtikelType(),
 					artikelRegisterForm.getArtikelPrijs(), 
 					artikelRegisterForm.getArtikelLevertijd(),
 					artikelRegisterForm.isArtikelOpVoorraad());
@@ -145,6 +152,7 @@ public class ArtikelController {
 		ArtikelRegisterForm artikelModificationForm = new ArtikelRegisterForm(
 				teWijzigenArtikel.getArtikelNaam(),
 				teWijzigenArtikel.getArtikelPrijs(),
+				teWijzigenArtikel.getArtikelType(),
 				teWijzigenArtikel.getVerwachteLevertijd(),
 				teWijzigenArtikel.isInAssortiment());
 
@@ -228,8 +236,8 @@ public class ArtikelController {
 	/*
 	 * Methode die een lijst met alle artikelen teruggeeft inclusief afbeelding
 	 */
-	public static List<Artikel> maakArtikelLijst() {
-		List<Artikel> artikelList = artikelDAO.findAll();
+	public List<Artikel> maakArtikelLijst(String type) {
+		List<Artikel> artikelList = artikelDAO.findByType(type);
 
 		// Iterate door artikelList en haal voor elk artikel de actuele prijs en afbeelding op
 		for (int i = 0; i < artikelList.size(); i++) {
@@ -251,23 +259,22 @@ public class ArtikelController {
 				id + ".jpg"));
 		}
 		catch (IOException ex) {
-			// TODO
+
 		}
 	}
 	
 	/*
 	 * Method to get picture data String
 	 */
-	@SuppressWarnings("restriction")
 	public static String getProductPictureDataString(Long id) {
 		byte[] array = null;
 
 		try {
-			array = Files.readAllBytes(new File("/tmp/harrie/uploads/data/productPictures/"
+			array = Files.readAllBytes(new File(pictureFolder
 					+ id + ".jpg").toPath());
 		}
 		catch (IOException ex) {
-			// TODO -
+
 		}
 
 		return Base64.encode(array);
@@ -287,23 +294,19 @@ public class ArtikelController {
 	 */
 	public static String hanteerNaamConventie(String string) {
 		StringBuilder builder = new StringBuilder();
-		int indexToUpperCase = 0;
-
+		
 		// Start with a lowercase string
 		String s = string.toLowerCase();
+		
 		// Split on whitespace
 		String[] tokens = s.split("[\\s]");
-		// Iterate over each wordt and capitalize the first character
+		
+		// Iterate over each word and capitalize the first character
 		for(int i = 0; i < tokens.length; i++) {
-			if (i > 0) {
-				builder.append(' ');
-				indexToUpperCase = builder.length();
-			}
+			Character.toUpperCase(tokens[i].charAt(0));
 			builder.append(tokens[i]);
-			builder.setCharAt(indexToUpperCase, Character.toUpperCase(tokens[i].charAt(0)));
+			builder.append(' ');
 		}
-		return builder.toString();
+		return builder.toString().trim();
 	}
-
-
 }
