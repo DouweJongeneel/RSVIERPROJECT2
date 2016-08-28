@@ -98,6 +98,7 @@ public class AdresController {
 
         //Achtung, the id is the id of the value in the map in the client
         adres = adresDAO.findById(id);
+//        klant = klantDAO.findById(klant.getId());
 
         if (adres.getAdresActief().charAt(0) == '0')
             adres.setAdresActief("1");
@@ -110,16 +111,14 @@ public class AdresController {
         adresDAO.makePersistent(adres);
 
         // Update client info
-        Hibernate.initialize(klant.getAdresGegevens());
-        klant.setDatumGewijzigd(new Date().toString());
-        klant = klantDAO.makePersistent(klant);
+//        Hibernate.initialize(klant.getAdresGegevens());
+//        klant = klantDAO.makePersistent(klant);
 
         // Inject client into model for display
-        model.addAttribute("klant", klant);
+//        model.addAttribute("klant", klant);
 
         // Redirect to created profile
-//        return "redirect:/klant/profile";
-        return "redirect:/klant/profile";
+        return "redirect:/klant/klanten";
     }
 
     /** MODIFY ADDRESS METHOD (GET) **/
