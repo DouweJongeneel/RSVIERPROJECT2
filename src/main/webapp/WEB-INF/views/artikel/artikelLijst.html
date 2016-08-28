@@ -61,7 +61,7 @@
 
             <div class="breadcrumb"><a th:href="@{/}">Home</a> / Collections</div>
 
-            <form th:action="@{/artikel/register}">
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/artikel/register}">
                 <input type = "submit" th:value = "#{harrie.actions.newProduct}"/>
             </form>
 

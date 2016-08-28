@@ -44,7 +44,7 @@ public class ArtikelController {
 	private static PrijsDAO prijsDAO;
 
 //    private static String pictureFolder = "c:/harrie/uploads/data/productPictures/"; // Windows
-  private static String pictureFolder = "/tmp/harrie/uploads/data/productPictures"; // Unix-Based
+  private static String pictureFolder = "/tmp/harrie/uploads/data/productPictures/"; // Unix-Based
 
 	@SuppressWarnings("static-access")
 	@Autowired
@@ -107,8 +107,10 @@ public class ArtikelController {
 			prijsDAO.makePersistent(new Prijs(artikelRegisterForm.getArtikelPrijs(), artikel));
 
 			// Sla de afbeelding op
-			slaAfbeeldingOp(artikel.getId(), artikelRegisterForm.getArtikelAfbeelding());
-			artikel.setPlaatje(getProductPictureDataString(artikel.getId()));
+			if (artikelRegisterForm.getArtikelAfbeelding() != null) {
+				slaAfbeeldingOp(artikel.getId(), artikelRegisterForm.getArtikelAfbeelding());
+				artikel.setPlaatje(getProductPictureDataString(artikel.getId()));
+			}
 			
 			// Save flash attribute
 			model.addFlashAttribute("artikel", artikel);
@@ -132,6 +134,7 @@ public class ArtikelController {
 
 		// Verkrijg artikelgegevens en prijs
 		Artikel artikel = artikelDAO.findById(id);
+		artikel.setPlaatje(getProductPictureDataString(id));
 		stopDeActuelePrijsInHetArtikel(artikel);
 
 		// Stop artikel met prijs en plaatje in model
@@ -145,6 +148,7 @@ public class ArtikelController {
 	 * Controler die het formulier om een artikel te wijzigen toont
 	 */
 	@RequestMapping(value = "/wijzigen/{id}", method = RequestMethod.GET)
+	@Secured({"ROLE_ADMIN"})
 	public String modifyArtikel(@PathVariable Long id, Model model) {
 
 		// Verkrijg actuele artikel en prijs gegevens
@@ -169,6 +173,7 @@ public class ArtikelController {
 	 * Controller die de wijziging van het artikel verwerkt
 	 */
 	@RequestMapping(value = "/wijzigen/{id}", method = RequestMethod.POST)
+	@Secured({"ROLE_ADMIN"})
 	public String procesArtikelModification(@PathVariable Long id, Artikel artikel, 
 			@Valid ArtikelRegisterForm artikelForm, 
 			Errors errors, RedirectAttributes model) throws Exception {
@@ -209,6 +214,7 @@ public class ArtikelController {
 	 * Controller die ervoor zorgt dat een artikel niet meer op voorraad is
 	 */
 	@RequestMapping(value = "/verwijderen/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public String processArtikelOutOfStock(@PathVariable Long id, RedirectAttributes model,
 			@RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage){
 		Artikel artikel = artikelDAO.findById(id);

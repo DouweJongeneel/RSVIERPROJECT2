@@ -77,7 +77,23 @@
                                     <div class="pull-right"><input type="submit" class="btn btn-primary" value="Add to Cart"> </input></div>
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                 </form>
+
+
+
                             </div>
+
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <hr />
+
+                                <div class="col-sm-12">
+                                    <form th:action="@{/artikel/wijzigen/{id}(id=${artikel.id})}">
+                                        <input type="submit" th:value="#{harrie.actions.modify}" class="btn btn-primary"/>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                            <hr />
 
                             <div class="description-tabs">
                                 <!-- Nav tabs -->
@@ -89,7 +105,7 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="description">
-                                        Omschrijving van product.
+                                        Omschrijving van dit product.
                                     </div>
                                     <div class="tab-pane" id="review">
 
