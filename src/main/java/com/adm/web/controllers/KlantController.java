@@ -13,6 +13,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,6 +126,7 @@ public class KlantController {
 
     /** CLIENT LIST METHOD **/
     @RequestMapping(value = "/klanten", method = GET)
+    @Secured({"ROLE_ADMIN"})
     public String showClients(Model model) throws Exception {
         List<Klant> klantenLijst = klantDAO.findAll();
 
@@ -145,6 +147,7 @@ public class KlantController {
 
     /** TUMBLE CLIENT STATUS METHOD **/
     @RequestMapping(value = "/tumble/{id}", method = GET)
+    @Secured({"ROLE_ADMIN"})
     public String tumbleStatusClient(@PathVariable Long id,
                                      Model model,
                                      @RequestParam(value="fromProfile", defaultValue="0") int fromProfilePage
@@ -177,6 +180,7 @@ public class KlantController {
 
     /** SELECT CLIENT METHOD **/
     @RequestMapping(value = "/select/{id}", method = GET)
+    @Secured({"ROLE_ADMIN"})
     public String selectClient(@PathVariable Long id, Model model) throws Exception {
         // Find the persisting client
         Klant klant = klantDAO.findById(id);

@@ -40,11 +40,6 @@
 
 <body>
 
-<script th:src="@{/resources/assets/script.js}"></script>
-<script th:src="@{/resources/assets/respond.js}"></script>
-<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
-<script th:src="@{/resources/assets/jquery.js}"></script>
-<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
 
 <div id="headerAuthenticated" sec:authorize="isAuthenticated()" th:include="template :: headerAuthenticated">AUTH</div>
 <div id="header" sec:authorize="isAnonymous()" th:include="template :: header">NON AUTH</div>
@@ -238,6 +233,12 @@
         </div> <!-- INSIDE CLIENT -->
     </div> <!-- CONTAINER -->
 </div> <!-- CONTENT -->
+
+<script th:src="@{/resources/assets/script.js}"></script>
+<script th:src="@{/resources/assets/respond.js}"></script>
+<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/resources/assets/jquery.js}"></script>
+<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
 
 
 

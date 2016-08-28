@@ -79,9 +79,9 @@
                     <li sec:authorize="hasRole('ADMIN')" class="dropdown">
                         <a href="#" class="dropdown-toggle admin" data-toggle="dropdown" ><span class="fa fa-cog"></span>  ADMIN <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a th:href="@{/klant/profile}">Admin Profile</a></li>
+                            <li><a th:href="@{/klant/profile}">Current Profile</a></li>
                             <li><a th:href="@{/klant/klanten}">Clients</a></li>
-                            <li><a th:href="@{/terms}">Orders</a></li>
+                            <!--<li><a th:href="@{/terms}">Orders</a></li>-->
                         </ul>
                     </li>
                     <!-- end Conditional register / profile button -->
