@@ -7,6 +7,7 @@ import com.adm.database.service.KlantService;
 import com.adm.domain.Klant;
 import com.adm.domain.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,9 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +56,22 @@ public class HomeController {
         return "about";
     }
 
+    @RequestMapping(value = "/terms", method = GET)
+    public String terms(Model model, Klant klant, ShoppingCart shoppingCart) {
+        model.addAttribute("klant", klant);
+        model.addAttribute("shoppingCart", shoppingCart);
+
+        return "terms";
+    }
+
+    @RequestMapping(value = "/contact", method = GET)
+    public String contact(Model model, Klant klant, ShoppingCart shoppingCart) {
+        model.addAttribute("klant", klant);
+        model.addAttribute("shoppingCart", shoppingCart);
+
+        return "contact";
+    }
+
     @RequestMapping(value="/logout", method = GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -64,11 +79,11 @@ public class HomeController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-
         return "redirect:/";
     }
 
     @RequestMapping(value = "/loginSuccess", method = GET)
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public String loginSuccess() {
 
         return "redirect:/";

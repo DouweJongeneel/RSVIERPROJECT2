@@ -52,28 +52,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  .anyRequest().permitAll();
     }
 
-//    @Override
-//    @Profile("development")
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                 .withUser("user").password("password").roles("USER")
-//                .and()
-//                 .withUser("Harrie").password("1234").roles("USER")
-//                .and()
-//                 .withUser("admin").password("password").roles("USER", "ADMIN");
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth
-                .jdbcAuthentication()
-                 .dataSource(dataSource)
-                 .usersByUsernameQuery(
-                         "select email, password, klantActief " +
-                         "from Klant where email=?")
-                 .authoritiesByUsernameQuery(
-                         "select email, 'ROLE_USER' from Klant where email=?");
+                .inMemoryAuthentication()
+                 .withUser("user").password("password").roles("USER")
+                .and()
+                 .withUser("Harrie").password("1234").roles("USER")
+                .and()
+                 .withUser("admin").password("password").roles("ADMIN");
     }
+
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//
+//        auth
+//                .jdbcAuthentication()
+//                 .dataSource(dataSource)
+//                 .usersByUsernameQuery(
+//                         "select email, password, klantActief " +
+//                         "from Klant where email=?")
+//                 .authoritiesByUsernameQuery(
+//                         "select email, 'ROLE_USER' from Klant where email=?");
+//    }
 }
