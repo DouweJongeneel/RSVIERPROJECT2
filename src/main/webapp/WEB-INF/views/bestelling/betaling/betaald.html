@@ -44,21 +44,22 @@
 
 	<div class="container">
 
-<br />
-		<h1 th:text="#{harrie.betaling.processed}">Order processed</h1>
+		<div class="content inside-page paid">
+
+			<h2 class="title" th:text="#{harrie.betaling.processed}">Order Processed</h2>
+
 			<table class="center">
 				<tr>
 					<td colspan="2" th:text="#{harrie.betaling.geplaats}">De bestelling is geplaatst</td>
 				</tr>
 
 			</table>
-	</div>
 
-		</div><!-- inside page -->
+		</div>		<!-- inside paid -->
 	</div> <!-- container -->
 
 
-</div>
+</div> <!-- content -->
 
 <script th:src="@{/resources/assets/script.js}"></script>
 <script th:src="@{/resources/assets/respond.js}"></script>

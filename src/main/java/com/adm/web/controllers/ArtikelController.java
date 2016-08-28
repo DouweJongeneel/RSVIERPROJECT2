@@ -105,7 +105,8 @@ public class ArtikelController {
 		try {
 			// Haal de artikelgegevens uit het artikelformulier
 			Artikel artikel = new Artikel(
-					hanteerNaamConventie(artikelRegisterForm.getArtikelNaam()),
+//					hanteerNaamConventie(artikelRegisterForm.getArtikelNaam()),
+					artikelRegisterForm.getArtikelNaam(),
 					artikelRegisterForm.getArtikelType(),
 					artikelRegisterForm.getArtikelPrijs(),
 					artikelRegisterForm.getArtikelLevertijd(),
