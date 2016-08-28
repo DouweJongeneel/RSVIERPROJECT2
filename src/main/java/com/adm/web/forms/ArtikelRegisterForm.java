@@ -25,7 +25,6 @@ public class ArtikelRegisterForm {
 	private Integer artikelLevertijd;
 	
 	@NotNull
-	@Min( value = 0)
 	private String artikelType;
 
 	private boolean artikelOpVoorraad;

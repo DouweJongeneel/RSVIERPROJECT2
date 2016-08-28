@@ -61,6 +61,14 @@ public class ArtikelController {
 
 		if(type.equals("all"))
 			type = "%";
+
+		if(type.equals("H"))
+			type = "H%";
+
+		if(type.equals("M"))
+			type = "M%";
+
+
 		// verkrijg een lijst met alle artikelen
 		List<Artikel> artikelList = maakArtikelLijst(type);
 		

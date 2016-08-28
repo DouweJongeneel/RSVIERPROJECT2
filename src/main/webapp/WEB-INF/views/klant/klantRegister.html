@@ -37,7 +37,7 @@
 </head>
 
 <body>
-<div id="header" th:include="template :: headerAuthenticated"></div>
+<div id="header" th:include="template :: header"></div>
 
 <div id="content">
 
@@ -143,6 +143,14 @@
 
     </div>
 </div>
+
+
+<script th:src="@{/resources/assets/script.js}"></script>
+<script th:src="@{/resources/assets/respond.js}"></script>
+<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/resources/assets/jquery.js}"></script>
+<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
+
 
 
 <div id="footer" th:include="template :: footer"></div>
