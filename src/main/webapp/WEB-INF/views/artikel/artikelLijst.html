@@ -57,9 +57,9 @@
                 </select>
             </div>
 
-            <h2 class="title" th:text = "#{harrie.products.artikelLijst}">Collections</h2>
+            <h2 class="title" th:text = "#{harrie.products.artikelLijst}">Products</h2>
 
-            <div class="breadcrumb"><a th:href="@{/}">Home</a> / Collections</div>
+            <div class="breadcrumb"><a th:href="@{/}">Home</a> / Products</div>
 
             <form sec:authorize="hasRole('ADMIN')" th:action="@{/artikel/register}">
                 <input type = "submit" th:value = "#{harrie.actions.newProduct}"/>

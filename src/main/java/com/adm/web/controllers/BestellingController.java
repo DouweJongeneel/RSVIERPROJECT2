@@ -106,9 +106,6 @@ public class BestellingController {
 		return "bestelling/factuur";
 	}
 
-
-
-
 	@RequestMapping(value = "/bestelling/bevestigen", method = RequestMethod.GET)
 	public String kiesBetaalmethode(Model model, HttpSession session, ShoppingCart winkelwagen, Klant klant) {
 
@@ -159,6 +156,9 @@ public class BestellingController {
 		fact.voegBetalingToe(bet);
 
 		nieuweBestelling.getFactuurSet().add(maakFactuur(nieuweBestelling));
+
+		// Clear shopping cart
+		winkelwagen.getWinkelwagen().clear();
 
 		return "bestelling/betaling/betaald";
 	}

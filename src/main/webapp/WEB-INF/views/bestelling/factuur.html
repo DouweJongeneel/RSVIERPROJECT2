@@ -1,62 +1,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head>
-<title>Harrie &amp; Marie</title>
+	<title>Harrie &amp; Marie</title>
 
-<!-- Determine Characterset as UTF8 -->
-<meta charset="UTF-8" />
+	<!-- Determine Characterset as UTF8 -->
+	<meta charset="UTF-8" />
 
-<!--Will control the visible area for the user. -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<!--Will control the visible area for the user. -->
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-<!-- Google fonts -->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700'
-	rel='stylesheet' type='text/css' />
-<link
-	href='https://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic'
-	rel="stylesheet" type="text/css" />
+	<!-- Google fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700'
+		  rel='stylesheet' type='text/css' />
+	<link
+			href='https://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic'
+			rel="stylesheet" type="text/css" />
 
-<!-- font awesome -->
-<link rel="stylesheet" type="text/css"
-	th:href="'//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'" />
+	<!-- font awesome -->
+	<link rel="stylesheet" type="text/css"
+		  th:href="'//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'" />
 
-<!-- bootstrap -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/resources/assets/bootstrap/css/bootstrap.min.css}" />
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/resources/assets/bootstrap/css/bootstrap.min.css}" />
 
-<!-- animate.css -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/resources/assets/animate.css}" />
+	<!-- animate.css -->
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/resources/assets/animate.css}" />
 
-<!-- Owl Carousel Assets -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/resources/assets/owl-carousel/owl.carousel.css}" />
+	<!-- Owl Carousel Assets -->
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/resources/assets/owl-carousel/owl.carousel.css}" />
 
-<!-- Custom Stylesheet -->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/resources/assets/style.css}" />
+	<!-- Custom Stylesheet -->
+	<link rel="stylesheet" type="text/css"
+		  th:href="@{/resources/assets/style.css}" />
 
-<!-- favicon -->
-<link rel="shortcut icon" th:href="@{/resources/images/hmlogo.png}"
-	type="image/x-icon" />
-<link rel="icon" th:href="@{/resources/images/hmlogo.png}"
-	type="image/x-icon" />
+	<!-- favicon -->
+	<link rel="shortcut icon" th:href="@{/resources/images/hmlogo.png}"
+		  type="image/x-icon" />
+	<link rel="icon" th:href="@{/resources/images/hmlogo.png}"
+		  type="image/x-icon" />
 
 </head>
 
 <body>
 
-	<div id="headerAuthenticated" sec:authorize="isAuthenticated()"
-		th:include="template :: headerAuthenticated">AUTH</div>
-	<div id="header" sec:authorize="isAnonymous()"
-		th:include="template :: header">NON AUTH</div>
+<div id="headerAuthenticated" sec:authorize="isAuthenticated()"
+	 th:include="template :: headerAuthenticated">AUTH</div>
+<div id="header" sec:authorize="isAnonymous()"
+	 th:include="template :: header">NON AUTH</div>
 
-	<div id="content">
+<div id="content">
 
-		<div class="container">
+	<div class="container">
+
+		<div class="content inside-page invoice">
+
+			<div class="breadcrumb"><a th:href="@{/}">Home</a> / <a th:href="@{/klant/profile}">My Profile</a> /
+				<a th:href="@{/klant/bestelling}" th:text="#{harrie.order.orderlist}"> </a> /
+				<span th:text="${factuur.bestelling.bestelNummer}"></span> / <span th:text="${factuur.factuurNummer}"></span></div>
+
 			<br />
 			<h1 th:text="#{harrie.factuur.title}">Factuur</h1>
 
@@ -93,8 +100,8 @@
 				</tr>
 
 				<tr th:each="best,iterationStatus : ${bestelArtikelen}">
-					<td th:text="${best.Artikel.artikelNaam}">Artikelnaam</td>
-					<td th:text="${best.Prijs.prijs}">Prijs</td>
+					<td th:text="${best.artikel.artikelNaam}">Artikelnaam</td>
+					<td th:text="${best.prijs.prijs}">Prijs</td>
 					<td>&nbsp;</td>
 					<td th:text="${best.aantal}">Aantal</td>
 				</tr>
@@ -116,14 +123,16 @@
 				</tr>
 
 			</table>
-		</div>
-	</div>
-	<script th:src="@{/resources/assets/script.js}"></script>
-	<script th:src="@{/resources/assets/respond.js}"></script>
-	<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
-	<script th:src="@{/resources/assets/jquery.js}"></script>
-	<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
 
-	<div id="footer" th:include="template :: footer"></div>
+		</div> <!-- inside page -->
+	</div> <!-- container -->
+</div> <!-- content -->
+<script th:src="@{/resources/assets/script.js}"></script>
+<script th:src="@{/resources/assets/respond.js}"></script>
+<script th:src="@{/resources/assets/owl-carousel/owl.carousel.min.js}"></script>
+<script th:src="@{/resources/assets/jquery.js}"></script>
+<script th:src="@{/resources/assets/bootstrap/js/bootstrap.js}"></script>
+
+<div id="footer" th:include="template :: footer"></div>
 </body>
 </html>
