@@ -95,7 +95,7 @@ public class HomeController {
 
     @RequestMapping(value = "/loginSuccess", method = GET)
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public String loginSuccess(Model model, Klant klant) {
+    public String loginSuccess(Model model, ShoppingCart shoppingCart) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String klantEmail = auth.getName();
@@ -107,8 +107,9 @@ public class HomeController {
 
         // Add the client to the model
         model.addAttribute(klant);
+        model.addAttribute("shoppingCart", shoppingCart);
 
-        return "redirect:/";
+        return "home";
     }
 
 }

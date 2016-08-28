@@ -38,7 +38,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Component
 @RequestMapping("/klant/adres")
 @Transactional
-@SessionAttributes({"klant", "adres"})
+@SessionAttributes({"klant", "adres", "shoppingCart"})
 public class AdresController {
     private AdresDAO adresDAO;
     private KlantDAO klantDAO;
@@ -79,9 +79,11 @@ public class AdresController {
         // Translate adressform into adress
         Adres nieuwAdres = adresRegisterForm.toAdres();
 
-        // Persist the adress
+        // Persist the adress (date modified temp )
+        String dateModified = klant.getDatumGewijzigd();
         nieuwAdres = adresDAO.makePersistent(nieuwAdres);
         klant.getAdresGegevens().put(nieuwAdres, nieuwAdres.getType());
+        klant.setDatumGewijzigd(dateModified);
 
         // Persist the client
         klantDAO.makePersistent(klant);

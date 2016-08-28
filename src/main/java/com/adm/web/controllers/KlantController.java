@@ -92,13 +92,22 @@ public class KlantController {
         // Save profilePicture to a file
         saveProfilePicture(nieuweKlant.getId(), klantRegisterForm.getProfilePicture());
 
+        // Add client to model
+//        model.addAttribute("klant", nieuweKlant);
+
         // Return to client list
-        return showClients(model);
+//        return showProfile(model, nieuweKlant);
+        return "redirect:/login";
     }
 
     /** CLIENT PROFILE PAGE **/
     @RequestMapping(value = "/profile", method = GET)
     public String showProfile(Model model, Klant klant) throws Exception {
+
+        // Find client and set the profilePicture TODO: Prob wat dubbel her en der, streamlinen
+        klant = klantDAO.findById(klant.getId());
+        klant.setClientProfilePicture(getProfilePicture(klant.getId()));
+        model.addAttribute(klant);
 
         // If there no active client yet, return to clientList
         if (klant.getEmail() == null) {
