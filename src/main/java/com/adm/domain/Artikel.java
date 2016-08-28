@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -27,6 +24,11 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "artikelNaam"))
 public class Artikel implements Comparable<Artikel>, Serializable{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -4459665473211168178L;
 
 	@Id
 	@SequenceGenerator(name = "artikelId", sequenceName = "zArtikel_sequence", allocationSize = 1)
@@ -58,7 +60,10 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 	@OneToMany(mappedBy = "artikel")
 	@Column(nullable = false)
 	protected Set<BestelArtikel> bestelArtikel;
-	
+
+	@Column
+	private String artikelType;
+
 	@Transient
 	private String plaatje;
 
@@ -67,8 +72,9 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 		this.datumAanmaak = new Date(System.currentTimeMillis());
 	}
 
-	public Artikel(String artikelNaam, BigDecimal artikelPrijs, int verwachteLevertijd, boolean inAssortiment) {
+	public Artikel(String artikelNaam, String artikelType, BigDecimal artikelPrijs, int verwachteLevertijd, boolean inAssortiment) {
 		this.artikelNaam = artikelNaam;
+		this.artikelType = artikelType;
 		this.artikelPrijs = artikelPrijs;
 		this.datumAanmaak = new Date(System.currentTimeMillis());
 		this.verwachteLevertijd = verwachteLevertijd;
@@ -110,6 +116,14 @@ public class Artikel implements Comparable<Artikel>, Serializable{
 
 	public String getPlaatje() {
 		return plaatje;
+	}
+
+	public String getArtikelType() {
+		return artikelType;
+	}
+
+	public void setArtikelType(String artikelType) {
+		this.artikelType = artikelType;
 	}
 
 	public void setPlaatje(String plaatje) {

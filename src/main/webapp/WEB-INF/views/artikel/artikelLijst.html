@@ -73,7 +73,7 @@
 
                     <div class="product">
                         <a th:href="@{/artikel/select/{id}(id=${artikel.id})}">
-                            <img th:src="@{'data:image/jpeg;base64,'+${artikelList.get(artikel.id - 1).getPlaatje()}}"  class="img-responsive" /></a>
+                            <img th:src="@{'data:image/jpeg;base64,'+${artikel.plaatje}}"  class="img-responsive" /></a>
                         <div class="row title-price">
                             <div class="col-md-8"><h5><a th:href="@{/artikel/select/{id}(id=${artikel.id})}" th:text="${artikel.artikelNaam}">Warm Cloths</a></h5></div>
                             <div class="col-md-4">&euro; <span th:text="${#numbers.formatDecimal(artikel.artikelPrijs, 0, 0)}"></span></div>

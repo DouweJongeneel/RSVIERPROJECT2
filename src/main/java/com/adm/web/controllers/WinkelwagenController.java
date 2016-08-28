@@ -64,7 +64,7 @@ public class WinkelwagenController {
 
 	/** METHOD FOR UPDATING THE SHOPPING CART **/
 	@RequestMapping(value = "/bestelling/winkelwagen", method = RequestMethod.POST)
-	public String editWinkelwagen(long artikelId, Model model, int aantal, int navbar, ShoppingCart shoppingCart,
+	public String editWinkelwagen(Long artikelId, Model model, Integer aantal, Integer navbar, ShoppingCart shoppingCart,
                                   HttpServletRequest request) {
 
 		Iterator<BestelArtikel> bestellingIterator = shoppingCart.getWinkelwagen().iterator();
@@ -99,7 +99,7 @@ public class WinkelwagenController {
             return getPreviousPageByRequest(request).orElse("/"); //else go to home page
         }
 
-		return "bestelling/winkelwagen/winkelwagen";
+		return "bestelling/betaling/betaling";
 	}
 
 

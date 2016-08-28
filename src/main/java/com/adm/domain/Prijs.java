@@ -1,5 +1,6 @@
 package com.adm.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashSet;
@@ -18,8 +19,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "prijs")
-public class Prijs {
-	
+public class Prijs implements Serializable{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -8765138219730703338L;
+
 	@Id
 	@SequenceGenerator(name = "prijsId", sequenceName = "zprijs_sequence", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "prijsId")
