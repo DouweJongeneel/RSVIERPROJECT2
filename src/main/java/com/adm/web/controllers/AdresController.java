@@ -94,10 +94,10 @@ public class AdresController {
 
     /** TUMBLE STATUS METHOD **/
     @RequestMapping(value = "/tumble/{id}", method = GET)
-    public String tumbleStatusAdres(@PathVariable Long id, Klant klant, Model model) throws Exception {
+    public String tumbleStatusAdres(@PathVariable Long id, Klant klant, Model model, Adres adres) throws Exception {
 
         //Achtung, the id is the id of the value in the map in the client
-        Adres adres = adresDAO.findById(id);
+        adres = adresDAO.findById(id);
 
         if (adres.getAdresActief().charAt(0) == '0')
             adres.setAdresActief("1");
@@ -111,12 +111,14 @@ public class AdresController {
 
         // Update client info
         Hibernate.initialize(klant.getAdresGegevens());
+        klant.setDatumGewijzigd(new Date().toString());
         klant = klantDAO.makePersistent(klant);
 
         // Inject client into model for display
         model.addAttribute("klant", klant);
 
         // Redirect to created profile
+//        return "redirect:/klant/profile";
         return "redirect:/klant/profile";
     }
 
@@ -174,6 +176,7 @@ public class AdresController {
 
         // Update client info
         Hibernate.initialize(klant.getAdresGegevens());
+        klant.setDatumGewijzigd(new Date().toString());
         klant = klantDAO.makePersistent(klant);
 
         // Inject client into model for display

@@ -95,18 +95,20 @@ public class HomeController {
 
     @RequestMapping(value = "/loginSuccess", method = GET)
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public String loginSuccess(Model model, ShoppingCart shoppingCart) {
+    public String loginSuccess(Model model, ShoppingCart shoppingCart, Klant klant) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String klantEmail = auth.getName();
+        if (klant.getAchternaam() == null) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String klantEmail = auth.getName();
 
-        Long id = Long.parseLong(klantDAO.findKlantId(klantEmail));
+            Long id = Long.parseLong(klantDAO.findKlantId(klantEmail));
 
-        // Find the persisting client
-        klant = klantDAO.findById(id);
+            // Find the persisting client
+            klant = klantDAO.findById(id);
 
-        // Add the client to the model
-        model.addAttribute(klant);
+            // Add the client to the model
+            model.addAttribute(klant);
+        }
         model.addAttribute("shoppingCart", shoppingCart);
 
         return "home";

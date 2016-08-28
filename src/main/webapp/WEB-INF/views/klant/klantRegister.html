@@ -31,8 +31,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/assets/style.css}" />
 
     <!-- favicon -->
-    <link rel="shortcut icon" th:href="@{/resources/images/favicon.png}" type="image/x-icon" />
-    <link rel="icon" th:href="@{/resources/images/favicon.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/resources/images/hmlogo.png}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/resources/images/hmlogo.png}" type="image/x-icon" />
 
 </head>
 
@@ -63,52 +63,52 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:class="${#fields.hasErrors('email')}? 'error' : 'col-sm-4 control-label'"
+                                    <label th:class="'col-sm-4 control-label'"
                                            th:text="#{harrie.klant.emailAccount}"></label>
 
                                     <div class="col-sm-8">
                                         <input type="text" th:field="*{email}"
-                                               th:class="${#fields.hasErrors('email')}? 'error' : 'form-control'" />
+                                               th:class="${#fields.hasErrors('email')}? 'form-control error' : 'form-control'" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:class="${#fields.hasErrors('voornaam')}? 'error' : 'col-sm-4 control-label'"
+                                    <label th:class="'col-sm-4 control-label'"
                                            th:text="#{harrie.klant.firstName}"></label>
 
                                     <div class="col-sm-8">
                                         <input type="text" th:field="*{voornaam}"
-                                               th:class="${#fields.hasErrors('voornaam')}? 'error' : 'form-control'" />
+                                               th:class="${#fields.hasErrors('voornaam')}? 'form-control error' : 'form-control'" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:class="${#fields.hasErrors('tussenvoegsel')}? 'error' : 'col-sm-4 control-label'"
+                                    <label th:class="'col-sm-4 control-label'"
                                            th:text="#{harrie.klant.prefix}"></label>
 
                                     <div class="col-sm-8">
                                         <input type="text" th:field="*{tussenvoegsel}"
-                                               th:class="${#fields.hasErrors('tussenvoegsel')}? 'error' : 'form-control'" />
+                                               th:class="${#fields.hasErrors('tussenvoegsel')}? 'form-control error' : 'form-control'" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:class="${#fields.hasErrors('achternaam')}? 'error' : 'col-sm-4 control-label'"
+                                    <label th:class="'col-sm-4 control-label'"
                                            th:text="#{harrie.klant.lastName}"></label>
 
                                     <div class="col-sm-8">
                                         <input type="text" th:field="*{achternaam}"
-                                               th:class="${#fields.hasErrors('achternaam')}? 'error' : 'form-control'" />
+                                               th:class="${#fields.hasErrors('achternaam')}? 'form-control error' : 'form-control'" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label th:class="${#fields.hasErrors('password')}? 'error' : 'col-sm-4 control-label'"
+                                    <label th:class="'col-sm-4 control-label'"
                                            th:text="#{harrie.klant.password}"></label>
 
                                     <div class="col-sm-8">
                                         <input type="password" th:field="*{password}"
-                                               th:class="${#fields.hasErrors('password')}? 'error' : 'form-control'" />
+                                               th:class="${#fields.hasErrors('password')}? 'form-control error' : 'form-control'" />
                                     </div>
                                 </div>
 
