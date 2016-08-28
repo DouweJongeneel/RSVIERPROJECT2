@@ -47,6 +47,9 @@ public class Klant implements Serializable {
 	@Column(nullable = false)
 	private String klantActief;
 
+	@Column(nullable = false)
+	private String klantRol = "ROLE_USER";
+
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "klantAdresAdresType",
 		joinColumns = @JoinColumn(name = "klantId", nullable = false),
@@ -186,6 +189,12 @@ public class Klant implements Serializable {
 	}
 	public void setClientProfilePicture(String clientProfilePicture) {
 		this.clientProfilePicture = clientProfilePicture;
+	}
+	public String getKlantRol() {
+		return klantRol;
+	}
+	public void setKlantRol(String klantRol) {
+		this.klantRol = klantRol;
 	}
 
 	public Set<Bestelling> getBestellingen() {
