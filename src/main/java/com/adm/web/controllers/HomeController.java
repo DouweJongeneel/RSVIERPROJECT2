@@ -7,6 +7,7 @@ import com.adm.database.service.KlantService;
 import com.adm.domain.Klant;
 import com.adm.domain.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +39,12 @@ public class HomeController {
 
     private Klant klant;
     private ShoppingCart shoppingCart;
+    private KlantDAO klantDAO;
+
+    @Autowired
+    public HomeController(KlantService klantService) {
+        this.klantDAO = klantService.getDAO();
+    }
 
     @RequestMapping(method=GET)
     public String home(Model model, Klant klant, ShoppingCart shoppingCart) {
@@ -73,18 +80,33 @@ public class HomeController {
     }
 
     @RequestMapping(value="/logout", method = GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    public String logoutPage (HttpServletRequest request, HttpServletResponse response, Model model, Klant klant) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+
+        // Reset client when logging out
+        klant = new Klant();
+        model.addAttribute(klant);
 
         return "redirect:/";
     }
 
     @RequestMapping(value = "/loginSuccess", method = GET)
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public String loginSuccess() {
+    public String loginSuccess(Model model, Klant klant) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String klantEmail = auth.getName();
+
+        Long id = Long.parseLong(klantDAO.findKlantId(klantEmail));
+
+        // Find the persisting client
+        klant = klantDAO.findById(id);
+
+        // Add the client to the model
+        model.addAttribute(klant);
 
         return "redirect:/";
     }
