@@ -64,11 +64,12 @@
 			<div class="breadcrumb"><a th:href="@{/}">Home</a> / <a th:href="@{/klant/profile}">My Profile</a> / <span th:text="#{harrie.order.orderlist}"></span></div>
 
 			<div class="row">
-				<div class="col-md-6" th:text="#{harrie.order.orderNumber}">
-					Order Number
+				<div class="col-md-6" >
+					<h5 th:text="#{harrie.order.orderNumber}">Order Number</h5>
+
 				</div>
-				<div class="col-md-6" th:text="#{harrie.factuur.number}">
-					Invoice Number
+				<div class="col-md-6" >
+					<h5 th:text="#{harrie.factuur.date}">Date Created</h5>
 				</div>
 
 				<div class="col-md-112"
@@ -77,15 +78,13 @@
 
 					<!--<div class="product">-->
 					<div class="col-md-6">
-						<h5>
 
 							<a th:href="@{/bestelling/select/{id}(id=${best.id})}"
 							   th:text="${best.bestelNummer}">Warm Cloths</a>
-						</h5>
 					</div>
 
 					<div class="col-md-6">
-						Invoicenumber
+						<a th:text="${best.getDatumAanmaak()}"></a>
 					</div>
 					<!--</div>-->
 				</div>

@@ -72,6 +72,7 @@
 					<td th:text="#{harrie.factuur.number}">Factuurnummer</td>
 					<td></td>
 					<td></td>
+					<td></td>
 					<td th:text="${factuur.factuurNummer}">Nummer</td>
 				</tr>
 
@@ -79,11 +80,15 @@
 					<td th:text="#{harrie.factuur.bestelling}">Bestelnummer</td>
 					<td></td>
 					<td></td>
+					<td></td>
+					<td></td>
 					<td th:text="${factuur.bestelling.bestelNummer}">Nummer</td>
 				</tr>
 
 				<tr>
 					<td th:text="#{harrie.factuur.date}">Factureringsdatum</td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td th:text="${factuur.factureringsDatum}">Datum</td>
@@ -95,6 +100,8 @@
 					<td th:text="#{harrie.factuur.article}">Artikel</td>
 					<td th:text="#{harrie.factuur.price}">Prijs</td>
 					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
 					<td th:text="#{harrie.factuur.amount}">Aantal</td>
 
 				</tr>
@@ -103,6 +110,8 @@
 					<td th:text="${best.artikel.artikelNaam}">Artikelnaam</td>
 					<td th:text="${best.prijs.prijs}">Prijs</td>
 					<td>&nbsp;</td>
+					<td></td>
+					<td></td>
 					<td th:text="${best.aantal}">Aantal</td>
 				</tr>
 				<tr>
@@ -112,14 +121,18 @@
 					<td></td>
 					<td></td>
 					<td th:text="#{harrie.factuur.exbtw}">Ex. BTW</td>
+					<td></td>
 					<td th:text="${totaalPrijsExBtw}">Totaalprijs ex btw</td>
+					<td></td>
 				</tr>
 
 				<tr>
 					<td></td>
 					<td></td>
 					<td th:text="#{harrie.factuur.incbtw}">Inc. BTW</td>
+					<td></td>
 					<td th:text="${totaalPrijsIncBtw}">Totaalprijs inc btw</td>
+					<td></td>
 				</tr>
 
 			</table>

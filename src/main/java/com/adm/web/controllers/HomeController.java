@@ -109,6 +109,7 @@ public class HomeController {
             // Add the client to the model
             model.addAttribute(klant);
         }
+
         model.addAttribute("shoppingCart", shoppingCart);
 
         return "home";
