@@ -147,6 +147,7 @@
                                                 </div>
 
                                                 <div class="col-sm-8 col-sm-offset-4">
+                                                    <input type="hidden" th:name="fromProfileView" th:value="1"/>
                                                     <input type="submit" th:value="#{harrie.klant.modify}" class="btn btn-primary" />
                                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                                 </div>

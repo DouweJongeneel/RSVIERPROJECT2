@@ -166,6 +166,8 @@ public class KlantController {
 
         // If the direct is from the profile page, redirect to the profilepage instead of the client list.
         if (fromProfilePage == 1) {
+            klant.setClientProfilePicture(getProfilePicture(klant.getId()));
+            model.addAttribute(klant);
             return showProfile(model, klant);
         }
 
@@ -220,7 +222,8 @@ public class KlantController {
             Errors errors,
             HashSet<BestelArtikel> winkelwagen,
             Klant klant,
-            Model model)
+            Model model,
+            int fromProfileView)
             throws Exception {
 
         // If there are errors in the input, redirect to the modify page
@@ -245,7 +248,13 @@ public class KlantController {
         Hibernate.initialize(klant.getAdresGegevens());
         model.addAttribute(klant);
 
-        // Redirect to the client list
+        // Redirect to the client list or profile view
+        if (fromProfileView == 1) {
+            klant.setClientProfilePicture(getProfilePicture(klant.getId()));
+            model.addAttribute(klant);
+            return showProfile(model, klant);
+        }
+
         return showClients(model);
     }
 

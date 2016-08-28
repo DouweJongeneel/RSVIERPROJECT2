@@ -174,46 +174,47 @@
                                          th:id="'address' + ${adres.key.id}">
 
                                         <div class="reviews">
-                                            <!--<div class = "row">-->
+                                            <div class = "row">
                                             <fieldset>
                                                 <div class="form-group">
                                                     <label th:class="'col-sm-4 control-label'"
                                                            th:text="#{harrie.adres.street}"></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="text"
-                                                               th:value="${adres.key.straatnaam}"
-                                                               th:class="'form-control'"
-                                                               th:readonly="true" />
-                                                    </div>
+                                                    <label th:class="'address col-sm-8'"
+                                                           th:text="${adres.key.straatnaam}"></label>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label th:class="'col-sm-4 control-label'"
                                                            th:text="#{harrie.adres.number}"></label>
-
-                                                    <!--<div class="col-sm-8">-->
-                                                        <!--<input type="text"-->
-                                                               <!--th:value="${adres.key.straatnaam}"-->
-                                                               <!--th:class="'form-control"-->
-                                                               <!--th:readonly="true" />-->
-                                                    <!--</div>-->
-                                                    <p>tekst</p>
+                                                    <label th:class="'address col-sm-8'"
+                                                           th:text="${adres.key.huisnummer}"></label>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label th:class="'col-sm-4 control-label'"
                                                            th:text="#{harrie.adres.zipcode}"></label>
+                                                    <label th:class="'address col-sm-8'"
+                                                           th:text="${adres.key.postcode}"></label>
+                                                </div>
 
-                                                    <!--<div class="col-sm-6">-->
-                                                        <!--<input type="text"-->
-                                                               <!--th:value="${adres.key.postcode}"-->
-                                                               <!--th:class="'form-control"-->
-                                                               <!--th:readonly="true" />-->
-                                                    <!--</div>-->
-                                                    <p>tekst2</p>
+                                                <div class="form-group">
+                                                    <label th:class="'col-sm-4 control-label'"
+                                                           th:text="#{harrie.adres.prefix}"></label>
+                                                    <!-- conditional field because of layout -->
+                                                    <label th:class="'address col-sm-8'"
+                                                           th:if="${adres.key.toevoeging} == ''" th:text="'-'"></label>
+                                                    <label th:class="'address col-sm-8'"
+                                                           th:if="${adres.key.toevoeging} != ''" th:text="${adres.key.toevoeging}"></label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label th:class="'col-sm-4 control-label'"
+                                                           th:text="#{harrie.adres.city}"></label>
+                                                    <label th:class="'address col-sm-8'"
+                                                       th:text="${adres.key.woonplaats}"></label>
                                                 </div>
                                             </fieldset>
+                                            </div> <!-- row -->
                                         </div> <!-- 'reviews' -->
                                     </div> <!-- tab-pane -->
                                 </div>
