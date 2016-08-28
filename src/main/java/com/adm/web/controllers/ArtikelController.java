@@ -161,6 +161,7 @@ public class ArtikelController {
 
 		// Verkrijg actuele artikel en prijs gegevens
 		Artikel teWijzigenArtikel = artikelDAO.findById(id);
+		teWijzigenArtikel.setPlaatje(getProductPictureDataString(id));
 		stopDeActuelePrijsInHetArtikel(teWijzigenArtikel);
 
 		ArtikelRegisterForm artikelModificationForm = new ArtikelRegisterForm(
